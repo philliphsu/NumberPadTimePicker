@@ -17,6 +17,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    // The AndroidManifest in src/androidTest is not being merged correctly to the AndroidManifest
+    // in src/main. This is a workaround to use the androidTest manifest for all build variants
+    // with the debug build type. This is fine because we just don't want the additions in the
+    // androidTest manifest to be compiled under the release build type.
+    // https://stackoverflow.com/q/26244998/5055032
+    // https://stackoverflow.com/a/25427429/5055032
+    sourceSets {
+        debug {
+            manifest.srcFile 'src/androidTest/AndroidManifest.xml'
+        }
+    }
 }
 
 dependencies {
