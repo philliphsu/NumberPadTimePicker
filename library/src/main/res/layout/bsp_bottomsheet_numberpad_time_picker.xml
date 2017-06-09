@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include
+        layout="@layout/bsp_numberpad_time_picker_header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bsp_numberpad_time_picker_header_height" />
+
+    <com.philliphsu.numberpadtimepicker.NumberPadView
+        android:id="@+id/bsp_numberpad_time_picker_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/bsp_bottom_sheet_grid_picker_padding_start"
+        android:paddingRight="@dimen/bsp_bottom_sheet_grid_picker_padding_end"
+        android:paddingStart="@dimen/bsp_bottom_sheet_grid_picker_padding_start"
+        android:paddingEnd="@dimen/bsp_bottom_sheet_grid_picker_padding_end"
+        android:paddingTop="@dimen/bsp_bottom_sheet_grid_picker_padding_top">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/bsp_ok_button"
+            app:layout_column="1"
+            app:layout_gravity="center"
+            app:srcCompat="@drawable/nptp_ic_done_24dp"
+            style="@style/BSP_NumberPadTimePicker_FabStyle" />
+
+    </com.philliphsu.numberpadtimepicker.NumberPadView>
+
+</merge>

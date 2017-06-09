@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="bsp_numberPadTimePickerStyle" format="reference" />
+
+    <attr name="bsp_numberPadTimePickerAlertDialogTheme" format="reference" />
+
+    <attr name="bsp_numberPadTimePickerBottomSheetDialogTheme" format="reference" />
+
+    <declare-styleable name="BSP_NumberPadTimePicker">
+        <!-- Indicates how the NumberPadTimePicker should be laid out. -->
+        <attr name="bsp_numberPadTimePickerLayout" format="enum">
+            <!-- Layout the time picker for use in an alert dialog. The time picker will not
+                 contain an "ok" button in its view hierarchy to confirm the time selection.
+                 Instead, the "ok" button comes from
+                 {@link android.content.DialogInterface#BUTTON_POSITIVE} of the alert dialog
+                 that contains this time picker. -->
+            <enum name="alert" value="1" />
+            <!-- Layout the time picker for use in a bottom sheet dialog. The time picker
+                 will contain a floating action button in its view hierarchy to confirm
+                 the time selection. -->
+            <enum name="bottomSheet" value="2" />
+        </attr>
+
+        <!-- The background color of the floating action button in the time picker.
+             This attribute is only applied if the time picker is using the bottom
+             sheet layout.
+
+             This should be a color state list where the enabled state will be used
+             when the button is enabled. -->
+        <attr name="bsp_fabBackgroundColor" format="color" />
+
+        <!-- Whether the floating action button should animate between its background colors
+             that were set in {@code bsp_fabBackgroundColor}. This attribute is only applied
+             if the time picker is using the bottom sheet layout. -->
+        <attr name="bsp_animateFabBackgroundColor" format="boolean" />
+
+        <!-- Indicates when the floating action button should be shown. This attribute is
+             only applied if the time picker is using the bottom sheet layout.
+
+             If set to "always", then either value for attribute 'bsp_animateFabIn' will
+             be honored. If set to "validTime", a value of "true" for 'bsp_animateFabIn'
+             will not be honored. -->
+        <attr name="bsp_showFab" format="enum">
+            <!-- Option to always show the floating action button. -->
+            <enum name="always" value="0" />
+            <!-- Option to only show the floating action button when the inputted sequence
+                 makes a valid time. -->
+            <enum name="validTime" value="1" />
+        </attr>
+
+        <!-- Indicates whether the floating action button should animate onto the
+             screen when the time picker is shown. This attribute is only applied
+             if the time picker is using the bottom sheet layout. -->
+        <attr name="bsp_animateFabIn" format="boolean" />
+
+        <!-- The text color for the number keys. This should be a color
+             state list where the enabled state will be used when the number
+             key is enabled. -->
+        <attr name="bsp_numberKeysTextColor" format="color" />
+
+        <!-- The text color for the alt keys, i.e. "AM" and "PM" for 12-hour mode.
+             This should be a color state list where the enabled state will be used
+             when the alt key is enabled. -->
+        <attr name="bsp_altKeysTextColor" format="color" />
+
+        <!-- The text color for the inputted time in the header. -->
+        <attr name="bsp_inputTimeTextColor" format="color" />
+
+        <!-- The text color for the inputted AM/PM in the header. -->
+        <attr name="bsp_inputAmPmTextColor" format="color" />
+
+        <!-- Tint to apply to the backspace icon. This should be a color state list
+             where the enabled state will be used when the backspace key is enabled. -->
+        <attr name="bsp_backspaceTint" format="color" />
+
+        <!-- The background for the header containing the inputted time and AM/PM. -->
+        <attr name="bsp_headerBackground" format="color|reference" />
+
+        <!-- Color or drawable to use as the divider. The drawable is constrained
+             to a 1dp height. -->
+        <attr name="bsp_divider" format="color|reference" />
+
+        <!-- The background color for the number pad. -->
+        <attr name="bsp_numberPadBackground" format="color|reference" />
+
+        <!-- The location of the backspace button. This attribute is only applied
+             if the time picker is using the bottom sheet layout. -->
+        <attr name="bsp_backspaceLocation" format="enum">
+            <!-- The header containing the inputted time and AM/PM. -->
+            <enum name="header" value="0" />
+            <!-- The bottom of the dialog where the floating action button is located. -->
+            <enum name="footer" value="1" />
+        </attr>
+
+        <!-- The floating action button's ripple color. This attribute is only applied if
+             the time picker is using the bottom sheet layout. -->
+        <attr name="bsp_fabRippleColor" format="color" />
+
+        <!-- The tint to apply to the floating action button's icon.
+             This attribute is only applied if the time picker is using the bottom sheet layout.
+
+             This should be a color state list where the enabled state will be used when the
+             floating action button is enabled. -->
+        <attr name="bsp_fabIconTint" format="color" />
+    </declare-styleable>
+</resources>

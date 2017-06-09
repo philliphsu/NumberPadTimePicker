@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
     defaultConfig {
         applicationId "com.philliphsu.numberpadtimepickersample"
-        minSdkVersion 14
-        targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -21,9 +21,25 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    compile(project(':library')) {
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+    }
     compile 'com.android.support:appcompat-v7:25.3.1'
+
     testCompile 'junit:junit:4.12'
+
+    // Excluding the 'support-annotations' module is necessary if you are targeting Marshmallow
+    // (since Espresso hasn't moved to Marshmallow yet).
+    // See:
+    // https://github.com/codepath/android_guides/wiki/UI-Testing-with-Espresso
+    // http://stackoverflow.com/a/36897759/5055032
+    androidTestCompile("com.android.support.test:runner:$rootProject.ext.runnerVersion") {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestCompile("com.android.support.test:rules:$rootProject.ext.rulesVersion") {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestCompile("com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion") {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
 }

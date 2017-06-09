@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="bsp_gridpicker_button_height">48dp</dimen>
+    <dimen name="bsp_gridpicker_button_text_size">34sp</dimen>
+    <dimen name="bsp_gridpicker_padding_top">0dp</dimen>
+    <dimen name="bsp_gridpicker_padding_bottom">0dp</dimen>
+
+    <dimen name="bsp_bottom_sheet_grid_picker_padding_top">8dp</dimen>
+    <dimen name="bsp_bottom_sheet_grid_picker_fab_elevation">0dp</dimen>
+    <!-- bsp_numberpad_time_picker_header_height                (56dp)
+            + bsp_bottom_sheet_grid_picker_padding_top          ( 8dp)
+            + 4 * bsp_gridpicker_button_height              4 * (48dp)
+            + FAB size and top and bottom margins               (72dp) -->
+    <dimen name="bsp_bottom_sheet_grid_picker_peek_height">328dp</dimen>
+
+    <dimen name="bsp_numberpad_time_picker_header_height">56dp</dimen>
+    <dimen name="bsp_numberpad_time_picker_alt_button_text_size">20sp</dimen>
+    <dimen name="bsp_numberpad_time_picker_input_time_text_size">45sp</dimen>
+    <dimen name="bsp_numberpad_time_picker_input_ampm_text_size">14sp</dimen>
+
+    <dimen name="bsp_alert_dialog_width">300dp</dimen>
+    <dimen name="bsp_bottom_sheet_dialog_width">300dp</dimen>
+</resources>
