@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="BSP_ButtonBackgroundStyle">
-        <!-- TODO: Why don't we refer to the borderless selectable item background? -->
-        <item name="android:background">@drawable/bsp_gridpicker_button_background</item>
+        <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
     </style>
 </resources>
