@@ -13,10 +13,10 @@ import android.widget.TextView;
 class GridPickerView extends GridLayout {
 
     private static final @IdRes int[] TEXTVIEW_IDS = {
-            R.id.bsp_text0,  R.id.bsp_text1,   R.id.bsp_text2,
-            R.id.bsp_text3,  R.id.bsp_text4,   R.id.bsp_text5,
-            R.id.bsp_text6,  R.id.bsp_text7,   R.id.bsp_text8,
-            R.id.bsp_text9,  R.id.bsp_text10,  R.id.bsp_text11,
+            R.id.nptp_text0,  R.id.nptp_text1,   R.id.nptp_text2,
+            R.id.nptp_text3,  R.id.nptp_text4,   R.id.nptp_text5,
+            R.id.nptp_text6,  R.id.nptp_text7,   R.id.nptp_text8,
+            R.id.nptp_text9,  R.id.nptp_text10,  R.id.nptp_text11,
     };
 
     private final TextView[] TEXTVIEWS = new TextView[12];
@@ -31,8 +31,8 @@ class GridPickerView extends GridLayout {
 
     public GridPickerView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        setColumnCount(context.getResources().getInteger(R.integer.bsp_gridpicker_column_count));
-        inflate(context, R.layout.bsp_gridpicker_text_buttons, this);
+        setColumnCount(context.getResources().getInteger(R.integer.nptp_gridpicker_column_count));
+        inflate(context, R.layout.nptp_gridpicker_text_buttons, this);
 
         for (int i = 0; i < 12; i++) {
             TEXTVIEWS[i] = (TextView) findViewById(TEXTVIEW_IDS[i]);

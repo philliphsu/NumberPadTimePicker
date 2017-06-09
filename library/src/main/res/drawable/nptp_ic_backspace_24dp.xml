@@ -16,8 +16,8 @@
 
 <!-- TODO: Delete the "_24dp" from the file name. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-        android:width="@dimen/bsp_numberpad_time_picker_backspace_icon_size"
-        android:height="@dimen/bsp_numberpad_time_picker_backspace_icon_size"
+        android:width="@dimen/nptp_numberpad_time_picker_backspace_icon_size"
+        android:height="@dimen/nptp_numberpad_time_picker_backspace_icon_size"
         android:viewportWidth="24.0"
         android:viewportHeight="24.0"
         android:tint="?attr/colorControlNormal">

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+    <include
+        layout="@layout/nptp_numberpad_time_picker_header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/nptp_numberpad_time_picker_header_height"
+        android:layout_gravity="center" />
+    <com.philliphsu.numberpadtimepicker.NumberPadView
+        android:id="@+id/nptp_numberpad_time_picker_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/nptp_gridpicker_padding_start"
+        android:paddingRight="@dimen/nptp_gridpicker_padding_end"
+        android:paddingStart="@dimen/nptp_gridpicker_padding_start"
+        android:paddingEnd="@dimen/nptp_gridpicker_padding_end"
+        android:paddingTop="@dimen/nptp_gridpicker_padding_top"
+        android:paddingBottom="@dimen/nptp_gridpicker_padding_bottom" />
+</merge>

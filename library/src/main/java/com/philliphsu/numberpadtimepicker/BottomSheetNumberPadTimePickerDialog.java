@@ -32,9 +32,9 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
         // with this Dialog's Context. If the Dialog's Context is themed, then the hierarchy
         // inflated is sure to be themed appropriately.
         final View root = getLayoutInflater().inflate(
-                R.layout.bsp_bottomsheet_numberpad_time_picker_dialog, null);
+                R.layout.nptp_bottomsheet_numberpad_time_picker_dialog, null);
         final NumberPadTimePicker timePicker = (NumberPadTimePicker)
-                root.findViewById(R.id.bsp_time_picker);
+                root.findViewById(R.id.nptp_time_picker);
         final NumberPadTimePickerBottomSheetComponent timePickerComponent =
                 (NumberPadTimePickerBottomSheetComponent) timePicker.getComponent();
         final FloatingActionButton okButton = timePickerComponent.getOkButton();
@@ -63,7 +63,7 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
         });
 
         mBottomSheetBehavior.setPeekHeight(getContext().getResources().getDimensionPixelSize(
-                R.dimen.bsp_bottom_sheet_grid_picker_peek_height));
+                R.dimen.nptp_bottom_sheet_grid_picker_peek_height));
         // Overrides the default callback, but we kept the default behavior.
         mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
@@ -94,7 +94,7 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
         // Override the dialog's width if we're running in an eligible layout qualifier.
         try {
             getWindow().setLayout(getContext().getResources().getDimensionPixelSize(
-                    R.dimen.bsp_bottom_sheet_dialog_width), ViewGroup.LayoutParams.WRAP_CONTENT);
+                    R.dimen.nptp_bottom_sheet_dialog_width), ViewGroup.LayoutParams.WRAP_CONTENT);
         } catch (Resources.NotFoundException nfe) {
             // Do nothing.
         }
@@ -128,7 +128,7 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
     static int resolveDialogTheme(Context context, int resId) {
         if (resId == 0) {
             final TypedValue outValue = new TypedValue();
-            context.getTheme().resolveAttribute(R.attr.bsp_numberPadTimePickerBottomSheetDialogTheme,
+            context.getTheme().resolveAttribute(R.attr.nptp_numberPadTimePickerBottomSheetDialogTheme,
                     outValue, true);
             return outValue.resourceId;
         } else {

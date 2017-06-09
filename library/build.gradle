@@ -3,7 +3,7 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
-    resourcePrefix 'bsp_'
+    resourcePrefix 'nptp_'
 
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion

@@ -68,10 +68,10 @@ final class NumberPadTimePickerBottomSheetComponent extends NumberPadTimePickerC
     NumberPadTimePickerBottomSheetComponent(NumberPadTimePicker timePicker, Context context,
             AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(timePicker, context, attrs, defStyleAttr, defStyleRes);
-        mOkButton = (FloatingActionButton) timePicker.findViewById(R.id.bsp_ok_button);
+        mOkButton = (FloatingActionButton) timePicker.findViewById(R.id.nptp_ok_button);
         
         final TypedArray timePickerAttrs = context.obtainStyledAttributes(attrs,
-                R.styleable.BSP_NumberPadTimePicker, defStyleAttr, defStyleRes);
+                R.styleable.NPTP_NumberPadTimePicker, defStyleAttr, defStyleRes);
 
         final ColorStateList fabBackgroundColor = retrieveFabBackgroundColor(
                 timePickerAttrs, context);
@@ -80,19 +80,19 @@ final class NumberPadTimePickerBottomSheetComponent extends NumberPadTimePickerC
         // animateFabBackgroundColor because there is nothing to animate.
         if (fabBackgroundColor != null) {
             final boolean animateFabBackgroundColor = timePickerAttrs.getBoolean(R.styleable.
-                    BSP_NumberPadTimePicker_bsp_animateFabBackgroundColor, true);
+                    NPTP_NumberPadTimePicker_nptp_animateFabBackgroundColor, true);
             setAnimateFabBackgroundColor(animateFabBackgroundColor, fabBackgroundColor, context);
             mOkButton.setBackgroundTintList(fabBackgroundColor);
         }
 
         final int fabRippleColor = timePickerAttrs.getColor(R.styleable.
-                BSP_NumberPadTimePicker_bsp_fabRippleColor, 0);
+                NPTP_NumberPadTimePicker_nptp_fabRippleColor, 0);
         if (fabRippleColor != 0) {
             setFabRippleColor(fabRippleColor);
         }
 
         mAnimateFabIn = timePickerAttrs.getBoolean(R.styleable.
-                BSP_NumberPadTimePicker_bsp_animateFabIn, false);
+                NPTP_NumberPadTimePicker_nptp_animateFabIn, false);
         mShowFabPolicy = retrieveShowFab(timePickerAttrs);
         setInitialFabVisibility(mAnimateFabIn, mShowFabPolicy);
 
@@ -100,7 +100,7 @@ final class NumberPadTimePickerBottomSheetComponent extends NumberPadTimePickerC
         applyBackspaceLocation();
 
         final ColorStateList fabIconTint = timePickerAttrs.getColorStateList(
-                R.styleable.BSP_NumberPadTimePicker_bsp_fabIconTint);
+                R.styleable.NPTP_NumberPadTimePicker_nptp_fabIconTint);
         if (fabIconTint != null) {
             setFabIconTint(fabIconTint);
         }
@@ -176,7 +176,7 @@ final class NumberPadTimePickerBottomSheetComponent extends NumberPadTimePickerC
 
     @Override
     View inflate(Context context, NumberPadTimePicker root) {
-        return View.inflate(context, R.layout.bsp_bottomsheet_numberpad_time_picker, root);
+        return View.inflate(context, R.layout.nptp_bottomsheet_numberpad_time_picker, root);
     }
 
     FloatingActionButton getOkButton() {
@@ -340,7 +340,7 @@ final class NumberPadTimePickerBottomSheetComponent extends NumberPadTimePickerC
     @NonNull
     private ValueAnimator createFabElevationAnimator(Context context) {
         final float elevation = context.getResources().getDimension(
-                R.dimen.bsp_bottom_sheet_grid_picker_fab_elevation);
+                R.dimen.nptp_bottom_sheet_grid_picker_fab_elevation);
         final String elevationProperty = Build.VERSION.SDK_INT >= 21 ?
                 "elevation" : "compatElevation";
         return ObjectAnimator.ofFloat(mOkButton, elevationProperty, elevation).setDuration(
@@ -389,7 +389,7 @@ final class NumberPadTimePickerBottomSheetComponent extends NumberPadTimePickerC
     private static ColorStateList retrieveFabBackgroundColor(
             TypedArray timePickerAttrs, Context context) {
         ColorStateList fabBackgroundColor = timePickerAttrs.getColorStateList(
-                R.styleable.BSP_NumberPadTimePicker_bsp_fabBackgroundColor);
+                R.styleable.NPTP_NumberPadTimePicker_nptp_fabBackgroundColor);
         if (fabBackgroundColor == null) {
             // Set default ColorStateList.
             // Themed color attributes in a ColorStateList defined in XML cannot be resolved
@@ -417,7 +417,7 @@ final class NumberPadTimePickerBottomSheetComponent extends NumberPadTimePickerC
     @ShowFabPolicy
     private static int retrieveShowFab(TypedArray timePickerAttrs) {
         final int policy = timePickerAttrs.getInt(R.styleable.
-                BSP_NumberPadTimePicker_bsp_showFab, SHOW_FAB_ALWAYS);
+                NPTP_NumberPadTimePicker_nptp_showFab, SHOW_FAB_ALWAYS);
         switch (policy) {
             case SHOW_FAB_ALWAYS:
             case SHOW_FAB_VALID_TIME:
@@ -430,7 +430,7 @@ final class NumberPadTimePickerBottomSheetComponent extends NumberPadTimePickerC
     @BackspaceLocation
     private static int retrieveBackspaceLocation(TypedArray timePickerAttrs) {
         final int location = timePickerAttrs.getInt(R.styleable.
-                BSP_NumberPadTimePicker_bsp_backspaceLocation, LOCATION_HEADER);
+                NPTP_NumberPadTimePicker_nptp_backspaceLocation, LOCATION_HEADER);
         switch (location) {
             case LOCATION_HEADER:
             case LOCATION_FOOTER:

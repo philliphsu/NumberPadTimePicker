@@ -221,31 +221,31 @@ public class NumberPadTimePickerDialogTest {
     @Test
     public void verifyInitialViewEnabledStates() {
         openTimePicker();
-        Espresso.onView(ViewMatchers.withId(R.id.bsp_input_time)).check(
+        Espresso.onView(ViewMatchers.withId(R.id.nptp_input_time)).check(
                 ViewAssertions.matches(ViewMatchers.withText("")));
         // Check that the am/pm view is set to the correct visibility.
         //
         // Rather than use the isDisplayed() matcher, which, on top of matching the view to a
         // View.VISIBLE state, matches the view to being drawn with visible bounds, we use
         // the withEffectiveVisibility() matcher to match only the former criterion.
-        Espresso.onView(ViewMatchers.withId(R.id.bsp_input_ampm)).check(
+        Espresso.onView(ViewMatchers.withId(R.id.nptp_input_ampm)).check(
                 ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(mInitiallyIn24HourMode ?
                         ViewMatchers.Visibility.GONE : ViewMatchers.Visibility.VISIBLE)));
         if (!mInitiallyIn24HourMode) {
-            Espresso.onView(ViewMatchers.withId(R.id.bsp_input_ampm)).check(
+            Espresso.onView(ViewMatchers.withId(R.id.nptp_input_ampm)).check(
                     ViewAssertions.matches(isNthChildOf(
-                            ViewMatchers.withId(R.id.bsp_input_time_container),
+                            ViewMatchers.withId(R.id.nptp_input_time_container),
                             mLocaleModel.isAmPmWrittenBeforeTime() ? 0 : 1)));
         }
-        Espresso.onView(ViewMatchers.withId(R.id.bsp_backspace)).check(
+        Espresso.onView(ViewMatchers.withId(R.id.nptp_backspace)).check(
                 matchesIsEnabled(false));
         // We can easily manually verify whether the divider is focused, so it's not worth the
         // trouble of writing a test.
         for (int i = 0; i < 10; i++) {
             Espresso.onView(withDigit(i)).check(matchesIsEnabled(mInitiallyIn24HourMode || i > 0));
         }
-        Espresso.onView(ViewMatchers.withId(R.id.bsp_text9)).check(matchesIsEnabled(false));
-        Espresso.onView(ViewMatchers.withId(R.id.bsp_text11)).check(matchesIsEnabled(false));
+        Espresso.onView(ViewMatchers.withId(R.id.nptp_text9)).check(matchesIsEnabled(false));
+        Espresso.onView(ViewMatchers.withId(R.id.nptp_text11)).check(matchesIsEnabled(false));
         Espresso.onView(ViewMatchers.withText(android.R.string.ok)).check(matchesIsEnabled(false));
     }
 
@@ -312,7 +312,7 @@ public class NumberPadTimePickerDialogTest {
         openTimePicker();
         if (!use24HourMode) {
             // Check that '0' button is disabled.
-            Espresso.onView(ViewMatchers.withId(R.id.bsp_text10)).check(matchesIsEnabled(false));
+            Espresso.onView(ViewMatchers.withId(R.id.nptp_text10)).check(matchesIsEnabled(false));
         }
     }
 
@@ -382,23 +382,23 @@ public class NumberPadTimePickerDialogTest {
         // that matches multiple views with that digit text: the button
         // itself and the time display. This will prevent us from performing
         // validation on the same ViewInteractions later.
-        buttonsInteractions[0] = Espresso.onView(ViewMatchers.withId(R.id.bsp_text10));
-        buttonsInteractions[1] = Espresso.onView(ViewMatchers.withId(R.id.bsp_text0));
-        buttonsInteractions[2] = Espresso.onView(ViewMatchers.withId(R.id.bsp_text1));
-        buttonsInteractions[3] = Espresso.onView(ViewMatchers.withId(R.id.bsp_text2));
-        buttonsInteractions[4] = Espresso.onView(ViewMatchers.withId(R.id.bsp_text3));
-        buttonsInteractions[5] = Espresso.onView(ViewMatchers.withId(R.id.bsp_text4));
-        buttonsInteractions[6] = Espresso.onView(ViewMatchers.withId(R.id.bsp_text5));
-        buttonsInteractions[7] = Espresso.onView(ViewMatchers.withId(R.id.bsp_text6));
-        buttonsInteractions[8] = Espresso.onView(ViewMatchers.withId(R.id.bsp_text7));
-        buttonsInteractions[9] = Espresso.onView(ViewMatchers.withId(R.id.bsp_text8));
+        buttonsInteractions[0] = Espresso.onView(ViewMatchers.withId(R.id.nptp_text10));
+        buttonsInteractions[1] = Espresso.onView(ViewMatchers.withId(R.id.nptp_text0));
+        buttonsInteractions[2] = Espresso.onView(ViewMatchers.withId(R.id.nptp_text1));
+        buttonsInteractions[3] = Espresso.onView(ViewMatchers.withId(R.id.nptp_text2));
+        buttonsInteractions[4] = Espresso.onView(ViewMatchers.withId(R.id.nptp_text3));
+        buttonsInteractions[5] = Espresso.onView(ViewMatchers.withId(R.id.nptp_text4));
+        buttonsInteractions[6] = Espresso.onView(ViewMatchers.withId(R.id.nptp_text5));
+        buttonsInteractions[7] = Espresso.onView(ViewMatchers.withId(R.id.nptp_text6));
+        buttonsInteractions[8] = Espresso.onView(ViewMatchers.withId(R.id.nptp_text7));
+        buttonsInteractions[9] = Espresso.onView(ViewMatchers.withId(R.id.nptp_text8));
         return buttonsInteractions;
     }
 
     private static ViewInteraction[] getAltButtonInteractions() {
         ViewInteraction[] buttonsInteractions = new ViewInteraction[2];
-        buttonsInteractions[0] = Espresso.onView(ViewMatchers.withId(R.id.bsp_text9));
-        buttonsInteractions[1] = Espresso.onView(ViewMatchers.withId(R.id.bsp_text11));
+        buttonsInteractions[0] = Espresso.onView(ViewMatchers.withId(R.id.nptp_text9));
+        buttonsInteractions[1] = Espresso.onView(ViewMatchers.withId(R.id.nptp_text11));
         return buttonsInteractions;
     }
 
@@ -427,7 +427,7 @@ public class NumberPadTimePickerDialogTest {
                 .check(matchesIsEnabled(test.okButtonEnabled));
 
         ViewInteraction backspaceInteraction = Espresso.onView(
-                ViewMatchers.withId(R.id.bsp_backspace));
+                ViewMatchers.withId(R.id.nptp_backspace));
         // Reset after each iteration by backspacing on the button just clicked.
         backspaceInteraction.check(matchesIsEnabled(true))
                 .perform(ViewActions.longClick())

@@ -55,7 +55,7 @@ public class NumberPadTimePickerDialog extends AlertDialog {
         // Override the dialog's width if we're running in an eligible layout qualifier.
         try {
             getWindow().setLayout(getContext().getResources().getDimensionPixelSize(
-                    R.dimen.bsp_alert_dialog_width), ViewGroup.LayoutParams.WRAP_CONTENT);
+                    R.dimen.nptp_alert_dialog_width), ViewGroup.LayoutParams.WRAP_CONTENT);
         } catch (Resources.NotFoundException nfe) {
             // Do nothing.
         }
@@ -78,7 +78,7 @@ public class NumberPadTimePickerDialog extends AlertDialog {
     static int resolveDialogTheme(Context context, int resId) {
         if (resId == 0) {
             final TypedValue outValue = new TypedValue();
-            context.getTheme().resolveAttribute(R.attr.bsp_numberPadTimePickerAlertDialogTheme,
+            context.getTheme().resolveAttribute(R.attr.nptp_numberPadTimePickerAlertDialogTheme,
                     outValue, true);
             return outValue.resourceId;
         } else {

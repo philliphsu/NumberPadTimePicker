@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="BSP_GridPickerTextButtonStyle" parent="BSP_Base_GridPickerTextButtonStyle">
+    <style name="NPTP_GridPickerTextButtonStyle" parent="NPTP_Base_GridPickerTextButtonStyle">
         <item name="android:fontFamily">sans-serif</item>
     </style>
 
-    <style name="BSP_NumberPadTimePicker_InputTimeStyle" parent="BSP_NumberPadTimePicker_Base_InputTimeStyle">
+    <style name="NPTP_NumberPadTimePicker_InputTimeStyle" parent="NPTP_NumberPadTimePicker_Base_InputTimeStyle">
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
-    <style name="BSP_NumberPadTimePicker_FabStyle" parent="BSP_NumberPadTimePicker_Base_FabStyle">
-        <item name="android:layout_width">@dimen/bsp_bottom_sheet_grid_picker_fab_size_large</item>
-        <item name="android:layout_height">@dimen/bsp_bottom_sheet_grid_picker_fab_size_large</item>
+    <style name="NPTP_NumberPadTimePicker_FabStyle" parent="NPTP_NumberPadTimePicker_Base_FabStyle">
+        <item name="android:layout_width">@dimen/nptp_bottom_sheet_grid_picker_fab_size_large</item>
+        <item name="android:layout_height">@dimen/nptp_bottom_sheet_grid_picker_fab_size_large</item>
     </style>
 </resources>

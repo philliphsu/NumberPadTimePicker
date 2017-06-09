@@ -18,6 +18,6 @@ final class NumberPadTimePickerAlertComponent extends
 
     @Override
     View inflate(Context context, NumberPadTimePicker root) {
-        return View.inflate(context, R.layout.bsp_numberpad_time_picker, root);
+        return View.inflate(context, R.layout.nptp_numberpad_time_picker, root);
     }
 }

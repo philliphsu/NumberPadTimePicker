@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="BSP_ButtonBackgroundStyle">
+    <style name="NPTP_ButtonBackgroundStyle">
         <item name="android:background">?selectableItemBackground</item>
     </style>
 
-    <style name="BSP_GridPickerButtonStyle" parent="BSP_ButtonBackgroundStyle">
+    <style name="NPTP_GridPickerButtonStyle" parent="NPTP_ButtonBackgroundStyle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:minHeight">@dimen/bsp_gridpicker_button_height</item>
+        <item name="android:minHeight">@dimen/nptp_gridpicker_button_height</item>
         <item name="android:focusable">true</item>
         <item name="layout_columnWeight">1</item>
     </style>
 
-    <style name="BSP_Base_GridPickerTextButtonStyle" parent="BSP_GridPickerButtonStyle">
-        <item name="android:textSize">@dimen/bsp_gridpicker_button_text_size</item>
+    <style name="NPTP_Base_GridPickerTextButtonStyle" parent="NPTP_GridPickerButtonStyle">
+        <item name="android:textSize">@dimen/nptp_gridpicker_button_text_size</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="android:gravity">center</item>
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
-    <style name="BSP_GridPickerTextButtonStyle" parent="BSP_Base_GridPickerTextButtonStyle">
+    <style name="NPTP_GridPickerTextButtonStyle" parent="NPTP_Base_GridPickerTextButtonStyle">
     </style>
 
-    <style name="BSP_NumberPadTimePicker_AltTextButtonStyle" parent="BSP_GridPickerTextButtonStyle">
-        <item name="android:textSize">@dimen/bsp_numberpad_time_picker_alt_button_text_size</item>
+    <style name="NPTP_NumberPadTimePicker_AltTextButtonStyle" parent="NPTP_GridPickerTextButtonStyle">
+        <item name="android:textSize">@dimen/nptp_numberpad_time_picker_alt_button_text_size</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="layout_gravity">fill_vertical</item>
     </style>
 
-    <style name="BSP_NumberPadTimePicker_Base_InputTimeStyle" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">@dimen/bsp_numberpad_time_picker_input_time_text_size</item>
+    <style name="NPTP_NumberPadTimePicker_Base_InputTimeStyle" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/nptp_numberpad_time_picker_input_time_text_size</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:gravity">center_horizontal</item>
     </style>
 
-    <style name="BSP_NumberPadTimePicker_InputTimeStyle" parent="BSP_NumberPadTimePicker_Base_InputTimeStyle">
+    <style name="NPTP_NumberPadTimePicker_InputTimeStyle" parent="NPTP_NumberPadTimePicker_Base_InputTimeStyle">
     </style>
 
-    <style name="BSP_NumberPadTimePicker_InputAmPmStyle" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">@dimen/bsp_numberpad_time_picker_input_ampm_text_size</item>
+    <style name="NPTP_NumberPadTimePicker_InputAmPmStyle" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/nptp_numberpad_time_picker_input_ampm_text_size</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="BSP_NumberPadTimePicker_BackspaceStyle" parent="BSP_ButtonBackgroundStyle">
+    <style name="NPTP_NumberPadTimePicker_BackspaceStyle" parent="NPTP_ButtonBackgroundStyle">
     </style>
     
-    <style name="BSP_NumberPadTimePicker_Base_FabStyle">
+    <style name="NPTP_NumberPadTimePicker_Base_FabStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">@dimen/bsp_bottom_sheet_grid_picker_fab_margin</item>
-        <item name="android:layout_marginBottom">@dimen/bsp_bottom_sheet_grid_picker_fab_margin</item>
-        <item name="elevation">@dimen/bsp_bottom_sheet_grid_picker_fab_elevation</item>
+        <item name="android:layout_marginTop">@dimen/nptp_bottom_sheet_grid_picker_fab_margin</item>
+        <item name="android:layout_marginBottom">@dimen/nptp_bottom_sheet_grid_picker_fab_margin</item>
+        <item name="elevation">@dimen/nptp_bottom_sheet_grid_picker_fab_elevation</item>
     </style>
 
-    <style name="BSP_NumberPadTimePicker_FabStyle" parent="BSP_NumberPadTimePicker_Base_FabStyle">
+    <style name="NPTP_NumberPadTimePicker_FabStyle" parent="NPTP_NumberPadTimePicker_Base_FabStyle">
         <item name="fabSize">auto</item>
     </style>
 </resources>

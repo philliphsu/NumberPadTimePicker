@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="bsp_numberPadTimePickerStyle" format="reference" />
+    <attr name="nptp_numberPadTimePickerStyle" format="reference" />
 
-    <attr name="bsp_numberPadTimePickerAlertDialogTheme" format="reference" />
+    <attr name="nptp_numberPadTimePickerAlertDialogTheme" format="reference" />
 
-    <attr name="bsp_numberPadTimePickerBottomSheetDialogTheme" format="reference" />
+    <attr name="nptp_numberPadTimePickerBottomSheetDialogTheme" format="reference" />
 
-    <declare-styleable name="BSP_NumberPadTimePicker">
+    <declare-styleable name="NPTP_NumberPadTimePicker">
         <!-- Indicates how the NumberPadTimePicker should be laid out. -->
-        <attr name="bsp_numberPadTimePickerLayout" format="enum">
+        <attr name="nptp_numberPadTimePickerLayout" format="enum">
             <!-- Layout the time picker for use in an alert dialog. The time picker will not
                  contain an "ok" button in its view hierarchy to confirm the time selection.
                  Instead, the "ok" button comes from
@@ -27,20 +27,20 @@
 
              This should be a color state list where the enabled state will be used
              when the button is enabled. -->
-        <attr name="bsp_fabBackgroundColor" format="color" />
+        <attr name="nptp_fabBackgroundColor" format="color" />
 
         <!-- Whether the floating action button should animate between its background colors
-             that were set in {@code bsp_fabBackgroundColor}. This attribute is only applied
+             that were set in {@code nptp_fabBackgroundColor}. This attribute is only applied
              if the time picker is using the bottom sheet layout. -->
-        <attr name="bsp_animateFabBackgroundColor" format="boolean" />
+        <attr name="nptp_animateFabBackgroundColor" format="boolean" />
 
         <!-- Indicates when the floating action button should be shown. This attribute is
              only applied if the time picker is using the bottom sheet layout.
 
-             If set to "always", then either value for attribute 'bsp_animateFabIn' will
-             be honored. If set to "validTime", a value of "true" for 'bsp_animateFabIn'
+             If set to "always", then either value for attribute 'nptp_animateFabIn' will
+             be honored. If set to "validTime", a value of "true" for 'nptp_animateFabIn'
              will not be honored. -->
-        <attr name="bsp_showFab" format="enum">
+        <attr name="nptp_showFab" format="enum">
             <!-- Option to always show the floating action button. -->
             <enum name="always" value="0" />
             <!-- Option to only show the floating action button when the inputted sequence
@@ -51,41 +51,41 @@
         <!-- Indicates whether the floating action button should animate onto the
              screen when the time picker is shown. This attribute is only applied
              if the time picker is using the bottom sheet layout. -->
-        <attr name="bsp_animateFabIn" format="boolean" />
+        <attr name="nptp_animateFabIn" format="boolean" />
 
         <!-- The text color for the number keys. This should be a color
              state list where the enabled state will be used when the number
              key is enabled. -->
-        <attr name="bsp_numberKeysTextColor" format="color" />
+        <attr name="nptp_numberKeysTextColor" format="color" />
 
         <!-- The text color for the alt keys, i.e. "AM" and "PM" for 12-hour mode.
              This should be a color state list where the enabled state will be used
              when the alt key is enabled. -->
-        <attr name="bsp_altKeysTextColor" format="color" />
+        <attr name="nptp_altKeysTextColor" format="color" />
 
         <!-- The text color for the inputted time in the header. -->
-        <attr name="bsp_inputTimeTextColor" format="color" />
+        <attr name="nptp_inputTimeTextColor" format="color" />
 
         <!-- The text color for the inputted AM/PM in the header. -->
-        <attr name="bsp_inputAmPmTextColor" format="color" />
+        <attr name="nptp_inputAmPmTextColor" format="color" />
 
         <!-- Tint to apply to the backspace icon. This should be a color state list
              where the enabled state will be used when the backspace key is enabled. -->
-        <attr name="bsp_backspaceTint" format="color" />
+        <attr name="nptp_backspaceTint" format="color" />
 
         <!-- The background for the header containing the inputted time and AM/PM. -->
-        <attr name="bsp_headerBackground" format="color|reference" />
+        <attr name="nptp_headerBackground" format="color|reference" />
 
         <!-- Color or drawable to use as the divider. The drawable is constrained
              to a 1dp height. -->
-        <attr name="bsp_divider" format="color|reference" />
+        <attr name="nptp_divider" format="color|reference" />
 
         <!-- The background color for the number pad. -->
-        <attr name="bsp_numberPadBackground" format="color|reference" />
+        <attr name="nptp_numberPadBackground" format="color|reference" />
 
         <!-- The location of the backspace button. This attribute is only applied
              if the time picker is using the bottom sheet layout. -->
-        <attr name="bsp_backspaceLocation" format="enum">
+        <attr name="nptp_backspaceLocation" format="enum">
             <!-- The header containing the inputted time and AM/PM. -->
             <enum name="header" value="0" />
             <!-- The bottom of the dialog where the floating action button is located. -->
@@ -94,13 +94,13 @@
 
         <!-- The floating action button's ripple color. This attribute is only applied if
              the time picker is using the bottom sheet layout. -->
-        <attr name="bsp_fabRippleColor" format="color" />
+        <attr name="nptp_fabRippleColor" format="color" />
 
         <!-- The tint to apply to the floating action button's icon.
              This attribute is only applied if the time picker is using the bottom sheet layout.
 
              This should be a color state list where the enabled state will be used when the
              floating action button is enabled. -->
-        <attr name="bsp_fabIconTint" format="color" />
+        <attr name="nptp_fabIconTint" format="color" />
     </declare-styleable>
 </resources>

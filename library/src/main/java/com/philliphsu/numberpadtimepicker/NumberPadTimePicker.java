@@ -40,7 +40,7 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
     }
 
     public NumberPadTimePicker(Context context, AttributeSet attrs) {
-        this(context, attrs, R.attr.bsp_numberPadTimePickerStyle);
+        this(context, attrs, R.attr.nptp_numberPadTimePickerStyle);
     }
 
     public NumberPadTimePicker(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -58,7 +58,7 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         setOrientation(VERTICAL);
 
         final TypedArray timePickerAttrs = context.obtainStyledAttributes(attrs,
-                R.styleable.BSP_NumberPadTimePicker, defStyleAttr, defStyleRes);
+                R.styleable.NPTP_NumberPadTimePicker, defStyleAttr, defStyleRes);
         mLayout = retrieveLayout(timePickerAttrs);
         timePickerAttrs.recycle();
 
@@ -74,7 +74,7 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
                 break;
         }
 
-        mInputTimeContainer = (LinearLayout) findViewById(R.id.bsp_input_time_container);
+        mInputTimeContainer = (LinearLayout) findViewById(R.id.nptp_input_time_container);
     }
 
     @Override
@@ -166,7 +166,7 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
     @NumberPadTimePickerLayout
     private static int retrieveLayout(TypedArray timePickerAttrs) {
         final int layout = timePickerAttrs.getInt(
-                R.styleable.BSP_NumberPadTimePicker_bsp_numberPadTimePickerLayout, LAYOUT_ALERT);
+                R.styleable.NPTP_NumberPadTimePicker_nptp_numberPadTimePickerLayout, LAYOUT_ALERT);
         switch (layout) {
             case LAYOUT_ALERT:
             case LAYOUT_BOTTOM_SHEET:
@@ -190,31 +190,31 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         NumberPadTimePickerComponent(NumberPadTimePicker timePicker, Context context,
                 AttributeSet attrs, int defStyleAttr, int defStyleRes) {
             final View root = inflate(context, timePicker);
-            mNumberPad = (NumberPadView) root.findViewById(R.id.bsp_numberpad_time_picker_view);
-            mTimeDisplay = (TextView) root.findViewById(R.id.bsp_input_time);
-            mAmPmDisplay = (TextView) root.findViewById(R.id.bsp_input_ampm);
-            mBackspace = (ImageButton) root.findViewById(R.id.bsp_backspace);
-            mDivider = (ImageView) root.findViewById(R.id.bsp_divider);
-            mHeader = root.findViewById(R.id.bsp_header);
+            mNumberPad = (NumberPadView) root.findViewById(R.id.nptp_numberpad_time_picker_view);
+            mTimeDisplay = (TextView) root.findViewById(R.id.nptp_input_time);
+            mAmPmDisplay = (TextView) root.findViewById(R.id.nptp_input_ampm);
+            mBackspace = (ImageButton) root.findViewById(R.id.nptp_backspace);
+            mDivider = (ImageView) root.findViewById(R.id.nptp_divider);
+            mHeader = root.findViewById(R.id.nptp_header);
 
             final TypedArray timePickerAttrs = context.obtainStyledAttributes(attrs,
-                    R.styleable.BSP_NumberPadTimePicker, defStyleAttr, defStyleRes);
+                    R.styleable.NPTP_NumberPadTimePicker, defStyleAttr, defStyleRes);
             final int inputTimeTextColor = timePickerAttrs.getColor(
-                    R.styleable.BSP_NumberPadTimePicker_bsp_inputTimeTextColor, 0);
+                    R.styleable.NPTP_NumberPadTimePicker_nptp_inputTimeTextColor, 0);
             final int inputAmPmTextColor = timePickerAttrs.getColor(
-                    R.styleable.BSP_NumberPadTimePicker_bsp_inputAmPmTextColor, 0);
+                    R.styleable.NPTP_NumberPadTimePicker_nptp_inputAmPmTextColor, 0);
             final ColorStateList backspaceTint = timePickerAttrs.getColorStateList(
-                    R.styleable.BSP_NumberPadTimePicker_bsp_backspaceTint);
+                    R.styleable.NPTP_NumberPadTimePicker_nptp_backspaceTint);
             final ColorStateList numberKeysTextColor = timePickerAttrs.getColorStateList(
-                    R.styleable.BSP_NumberPadTimePicker_bsp_numberKeysTextColor);
+                    R.styleable.NPTP_NumberPadTimePicker_nptp_numberKeysTextColor);
             final ColorStateList altKeysTextColor = timePickerAttrs.getColorStateList(
-                    R.styleable.BSP_NumberPadTimePicker_bsp_altKeysTextColor);
+                    R.styleable.NPTP_NumberPadTimePicker_nptp_altKeysTextColor);
             final Drawable headerBackground = timePickerAttrs.getDrawable(
-                    R.styleable.BSP_NumberPadTimePicker_bsp_headerBackground);
+                    R.styleable.NPTP_NumberPadTimePicker_nptp_headerBackground);
             final Drawable divider = timePickerAttrs.getDrawable(
-                    R.styleable.BSP_NumberPadTimePicker_bsp_divider);
+                    R.styleable.NPTP_NumberPadTimePicker_nptp_divider);
             final Drawable numberPadBackground = timePickerAttrs.getDrawable(
-                    R.styleable.BSP_NumberPadTimePicker_bsp_numberPadBackground);
+                    R.styleable.NPTP_NumberPadTimePicker_nptp_numberPadBackground);
             timePickerAttrs.recycle();
 
             if (inputTimeTextColor != 0) {
