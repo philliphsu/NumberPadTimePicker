@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- For pre-21, this overrides the text color of PreferenceCategory labels from the
-         preference-v7 and preference-v14 support libraries. -->
-    <color name="preference_fallback_accent_color">?attr/colorAccent</color>
-</resources>
