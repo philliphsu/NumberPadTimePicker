@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- TODO: header background -->
+    <!-- TODO: input time text color -->
+    <!-- TODO: input am/pm text color -->
+    <!-- TODO: numberpad background -->
+    <!-- TODO: number keys text color -->
+    <!-- TODO: alt keys text color -->
+    <!-- TODO: divider -->
+    <!-- TODO: backspace tint -->
+    <android.support.v7.preference.PreferenceCategory
+        app:key="pref_colors"
+        app:title="@string/colors">
+    </android.support.v7.preference.PreferenceCategory>
+
+    <!-- TODO: fab background color  -->
+    <!-- TODO: fab icon tint -->
+    <!-- TODO: fab ripple color -->
+    <android.support.v7.preference.PreferenceCategory
+        app:key="pref_bottom_sheet"
+        app:title="@string/bottom_sheet">
+        <android.support.v7.preference.DropDownPreference
+            app:key="pref_show_fab_policy"
+            app:title="@string/show_fab_policy"
+            app:summary="%s"
+            app:entries="@array/show_fab_policy_entries"
+            app:entryValues="@array/show_fab_policy_values"
+            app:defaultValue="@string/show_fab_policy_default_value" />
+        <!-- Dependent on SHOW_FAB_ALWAYS to be enabled. -->
+        <android.support.v7.preference.CheckBoxPreference
+            app:key="pref_animate_fab_entry"
+            app:title="@string/animate_fab_entry"
+            app:summary="@string/animate_fab_entry_summ"
+            app:defaultValue="false" />
+        <!-- Dependent on SHOW_FAB_ALWAYS to be enabled. -->
+        <android.support.v7.preference.CheckBoxPreference
+            app:key="pref_animate_fab_color"
+            app:title="@string/animate_fab_color"
+            app:summary="@string/animate_fab_color_summ"
+            app:defaultValue="true" />
+        <android.support.v7.preference.DropDownPreference
+            app:key="pref_backspace_location"
+            app:title="@string/backspace_location"
+            app:summary="%s"
+            app:entries="@array/backspace_location_entries"
+            app:entryValues="@array/backspace_location_values"
+            app:defaultValue="@string/backspace_location_default_value" />
+    </android.support.v7.preference.PreferenceCategory>
+</android.support.v7.preference.PreferenceScreen>

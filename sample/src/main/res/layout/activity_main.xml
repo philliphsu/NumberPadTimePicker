@@ -16,7 +16,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Number Pad Time Picker"
+        android:text="@string/alert_dialog"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         style="@style/TextAppearance.AppCompat.Headline" />
@@ -25,12 +25,12 @@
         android:id="@+id/button1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Alert Dialog" />
+        android:text="@string/light_theme" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Bottom Sheet Dialog" />
+        android:text="@string/dark_theme" />
 
 </LinearLayout>

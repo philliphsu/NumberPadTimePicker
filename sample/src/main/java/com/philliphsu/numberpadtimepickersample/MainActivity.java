@@ -2,10 +2,13 @@ package com.philliphsu.numberpadtimepickersample;
 
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TimePicker;
@@ -13,8 +16,9 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
+import static com.philliphsu.numberpadtimepickersample.NumberPadTimePickerDialogFragment.ALERT_THEME_DARK;
+import static com.philliphsu.numberpadtimepickersample.NumberPadTimePickerDialogFragment.ALERT_THEME_LIGHT;
 import static com.philliphsu.numberpadtimepickersample.NumberPadTimePickerDialogFragment.MODE_ALERT;
-import static com.philliphsu.numberpadtimepickersample.NumberPadTimePickerDialogFragment.MODE_BOTTOM_SHEET;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -30,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NumberPadTimePickerDialogFragment.newInstance(mListener, MODE_ALERT)
+                NumberPadTimePickerDialogFragment.newInstance(mListener, MODE_ALERT, ALERT_THEME_LIGHT)
                         .show(getSupportFragmentManager(), TAG_ALERT);
             }
         });
@@ -39,10 +43,23 @@ public class MainActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NumberPadTimePickerDialogFragment.newInstance(mListener, MODE_BOTTOM_SHEET)
-                        .show(getSupportFragmentManager(), TAG_BOTTOM_SHEET);
+                NumberPadTimePickerDialogFragment.newInstance(mListener, MODE_ALERT, ALERT_THEME_DARK)
+                        .show(getSupportFragmentManager(), TAG_ALERT);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // We only have one MenuItem, so we don't need to check which it is.
+        startActivity(new Intent(this, SettingsActivity.class));
+        return super.onOptionsItemSelected(item);
     }
 
     private TimePickerDialog.OnTimeSetListener mListener = new TimePickerDialog.OnTimeSetListener() {

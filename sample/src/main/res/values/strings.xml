@@ -1,3 +1,46 @@
 <resources>
     <string name="app_name">NumberPadTimePicker</string>
+
+    <!-- MainActivity -->
+    <string name="alert_dialog">Alert Dialog</string>
+    <string name="light_theme">Light Theme</string>
+    <string name="dark_theme">Dark Theme</string>
+    <string name="settings">Settings</string>
+
+    <!-- SettingsActivity -->
+    <string name="colors">Colors</string>
+    <string name="bottom_sheet">Bottom sheet</string>
+
+    <string name="animate_fab_color">Animate FAB color</string>
+    <string name="animate_fab_color_summ">Transition between enabled and disabled colors</string>
+
+    <string name="animate_fab_entry">Animate FAB entry</string>
+    <string name="animate_fab_entry_summ">Animate the FAB onto the screen when the picker is shown</string>
+
+    <string name="show_fab_policy">Show the FAB</string>
+    <string name="always">Always</string>
+    <string name="valid_time">When a valid time is typed in</string>
+    <string-array name="show_fab_policy_entries">
+        <item>@string/always</item>
+        <item>@string/valid_time</item>
+    </string-array>
+    <string-array name="show_fab_policy_values">
+        <item>@string/always</item>
+        <item>@string/valid_time</item>
+    </string-array>
+    <string name="show_fab_policy_default_value">@string/always</string>
+
+    <string name="backspace_location">Backspace key location</string>
+    <!-- Add tab characters at the end for padding the spinner in a DropDownPreference. -->
+    <string name="header">Header\u0009\u0009\u0009\u0009\u0009\u0009\u0009\u0009</string>
+    <string name="footer">Footer\u0009\u0009\u0009\u0009\u0009\u0009\u0009\u0009</string>
+    <string-array name="backspace_location_entries">
+        <item>@string/header</item>
+        <item>@string/footer</item>
+    </string-array>
+    <string-array name="backspace_location_values">
+        <item>@string/header</item>
+        <item>@string/footer</item>
+    </string-array>
+    <string name="backspace_location_default_value">@string/header</string>
 </resources>
