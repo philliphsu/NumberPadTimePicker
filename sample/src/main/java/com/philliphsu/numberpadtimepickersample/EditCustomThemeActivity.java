@@ -7,17 +7,17 @@ import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 
-public class SettingsActivity extends AppCompatActivity {
+public class EditCustomThemeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getFragmentManager().beginTransaction()
-                .replace(android.R.id.content, new SettingsFragment())
+                .replace(android.R.id.content, new EditCustomThemeFragment())
                 .commit();
     }
 
-    public static class SettingsFragment extends PreferenceFragment {
+    public static class EditCustomThemeFragment extends PreferenceFragment {
         private static final String PREF_SHOW_FAB_POLICY = "pref_show_fab_policy";
         private static final String PREF_ANIMATE_FAB_ENTRY = "pref_animate_fab_entry";
         private static final String PREF_ANIMATE_FAB_COLOR = "pref_animate_fab_color";

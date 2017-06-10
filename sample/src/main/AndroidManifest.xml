@@ -16,8 +16,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SettingsActivity"
-            android:label="@string/settings"
+            android:name=".EditCustomThemeActivity"
+            android:label="@string/edit_custom_theme"
             android:parentActivityName=".MainActivity">
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data

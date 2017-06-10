@@ -12,6 +12,15 @@
     <android.support.v7.preference.PreferenceCategory
         app:key="pref_colors"
         app:title="@string/colors">
+
+        <android.support.v7.preference.DropDownPreference
+            app:key="pref_base_theme"
+            app:title="@string/base_theme"
+            app:summary="%s"
+            app:entries="@array/base_theme_entries"
+            app:entryValues="@array/base_theme_values"
+            app:defaultValue="@string/base_theme_default_value" />
+
     </android.support.v7.preference.PreferenceCategory>
 
     <!-- TODO: fab background color  -->

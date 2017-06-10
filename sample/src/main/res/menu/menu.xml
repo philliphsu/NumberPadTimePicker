@@ -3,7 +3,7 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/settings"
-        android:title="@string/settings"
+        android:title="@string/edit_custom_theme"
         android:icon="@drawable/ic_tune_24dp"
         app:showAsAction="always" />
 </menu>

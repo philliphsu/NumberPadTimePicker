@@ -3,13 +3,29 @@
 
     <!-- MainActivity -->
     <string name="alert_dialog">Alert Dialog</string>
+    <string name="bottom_sheet_dialog">Bottom Sheet Dialog</string>
     <string name="light_theme">Light Theme</string>
     <string name="dark_theme">Dark Theme</string>
-    <string name="settings">Settings</string>
+    <string name="my_custom_theme">My Custom Theme</string>
+    <string name="edit_custom_theme">Edit custom theme</string>
 
-    <!-- SettingsActivity -->
+    <!-- EditCustomThemeActivity -->
     <string name="colors">Colors</string>
     <string name="bottom_sheet">Bottom sheet</string>
+
+    <string name="base_theme">Base theme</string>
+    <!-- Add tab characters at the end for padding the spinner in a DropDownPreference. -->
+    <string name="theme_light">Light\u0009\u0009\u0009\u0009\u0009\u0009\u0009\u0009</string>
+    <string name="theme_dark">Dark\u0009\u0009\u0009\u0009\u0009\u0009\u0009\u0009</string>
+    <string-array name="base_theme_entries">
+        <item>@string/theme_light</item>
+        <item>@string/theme_dark</item>
+    </string-array>
+    <string-array name="base_theme_values">
+        <item>@string/theme_light</item>
+        <item>@string/theme_dark</item>
+    </string-array>
+    <string name="base_theme_default_value">@string/theme_light</string>
 
     <string name="animate_fab_color">Animate FAB color</string>
     <string name="animate_fab_color_summ">Transition between enabled and disabled colors</string>
