@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG_ALERT = "alert";
     private static final String TAG_BOTTOM_SHEET = "bottom_sheet";
 
+    private CustomThemeModel customThemeModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.button4).setOnClickListener(mBottomSheetClickListener);
         findViewById(R.id.button5).setOnClickListener(mBottomSheetClickListener);
         findViewById(R.id.button6).setOnClickListener(mBottomSheetClickListener);
+
+        customThemeModel = CustomThemeModel.get(this);
     }
 
     @Override
@@ -95,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 theme = ALERT_THEME_DARK;
                 break;
             case R.id.button3:
+                theme = customThemeModel.getBaseAlertTheme();
                 customTheme = true;
                 break;
             case R.id.button4:
@@ -104,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
                 theme = BOTTOM_SHEET_THEME_DARK;
                 break;
             case R.id.button6:
+                theme = customThemeModel.getBaseBottomSheetTheme();
                 customTheme = true;
                 break;
         }

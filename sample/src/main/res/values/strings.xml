@@ -14,18 +14,16 @@
     <string name="bottom_sheet">Bottom sheet</string>
 
     <string name="base_theme">Base theme</string>
-    <!-- Add tab characters at the end for padding the spinner in a DropDownPreference. -->
-    <string name="theme_light">Light\u0009\u0009\u0009\u0009\u0009\u0009\u0009\u0009</string>
-    <string name="theme_dark">Dark\u0009\u0009\u0009\u0009\u0009\u0009\u0009\u0009</string>
     <string-array name="base_theme_entries">
-        <item>@string/theme_light</item>
-        <item>@string/theme_dark</item>
+        <!-- Add tab characters at the end for padding the spinner in a DropDownPreference. -->
+        <item>Light\u0009\u0009\u0009\u0009\u0009\u0009\u0009\u0009</item>
+        <item>Dark\u0009\u0009\u0009\u0009\u0009\u0009\u0009\u0009</item>
     </string-array>
     <string-array name="base_theme_values">
-        <item>@string/theme_light</item>
-        <item>@string/theme_dark</item>
+        <item>0</item>
+        <item>1</item>
     </string-array>
-    <string name="base_theme_default_value">@string/theme_light</string>
+    <string name="base_theme_default_value">0</string>
 
     <string name="animate_fab_color">Animate FAB color</string>
     <string name="animate_fab_color_summ">Transition between enabled and disabled colors</string>
@@ -34,29 +32,25 @@
     <string name="animate_fab_entry_summ">Animate the FAB onto the screen when the picker is shown</string>
 
     <string name="show_fab_policy">Show the FAB</string>
-    <string name="always">Always</string>
-    <string name="valid_time">When a valid time is typed in</string>
     <string-array name="show_fab_policy_entries">
-        <item>@string/always</item>
-        <item>@string/valid_time</item>
+        <item>Always</item>
+        <item>When a valid time is typed in</item>
     </string-array>
     <string-array name="show_fab_policy_values">
-        <item>@string/always</item>
-        <item>@string/valid_time</item>
+        <item>0</item>
+        <item>1</item>
     </string-array>
-    <string name="show_fab_policy_default_value">@string/always</string>
+    <string name="show_fab_policy_default_value">0</string>
 
     <string name="backspace_location">Backspace key location</string>
-    <!-- Add tab characters at the end for padding the spinner in a DropDownPreference. -->
-    <string name="header">Header\u0009\u0009\u0009\u0009\u0009\u0009\u0009\u0009</string>
-    <string name="footer">Footer\u0009\u0009\u0009\u0009\u0009\u0009\u0009\u0009</string>
     <string-array name="backspace_location_entries">
-        <item>@string/header</item>
-        <item>@string/footer</item>
+        <!-- Add tab characters at the end for padding the spinner in a DropDownPreference. -->
+        <item>Header\u0009\u0009\u0009\u0009\u0009\u0009\u0009\u0009</item>
+        <item>Footer\u0009\u0009\u0009\u0009\u0009\u0009\u0009\u0009</item>
     </string-array>
     <string-array name="backspace_location_values">
-        <item>@string/header</item>
-        <item>@string/footer</item>
+        <item>0</item>
+        <item>1</item>
     </string-array>
-    <string name="backspace_location_default_value">@string/header</string>
+    <string name="backspace_location_default_value">0</string>
 </resources>

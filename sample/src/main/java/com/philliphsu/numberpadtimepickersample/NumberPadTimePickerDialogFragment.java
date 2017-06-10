@@ -99,10 +99,15 @@ public class NumberPadTimePickerDialogFragment extends DialogFragment {
         }
 
         if (customTheme) {
+            CustomThemeModel model = CustomThemeModel.get(getContext());
             // TODO: Read and apply settings.
             if (isBottomSheetThemer) {
                 // TODO: Read and apply bottom sheet settings.
-                // ((BottomSheetNumberPadTimePickerDialogThemer) themer)
+                ((BottomSheetNumberPadTimePickerDialogThemer) themer)
+                        .setShowFabPolicy(model.getShowFabPolicy())
+                        .setAnimateFabIn(model.getAnimateFabEntry())
+                        .setAnimateFabBackgroundColor(model.getAnimateFabColor())
+                        .setBackspaceLocation(model.getBackspaceLocation());
             }
         }
 

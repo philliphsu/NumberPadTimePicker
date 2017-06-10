@@ -37,7 +37,7 @@ public class EditCustomThemeActivity extends AppCompatActivity {
             mAnimateFabEntryPreference = (CheckBoxPreference) findPreference(PREF_ANIMATE_FAB_ENTRY);
             mAnimateFabColorPreference = (CheckBoxPreference) findPreference(PREF_ANIMATE_FAB_COLOR);
 
-            mShowFabAlwaysValue = getResources().getString(R.string.always);
+            mShowFabAlwaysValue = getResources().getString(R.string.show_fab_policy_default_value);
 
             mShowFabPolicyPreference.setOnPreferenceChangeListener(
                     new Preference.OnPreferenceChangeListener() {
