@@ -25,7 +25,7 @@
         <item>0</item>
         <item>1</item>
     </string-array>
-    <string name="base_theme_default_value">0</string>
+    <string name="base_theme_default_value">1</string>
 
     <string name="animate_fab_color">Animate FAB color</string>
     <string name="animate_fab_color_summ">Transition between enabled and disabled colors</string>

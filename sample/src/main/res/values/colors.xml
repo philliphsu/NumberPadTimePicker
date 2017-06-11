@@ -3,6 +3,22 @@
     <color name="number_pad_time_picker_accent_color">#0091EA</color>
     <color name="number_pad_time_picker_background_color">#0F2D40</color>
 
+    <color name="default_color_choice_500">#3F51B5</color>
+    <color name="default_color_choice_a200">#FF4081</color>
+    <color name="default_color_choice_grey">#9E9E9E</color>
+
+    <color name="default_input_time_text_color">#F5F5F5</color>
+    <color name="default_input_ampm_text_color">#F5F5F5</color>
+    <color name="default_number_keys_text_color_enabled">#F5F5F5</color>
+    <color name="default_number_keys_text_color_disabled">#9E9E9E</color>
+    <color name="default_alt_keys_text_color_enabled">#F5F5F5</color>
+    <color name="default_alt_keys_text_color_disabled">#9E9E9E</color>
+    <color name="default_backspace_tint_enabled">#F5F5F5</color>
+    <color name="default_backspace_tint_disabled">#9E9E9E</color>
+    <color name="default_fab_icon_tint_enabled">#F5F5F5</color>
+    <color name="default_fab_icon_tint_disabled">#424242</color>
+    <color name="default_fab_ripple_color">#FAFAFA</color>
+
     <integer-array name="color_choices_500">
         <item>0xFFF44336</item>
         <item>0xFFE91E63</item>
@@ -26,7 +42,6 @@
         <item>0xFF000000</item>
         <item>0xFFFFFFFF</item>
     </integer-array>
-    <color name="default_color_choice_500">#3F51B5</color>
 
     <integer-array name="color_choices_a200">
         <item>0xFFFF5252</item>
@@ -46,7 +61,6 @@
         <item>0xFFFFAB40</item>
         <item>0xFFFF6E40</item>
     </integer-array>
-    <color name="default_color_choice_a200">#FF4081</color>
     
     <integer-array name="color_choices_grey">
         <item>0xFFFAFAFA</item>
@@ -60,5 +74,4 @@
         <item>0xFF424242</item>
         <item>0xFF212121</item>
     </integer-array>
-    <color name="default_color_choice_grey">#9E9E9E</color>
 </resources>
