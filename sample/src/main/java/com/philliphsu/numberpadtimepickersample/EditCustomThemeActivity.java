@@ -2,10 +2,13 @@ package com.philliphsu.numberpadtimepickersample;
 
 import android.os.Bundle;
 import android.support.v14.preference.PreferenceFragment;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
+import android.view.Menu;
+import android.view.MenuItem;
 
 public class EditCustomThemeActivity extends AppCompatActivity {
 
@@ -15,6 +18,27 @@ public class EditCustomThemeActivity extends AppCompatActivity {
         getFragmentManager().beginTransaction()
                 .replace(android.R.id.content, new EditCustomThemeFragment())
                 .commit();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.edit_custom_theme_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            case R.id.reset_to_defaults:
+                CustomThemeModel.get(this).resetToDefaults(this);
+                recreate();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public static class EditCustomThemeFragment extends PreferenceFragment {

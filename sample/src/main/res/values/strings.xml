@@ -10,8 +10,9 @@
     <string name="edit_custom_theme">Edit custom theme</string>
 
     <!-- EditCustomThemeActivity -->
-    <string name="colors">Colors</string>
-    <string name="bottom_sheet">Bottom sheet</string>
+    <string name="common_attributes">Common attributes</string>
+    <string name="bottom_sheet_attributes">Bottom sheet attributes</string>
+    <string name="reset_to_defaults">Reset to defaults</string>
 
     <string name="base_theme">Base theme</string>
     <string-array name="base_theme_entries">

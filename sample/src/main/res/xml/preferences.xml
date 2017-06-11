@@ -1,34 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.preference.PreferenceScreen
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <!-- TODO: header background -->
-    <!-- TODO: input time text color -->
-    <!-- TODO: input am/pm text color -->
-    <!-- TODO: numberpad background -->
-    <!-- TODO: number keys text color -->
-    <!-- TODO: alt keys text color -->
-    <!-- TODO: divider -->
-    <!-- TODO: backspace tint -->
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <android.support.v7.preference.DropDownPreference
+        app:key="pref_base_theme"
+        app:title="@string/base_theme"
+        app:summary="%s"
+        app:entries="@array/base_theme_entries"
+        app:entryValues="@array/base_theme_values"
+        app:defaultValue="@string/base_theme_default_value" />
     <android.support.v7.preference.PreferenceCategory
         app:key="pref_colors"
-        app:title="@string/colors">
-
-        <android.support.v7.preference.DropDownPreference
-            app:key="pref_base_theme"
-            app:title="@string/base_theme"
-            app:summary="%s"
-            app:entries="@array/base_theme_entries"
-            app:entryValues="@array/base_theme_values"
-            app:defaultValue="@string/base_theme_default_value" />
-
+        app:title="@string/common_attributes"
+        app:persistent="false">
+        <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
+            android:key="pref_header_background"
+            android:title="Header background"
+            android:defaultValue="@color/default_color_choice_500"
+            app:colorChoices="@array/color_choices_500" />
+        <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
+            android:key="pref_divider"
+            android:title="Header divider"
+            android:defaultValue="@color/default_color_choice_a200"
+            app:colorChoices="@array/color_choices_a200" />
+        <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
+            android:key="pref_input_time_text_color"
+            android:title="Input time text color"
+            android:defaultValue="@color/default_color_choice_a200"
+            app:colorChoices="@array/color_choices_a200" />
+        <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
+            android:key="pref_input_ampm_text_color"
+            android:title="Input AM/PM text color"
+            android:defaultValue="@color/default_color_choice_a200"
+            app:colorChoices="@array/color_choices_a200" />
+        <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
+            android:key="pref_number_pad_background"
+            android:title="Number pad background"
+            android:defaultValue="@color/default_color_choice_500"
+            app:colorChoices="@array/color_choices_500" />
+        <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
+            android:key="pref_number_keys_text_color_enabled"
+            android:title="Number keys enabled text color"
+            android:defaultValue="@color/default_color_choice_a200"
+            app:colorChoices="@array/color_choices_a200" />
+        <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
+            android:key="pref_number_keys_text_color_disabled"
+            android:title="Number keys disabled text color"
+            android:defaultValue="@color/default_color_choice_grey"
+            app:colorChoices="@array/color_choices_grey" />
+        <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
+            android:key="pref_alt_keys_text_color_enabled"
+            android:title="Alt keys enabled text color"
+            android:summary="AM/PM in 12-hour mode or :00/:30 in 24-hour mode"
+            android:defaultValue="@color/default_color_choice_a200"
+            app:colorChoices="@array/color_choices_a200" />
+        <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
+            android:key="pref_alt_keys_text_color_disabled"
+            android:title="Alt keys disabled text color"
+            android:summary="AM/PM in 12-hour mode or :00/:30 in 24-hour mode"
+            android:defaultValue="@color/default_color_choice_grey"
+            app:colorChoices="@array/color_choices_grey" />
+        <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
+            android:key="pref_backspace_tint_enabled"
+            android:title="Backspace enabled tint"
+            android:summary="Tint for the backspace key when enabled"
+            android:defaultValue="@color/default_color_choice_a200"
+            app:colorChoices="@array/color_choices_a200" />
+        <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
+            android:key="pref_backspace_tint_disabled"
+            android:title="Backspace disabled tint"
+            android:summary="Tint for the backspace key when disabled"
+            android:defaultValue="@color/default_color_choice_grey"
+            app:colorChoices="@array/color_choices_grey" />
     </android.support.v7.preference.PreferenceCategory>
-
-    <!-- TODO: fab background color  -->
-    <!-- TODO: fab icon tint -->
-    <!-- TODO: fab ripple color -->
     <android.support.v7.preference.PreferenceCategory
         app:key="pref_bottom_sheet"
-        app:title="@string/bottom_sheet">
+        app:title="@string/bottom_sheet_attributes">
+        <android.support.v7.preference.DropDownPreference
+            app:key="pref_backspace_location"
+            app:title="@string/backspace_location"
+            app:summary="%s"
+            app:entries="@array/backspace_location_entries"
+            app:entryValues="@array/backspace_location_values"
+            app:defaultValue="@string/backspace_location_default_value" />
         <android.support.v7.preference.DropDownPreference
             app:key="pref_show_fab_policy"
             app:title="@string/show_fab_policy"
@@ -48,12 +102,38 @@
             app:title="@string/animate_fab_color"
             app:summary="@string/animate_fab_color_summ"
             app:defaultValue="true" />
-        <android.support.v7.preference.DropDownPreference
-            app:key="pref_backspace_location"
-            app:title="@string/backspace_location"
-            app:summary="%s"
-            app:entries="@array/backspace_location_entries"
-            app:entryValues="@array/backspace_location_values"
-            app:defaultValue="@string/backspace_location_default_value" />
+        <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
+            android:key="pref_fab_enabled_color"
+            android:title="FAB enabled color"
+            android:summary="Background color for enabled state"
+            android:defaultValue="@color/default_color_choice_a200"
+            app:colorChoices="@array/color_choices_a200" />
+        <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
+            android:key="pref_fab_disabled_color"
+            android:title="FAB disabled color"
+            android:summary="Background color for disabled state"
+            android:defaultValue="@color/default_color_choice_grey"
+            app:colorChoices="@array/color_choices_grey" />
+        <!-- Unlike a ListPreference, the default value does not need to
+             come from the colorChoices array. -->
+        <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
+            android:key="pref_fab_icon_enabled_tint"
+            android:title="FAB icon enabled tint"
+            android:summary="Tint for the FAB icon when enabled"
+            android:defaultValue="@android:color/white"
+            app:colorChoices="@array/color_choices_grey" />
+        <!-- Unlike a ListPreference, the default value does not need to
+             come from the colorChoices array. -->
+        <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
+            android:key="pref_fab_icon_disabled_tint"
+            android:title="FAB icon disabled tint"
+            android:summary="Tint for the FAB icon when disabled"
+            android:defaultValue="@android:color/white"
+            app:colorChoices="@array/color_choices_grey" />
+        <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
+            android:key="pref_fab_ripple_color"
+            android:title="FAB ripple color"
+            android:defaultValue="@color/default_color_choice_500"
+            app:colorChoices="@array/color_choices_a200" />
     </android.support.v7.preference.PreferenceCategory>
 </android.support.v7.preference.PreferenceScreen>

@@ -39,6 +39,7 @@ dependencies {
     compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
     compile "com.android.support:preference-v7:$rootProject.ext.supportLibraryVersion"
     compile "com.android.support:preference-v14:$rootProject.ext.supportLibraryVersion"
+    compile "com.github.kizitonwose.colorpreference:support:$rootProject.ext.colorPreferenceVersion"
 
     testCompile "junit:junit:$rootProject.ext.junitVersion"
 

@@ -100,13 +100,22 @@ public class NumberPadTimePickerDialogFragment extends DialogFragment {
 
         if (customTheme) {
             CustomThemeModel model = CustomThemeModel.get(getContext());
-            // TODO: Read and apply settings.
+            themer.setHeaderBackground(model.getHeaderBackground())
+                    .setInputTimeTextColor(model.getInputTimeTextColor())
+                    .setInputAmPmTextColor(model.getInputAmPmTextColor())
+                    .setNumberPadBackground(model.getNumberPadBackground())
+                    .setNumberKeysTextColor(model.getNumberKeysTextColor())
+                    .setAltKeysTextColor(model.getAltKeysTextColor())
+                    .setDivider(model.getDivider())
+                    .setBackspaceTint(model.getBackspaceTint());
             if (isBottomSheetThemer) {
-                // TODO: Read and apply bottom sheet settings.
                 ((BottomSheetNumberPadTimePickerDialogThemer) themer)
                         .setShowFabPolicy(model.getShowFabPolicy())
                         .setAnimateFabIn(model.getAnimateFabEntry())
                         .setAnimateFabBackgroundColor(model.getAnimateFabColor())
+                        .setFabBackgroundColor(model.getFabBackgroundColor())
+                        .setFabIconTint(model.getFabIconTint())
+                        .setFabRippleColor(model.getFabRippleColor())
                         .setBackspaceLocation(model.getBackspaceLocation());
             }
         }

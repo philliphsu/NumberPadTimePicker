@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="color_choices_500">
+        <item>0xFFF44336</item>
+        <item>0xFFE91E63</item>
+        <item>0xFF9C27B0</item>
+        <item>0xFF673AB7</item>
+        <item>0xFF3F51B5</item>
+        <item>0xFF2196F3</item>
+        <item>0xFF03A9F4</item>
+        <item>0xFF00BCD4</item>
+        <item>0xFF009688</item>
+        <item>0xFF4CAF50</item>
+        <item>0xFF8BC34A</item>
+        <item>0xFFCDDC39</item>
+        <item>0xFFFFEB3B</item>
+        <item>0xFFFFC107</item>
+        <item>0xFFFF9800</item>
+        <item>0xFFFF5722</item>
+        <item>0xFF795548</item>
+        <item>0xFF9E9E9E</item>
+        <item>0xFF607D8B</item>
+        <item>0xFF000000</item>
+        <item>0xFFFFFFFF</item>
+    </integer-array>
+    <color name="default_color_choice_500">#3F51B5</color>
+
+    <integer-array name="color_choices_a200">
+        <item>0xFFFF5252</item>
+        <item>0xFFFF4081</item>
+        <item>0xFFE040FB</item>
+        <item>0xFF7C4DFF</item>
+        <item>0xFF536DFE</item>
+        <item>0xFF448AFF</item>
+        <item>0xFF40C4FF</item>
+        <item>0xFF18FFFF</item>
+        <item>0xFF64FFDA</item>
+        <item>0xFF69F0AE</item>
+        <item>0xFFB2FF59</item>
+        <item>0xFFEEFF41</item>
+        <item>0xFFFFFF00</item>
+        <item>0xFFFFD740</item>
+        <item>0xFFFFAB40</item>
+        <item>0xFFFF6E40</item>
+    </integer-array>
+    <color name="default_color_choice_a200">#FF4081</color>
+    
+    <integer-array name="color_choices_grey">
+        <item>0xFFFAFAFA</item>
+        <item>0xFFF5F5F5</item>
+        <item>0xFFEEEEEE</item>
+        <item>0xFFE0E0E0</item>
+        <item>0xFFBDBDBD</item>
+        <item>0xFF9E9E9E</item>
+        <item>0xFF757575</item>
+        <item>0xFF616161</item>
+        <item>0xFF424242</item>
+        <item>0xFF212121</item>
+    </integer-array>
+    <color name="default_color_choice_grey">#9E9E9E</color>
+</resources>
