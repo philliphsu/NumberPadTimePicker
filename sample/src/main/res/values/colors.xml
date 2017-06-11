@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="number_pad_time_picker_accent_color">#0091EA</color>
+    <color name="number_pad_time_picker_background_color">#0F2D40</color>
+
     <integer-array name="color_choices_500">
         <item>0xFFF44336</item>
         <item>0xFFE91E63</item>

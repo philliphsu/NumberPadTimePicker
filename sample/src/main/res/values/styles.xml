@@ -1,8 +1,22 @@
 <resources>
-
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+        <item name="nptp_numberPadTimePickerAlertDialogTheme">@style/NumberPadTimePickerAlertDialogTheme</item>
+        <item name="nptp_numberPadTimePickerBottomSheetDialogTheme">@style/NumberPadTimePickerBottomSheetDialogTheme</item>
     </style>
 
+    <style name="NumberPadTimePickerStyle" parent="NPTP_NumberPadTimePickerStyle" />
+    <style name="NumberPadTimePickerAlertDialogTheme" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:colorBackground">@color/number_pad_time_picker_background_color</item>
+        <item name="colorAccent">@color/number_pad_time_picker_accent_color</item>
+        <item name="nptp_numberPadTimePickerStyle">@style/NumberPadTimePickerStyle</item>
+    </style>
+
+    <style name="NumberPadTimePickerBottomSheetStyle" parent="NPTP_NumberPadTimePickerBottomSheetStyle" />
+    <style name="NumberPadTimePickerBottomSheetDialogTheme" parent="Theme.Design.BottomSheetDialog">
+        <item name="android:colorBackground">@color/number_pad_time_picker_background_color</item>
+        <item name="colorAccent">@color/number_pad_time_picker_accent_color</item>
+        <item name="nptp_numberPadTimePickerStyle">@style/NumberPadTimePickerBottomSheetStyle</item>
+    </style>
 </resources>

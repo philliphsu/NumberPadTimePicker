@@ -6,7 +6,8 @@
     <string name="bottom_sheet_dialog">Bottom Sheet Dialog</string>
     <string name="light_theme">Light Theme</string>
     <string name="dark_theme">Dark Theme</string>
-    <string name="my_custom_theme">My Custom Theme</string>
+    <string name="xml_custom_theme">XML Custom Theme</string>
+    <string name="my_custom_theme">Dynamic Custom Theme</string>
     <string name="edit_custom_theme">Edit custom theme</string>
 
     <!-- EditCustomThemeActivity -->

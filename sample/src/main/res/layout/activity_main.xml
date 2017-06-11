@@ -38,6 +38,12 @@
             android:text="@string/dark_theme" />
 
         <Button
+            android:id="@+id/button_xml_custom_theme_alert"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/xml_custom_theme" />
+
+        <Button
             android:id="@+id/button3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,6 +68,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/dark_theme" />
+
+        <Button
+            android:id="@+id/button_xml_custom_theme_bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/xml_custom_theme" />
 
         <Button
             android:id="@+id/button6"

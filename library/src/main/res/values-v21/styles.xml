@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="BSP_ButtonBackgroundStyle">
+    <style name="NPTP_ButtonBackgroundStyle">
         <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
     </style>
 </resources>

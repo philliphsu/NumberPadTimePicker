@@ -56,4 +56,30 @@
     <style name="NPTP_NumberPadTimePicker_FabStyle" parent="NPTP_NumberPadTimePicker_Base_FabStyle">
         <item name="fabSize">auto</item>
     </style>
+
+    <style name="NPTP_NumberPadTimePickerStyle">
+        <item name="nptp_numberPadTimePickerLayout">alert</item>
+        <item name="nptp_inputTimeTextColor">?android:attr/textColorPrimary</item>
+        <item name="nptp_inputAmPmTextColor">?android:attr/textColorPrimary</item>
+        <item name="nptp_backspaceTint">?attr/colorControlNormal</item>
+        <item name="nptp_numberKeysTextColor">?android:attr/textColorPrimary</item>
+        <item name="nptp_altKeysTextColor">?android:attr/textColorPrimary</item>
+        <item name="nptp_headerBackground">@null</item>
+        <!-- Divider is already set in the header view's layout. -->
+        <!--<item name="nptp_divider">@drawable/nptp_list_divider_material</item>-->
+        <item name="nptp_numberPadBackground">@null</item>
+    </style>
+
+    <style name="NPTP_NumberPadTimePickerBottomSheetStyle" parent="NPTP_NumberPadTimePickerStyle">
+        <item name="nptp_numberPadTimePickerLayout">bottomSheet</item>
+        <!-- Default initialization of this attribute happens during construction in code.
+             The default result we want to achieve is not possible in XML below API 23. -->
+        <item name="nptp_fabBackgroundColor">@null</item>
+        <item name="nptp_animateFabBackgroundColor">true</item>
+        <item name="nptp_fabRippleColor">?attr/colorControlHighlight</item>
+        <item name="nptp_animateFabIn">false</item>
+        <item name="nptp_showFab">always</item>
+        <item name="nptp_backspaceLocation">header</item>
+        <item name="nptp_fabIconTint">?colorControlNormal</item>
+    </style>
 </resources>

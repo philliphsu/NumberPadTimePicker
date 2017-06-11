@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.annotation.StyleRes;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -40,9 +41,14 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.button1).setOnClickListener(mAlertClickListener);
         findViewById(R.id.button2).setOnClickListener(mAlertClickListener);
         findViewById(R.id.button3).setOnClickListener(mAlertClickListener);
+        findViewById(R.id.button_xml_custom_theme_alert)
+                .setOnClickListener(mAlertClickListener);
+
         findViewById(R.id.button4).setOnClickListener(mBottomSheetClickListener);
         findViewById(R.id.button5).setOnClickListener(mBottomSheetClickListener);
         findViewById(R.id.button6).setOnClickListener(mBottomSheetClickListener);
+        findViewById(R.id.button_xml_custom_theme_bottom_sheet)
+                .setOnClickListener(mBottomSheetClickListener);
 
         customThemeModel = CustomThemeModel.get(this);
     }
@@ -77,41 +83,47 @@ public class MainActivity extends AppCompatActivity {
     private View.OnClickListener mAlertClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            showTimePicker(MODE_ALERT, v.getId(), TAG_ALERT);
+            int theme = v.getId() == R.id.button_xml_custom_theme_alert ?
+                    R.style.NumberPadTimePickerAlertDialogTheme : 0;
+            showTimePicker(MODE_ALERT, v.getId(), theme, TAG_ALERT);
         }
     };
 
     private View.OnClickListener mBottomSheetClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            showTimePicker(MODE_BOTTOM_SHEET, v.getId(), TAG_BOTTOM_SHEET);
+            int theme = v.getId() == R.id.button_xml_custom_theme_bottom_sheet ?
+                    R.style.NumberPadTimePickerBottomSheetDialogTheme : 0;
+            showTimePicker(MODE_BOTTOM_SHEET, v.getId(), theme, TAG_BOTTOM_SHEET);
         }
     };
     
-    private void showTimePicker(@DialogMode int mode, @IdRes int buttonId, String tag) {
+    private void showTimePicker(@DialogMode int mode, @IdRes int buttonId,
+            @StyleRes int theme, String tag) {
         boolean customTheme = false;
-        int theme = 0;
-        switch (buttonId) {
-            case R.id.button1:
-                theme = ALERT_THEME_LIGHT;
-                break;
-            case R.id.button2:
-                theme = ALERT_THEME_DARK;
-                break;
-            case R.id.button3:
-                theme = customThemeModel.getBaseAlertTheme();
-                customTheme = true;
-                break;
-            case R.id.button4:
-                theme = BOTTOM_SHEET_THEME_LIGHT;
-                break;
-            case R.id.button5:
-                theme = BOTTOM_SHEET_THEME_DARK;
-                break;
-            case R.id.button6:
-                theme = customThemeModel.getBaseBottomSheetTheme();
-                customTheme = true;
-                break;
+        if (theme == 0) {
+            switch (buttonId) {
+                case R.id.button1:
+                    theme = ALERT_THEME_LIGHT;
+                    break;
+                case R.id.button2:
+                    theme = ALERT_THEME_DARK;
+                    break;
+                case R.id.button3:
+                    theme = customThemeModel.getBaseAlertTheme();
+                    customTheme = true;
+                    break;
+                case R.id.button4:
+                    theme = BOTTOM_SHEET_THEME_LIGHT;
+                    break;
+                case R.id.button5:
+                    theme = BOTTOM_SHEET_THEME_DARK;
+                    break;
+                case R.id.button6:
+                    theme = customThemeModel.getBaseBottomSheetTheme();
+                    customTheme = true;
+                    break;
+            }
         }
         NumberPadTimePickerDialogFragment.newInstance(mListener, mode, theme, customTheme)
                 .show(getSupportFragmentManager(), tag);
