@@ -1,19 +1,17 @@
 package com.philliphsu.numberpadtimepickersample;
 
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.StyleRes;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.philliphsu.numberpadtimepickersample.NumberPadTimePickerDialogFragment.DialogMode;
 
@@ -27,11 +25,11 @@ import static com.philliphsu.numberpadtimepickersample.NumberPadTimePickerDialog
 import static com.philliphsu.numberpadtimepickersample.NumberPadTimePickerDialogFragment.MODE_BOTTOM_SHEET;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = MainActivity.class.getSimpleName();
     private static final String TAG_ALERT = "alert";
     private static final String TAG_BOTTOM_SHEET = "bottom_sheet";
 
     private CustomThemeModel customThemeModel;
+    private TextView timeSetView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 .setOnClickListener(mBottomSheetClickListener);
 
         customThemeModel = CustomThemeModel.get(this);
+        timeSetView = (TextView) findViewById(R.id.time_set);
     }
 
     @Override
@@ -73,10 +72,8 @@ public class MainActivity extends AppCompatActivity {
             calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
             calendar.set(Calendar.MINUTE, minute);
 
-            Context context = MainActivity.this;
-            String text = "Time set: " + DateFormat.getTimeFormat(context).format(calendar.getTime());
-            Log.d(TAG, text);
-            Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+            timeSetView.setText(getString(R.string.time_set_label, DateFormat.getTimeFormat(
+                    MainActivity.this).format(calendar.getTime())));
         }
     };
 
