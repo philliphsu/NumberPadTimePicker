@@ -15,6 +15,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven { url "https://maven.google.com" }
         maven { url "https://jitpack.io" }
     }
 }
@@ -35,7 +36,7 @@ ext {
     versionCode = 1
 
     // Library dependencies
-    supportLibraryVersion = '25.3.1'
+    supportLibraryVersion = '25.4.0'
     junitVersion = '4.12'
     mockitoVersion = '1.10.19'
     runnerVersion = '0.5'
