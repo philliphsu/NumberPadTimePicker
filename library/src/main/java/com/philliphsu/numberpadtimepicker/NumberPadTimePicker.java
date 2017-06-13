@@ -19,7 +19,7 @@ import android.widget.TextView;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.View {
+public class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.View {
 
     /** Option to layout this view for use in an alert dialog. */
     static final int LAYOUT_ALERT = 1;
