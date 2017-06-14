@@ -31,8 +31,9 @@ force you to use Fragments.**
 The sample app demos some built-in themes. You can also dynamically customize your own theme with a
 limited color palette.
 
-* Google Play listing coming soon!
-* [Source code](/sample)
+<a href='https://play.google.com/store/apps/details?id=com.philliphsu.numberpadtimepickersample&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height="80px"/></a>
+
+[Source code](/sample)
 
 ## Installation
 
@@ -41,7 +42,6 @@ In your root `build.gradle`:
 ```groovy
 allprojects {
     repositories {
-        ...
         maven { url 'https://jitpack.io' }
     }
 }
