@@ -21,25 +21,58 @@
             <enum name="bottomSheet" value="2" />
         </attr>
 
-        <!-- The background color of the floating action button in the time picker.
-             This attribute is only applied if the time picker is using the bottom
-             sheet layout.
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <!--  Common styleable attributes  -->
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
-             This should be a color state list where the enabled state will be used
-             when the button is enabled. -->
+        <!-- Text color for the inputted time in the header. -->
+        <attr name="nptp_inputTimeTextColor" format="color" />
+
+        <!-- Text color for the inputted AM/PM in the header. -->
+        <attr name="nptp_inputAmPmTextColor" format="color" />
+
+        <!-- Tint to apply to the backspace icon. This should be a color state list with enabled and
+             disabled states. -->
+        <attr name="nptp_backspaceTint" format="color" />
+
+        <!-- Text color for the number keys. This should be a color state list with enabled and
+             disabled states. -->
+        <attr name="nptp_numberKeysTextColor" format="color" />
+
+        <!-- Text color for the "AM"/"PM" keys in 12-hour mode or the ":00"/":30" keys in 24-hour
+             mode. This should be a color state list with enabled and disabled states. -->
+        <attr name="nptp_altKeysTextColor" format="color" />
+
+        <!-- Background of the header containing the inputted time and AM/PM. -->
+        <attr name="nptp_headerBackground" format="color|reference" />
+
+        <!-- Divider separating the header from the number pad. -->
+        <attr name="nptp_divider" format="color|reference" />
+
+        <!-- Background of the number pad. -->
+        <attr name="nptp_numberPadBackground" format="color|reference" />
+
+
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <!--  Bottom sheet styleable attributes  -->
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+        <!-- Background color of the FloatingActionButton. This should be a color state list with
+             enabled and disabled states. -->
         <attr name="nptp_fabBackgroundColor" format="color" />
 
-        <!-- Whether the floating action button should animate between its background colors
-             that were set in {@code nptp_fabBackgroundColor}. This attribute is only applied
-             if the time picker is using the bottom sheet layout. -->
+        <!-- Whether the FloatingActionButton should transition between its enabled and disabled
+             colors. Does not apply if nptp_showFab is set to validTime. -->
         <attr name="nptp_animateFabBackgroundColor" format="boolean" />
 
-        <!-- Indicates when the floating action button should be shown. This attribute is
-             only applied if the time picker is using the bottom sheet layout.
+        <!-- Ripple color of the FloatingActionButton when pressed. -->
+        <attr name="nptp_fabRippleColor" format="color" />
 
-             If set to "always", then either value for attribute 'nptp_animateFabIn' will
-             be honored. If set to "validTime", a value of "true" for 'nptp_animateFabIn'
-             will not be honored. -->
+        <!-- Whether the FloatingActionButton should animate onto the screen when the dialog is
+             shown. Does not apply if nptp_showFab is set to validTime. -->
+        <attr name="nptp_animateFabIn" format="boolean" />
+
+        <!-- Indicates when the FloatingActionButton should be shown. -->
         <attr name="nptp_showFab" format="enum">
             <!-- Option to always show the floating action button. -->
             <enum name="always" value="0" />
@@ -48,43 +81,7 @@
             <enum name="validTime" value="1" />
         </attr>
 
-        <!-- Indicates whether the floating action button should animate onto the
-             screen when the time picker is shown. This attribute is only applied
-             if the time picker is using the bottom sheet layout. -->
-        <attr name="nptp_animateFabIn" format="boolean" />
-
-        <!-- The text color for the number keys. This should be a color
-             state list where the enabled state will be used when the number
-             key is enabled. -->
-        <attr name="nptp_numberKeysTextColor" format="color" />
-
-        <!-- The text color for the alt keys, i.e. "AM" and "PM" for 12-hour mode.
-             This should be a color state list where the enabled state will be used
-             when the alt key is enabled. -->
-        <attr name="nptp_altKeysTextColor" format="color" />
-
-        <!-- The text color for the inputted time in the header. -->
-        <attr name="nptp_inputTimeTextColor" format="color" />
-
-        <!-- The text color for the inputted AM/PM in the header. -->
-        <attr name="nptp_inputAmPmTextColor" format="color" />
-
-        <!-- Tint to apply to the backspace icon. This should be a color state list
-             where the enabled state will be used when the backspace key is enabled. -->
-        <attr name="nptp_backspaceTint" format="color" />
-
-        <!-- The background for the header containing the inputted time and AM/PM. -->
-        <attr name="nptp_headerBackground" format="color|reference" />
-
-        <!-- Color or drawable to use as the divider. The drawable is constrained
-             to a 1dp height. -->
-        <attr name="nptp_divider" format="color|reference" />
-
-        <!-- The background color for the number pad. -->
-        <attr name="nptp_numberPadBackground" format="color|reference" />
-
-        <!-- The location of the backspace button. This attribute is only applied
-             if the time picker is using the bottom sheet layout. -->
+        <!-- Location of the backspace key. -->
         <attr name="nptp_backspaceLocation" format="enum">
             <!-- The header containing the inputted time and AM/PM. -->
             <enum name="header" value="0" />
@@ -92,15 +89,8 @@
             <enum name="footer" value="1" />
         </attr>
 
-        <!-- The floating action button's ripple color. This attribute is only applied if
-             the time picker is using the bottom sheet layout. -->
-        <attr name="nptp_fabRippleColor" format="color" />
-
-        <!-- The tint to apply to the floating action button's icon.
-             This attribute is only applied if the time picker is using the bottom sheet layout.
-
-             This should be a color state list where the enabled state will be used when the
-             floating action button is enabled. -->
+        <!-- Tint to apply to the icon in the FloatingActionButton. This should be a color state
+             list with enabled and disabled states. -->
         <attr name="nptp_fabIconTint" format="color" />
     </declare-styleable>
 </resources>
