@@ -21,10 +21,10 @@ force you to use Fragments.**
 2. [Installation](#installation)
 3. [Usage](#usage)
 4. [Themes and Styles](#themes-and-styles)
-    5. [XML Theming](#xml-theming)
-    6. [Programmatic Theming](#programmatic-theming)
-7. [Contributing](#contributing)
-8. [License](#license)
+    1. [XML Theming](#xml-theming)
+    2. [Programmatic Theming](#programmatic-theming)
+5. [Contributing](#contributing)
+6. [License](#license)
 
 ## Sample App
 
@@ -101,52 +101,50 @@ Create a dialog theme that inherits from an appropriate parent theme.
 
 If you are using `NumberPadTimePickerDialog`, this will be one of:
 
-    * `Theme.AppCompat.Dialog.Alert`
-    * `Theme.AppCompat.Light.Dialog.Alert`
-    * `Theme.AppCompat.DayNight.Dialog.Alert`
+* `Theme.AppCompat.Dialog.Alert`
+* `Theme.AppCompat.Light.Dialog.Alert`
+* `Theme.AppCompat.DayNight.Dialog.Alert`
 
 If you are using `BottomSheetNumberPadTimePickerDialog`, this will be one of:
 
-    * `Theme.Design.BottomSheetDialog`
-    * `Theme.Design.Light.BottomSheetDialog`
+* `Theme.Design.BottomSheetDialog`
+* `Theme.Design.Light.BottomSheetDialog`
 
 Your dialog theme should include an item for the `nptp_numberPadTimePickerStyle` attribute. This
-attribute references a style resource that styles the number pad time picker `View` contained in
-the dialog. The library provides default styles that you can specify for this attribute. You may
-override these styles.
+attribute references a style resource that styles the number pad time picker view contained in
+the dialog. The library provides default style resources that you can specify for this attribute.
+You may override these styles.
 
-    * If your dialog theme inherits from an alert dialog theme, use the
-      `NPTP_NumberPadTimePickerStyle` style.
-
-    * If your dialog theme inherits from a bottom sheet dialog theme, use the
-      `NPTP_NumberPadTimePickerBottomSheetStyle` style.
+If your dialog theme inherits from...
+* an alert dialog theme, use the `NPTP_NumberPadTimePickerStyle` style.
+* a bottom sheet dialog theme, use the `NPTP_NumberPadTimePickerBottomSheetStyle` style.
 
 #### Table 1. Common styleable attributes
 
-Attribute                | Notes
--------------------------|:------------------------------------------------------------------------:
-nptp_inputTimeTextColor  | -
-nptp_inputAmPmTextColor  | -
-nptp_backspaceTint       | This should be a color state list with the enabled and disabled states.
-nptp_numberKeysTextColor | This should be a color state list with the enabled and disabled states.
-nptp_altKeysTextColor    | "AM"/"PM" for 12-hour mode or ":00"/":30" for 24-hour mode. This should be a color state list with the enabled and disabled states.
-nptp_headerBackground    | -
-nptp_divider             | -
-nptp_numberPadBackground | -
+Attribute                | Description
+-------------------------|------------------------------------------------------------------------
+nptp_inputTimeTextColor  | Text color for the inputted time in the header.
+nptp_inputAmPmTextColor  | Text color for the inputted AM/PM in the header.
+nptp_backspaceTint       | Tint to apply to the backspace icon. This should be a color state list with enabled and disabled states.
+nptp_numberKeysTextColor | Text color for the number keys. This should be a color state list with enabled and disabled states.
+nptp_altKeysTextColor    | Text color for the "AM"/"PM" keys in 12-hour mode or the ":00"/":30" keys in 24-hour mode. This should be a color state list with enabled and disabled states.
+nptp_headerBackground    | Background of the header containing the inputted time and AM/PM. This can be a color or a drawable.
+nptp_divider             | Divider separating the header from the number pad. This can be a color or a drawable.
+nptp_numberPadBackground | Background of the number pad. This can be a color or a drawable.
 
 #### Table 2. Bottom sheet styleable attributes
 
-Attribute                      | Notes
--------------------------------|:------------------------------------------------------------------:
-nptp_fabBackgroundColor        | This should be a color state list with the enabled and disabled states.
+Attribute                      | Description
+-------------------------------|------------------------------------------------------------------
+nptp_fabBackgroundColor        | Background color of the `FloatingActionButton`. This should be a color state list with enabled and disabled states.
 nptp_animateFabBackgroundColor | Whether the `FloatingActionButton` should transition between its enabled and disabled colors. Does not apply if `nptp_showFab` is set to `validTime`.
-nptp_fabRippleColor            | -
-nptp_animateFabIn              | Whether the `FloatingActionButton` should animate onto the screen. Does not apply if `nptp_showFab` is set to `validTime`. 
-nptp_showFab                   | `always` or `validTime`
-nptp_backspaceLocation         | `header` or `footer`
-nptp_fabIconTint               | This should be a color state list with the enabled and disabled states.
+nptp_fabRippleColor            | Ripple color of the `FloatingActionButton` when pressed.
+nptp_animateFabIn              | Whether the `FloatingActionButton` should animate onto the screen when the dialog is shown. Does not apply if `nptp_showFab` is set to `validTime`.
+nptp_showFab                   | Indicates when the `FloatingActionButton` should be shown. Either `always` or `validTime`.
+nptp_backspaceLocation         | Location of the backspace key. Either `header` or `footer`.
+nptp_fabIconTint               | Tint to apply to the icon in the `FloatingActionButton`. This should be a color state list with enabled and disabled states.
 
-Here is an example `styles.xml`:
+Here is an example `styles.xml` file:
 
 ```xml
 <style name="MyStyle" parent="NPTP_NumberPadTimePickerStyle">
@@ -165,6 +163,7 @@ Here is an example `styles.xml`:
     <item name="nptp_numberPadTimePickerStyle">@style/MyBottomSheetStyle</item>
 </style>
 ```
+
 With your dialog theme defined, obtain an instance of the dialog as described in [Usage](#usage).
 Alternatively, if you don't want to pass the theme to the dialog's constructor, you can specify
 the dialog's theme in your `Activity`'s theme.
@@ -180,17 +179,46 @@ the dialog's theme in your `Activity`'s theme.
 
 Call `getThemer()` on your dialog to obtain
 
-    * a `NumberPadTimePickerDialogThemer`, if the dialog is a `NumberPadTimePickerDialog`
-    * a `BottomSheetNumberPadTimePickerDialogThemer`, if the dialog is a
-      `BottomSheetNumberPadTimePickerDialog`
+* a `NumberPadTimePickerDialogThemer`, if the dialog is a `NumberPadTimePickerDialog`
+* a `BottomSheetNumberPadTimePickerDialogThemer`, if the dialog is a
+  `BottomSheetNumberPadTimePickerDialog`
 
-You can chain together the available setters. The names of the setters correspond to the attribute
-names listed in [Table 1](#table-1) and [Table 2](#table-2).
+You can chain together the available setters. The setters correspond to the attributes listed in
+[Table 1](#table-1-common-styleable-attributes) and [Table 2](#table-2-bottom-sheet-styleable-attributes).
+
+#### API for NumberPadTimePickerDialogThemer
+
+```java
+setInputTimeTextColor(@ColorInt int color)
+setInputAmPmTextColor(@ColorInt int color)
+setBackspaceTint(ColorStateList colors)
+setNumberKeysTextColor(ColorStateList colors)
+setAltKeysTextColor(ColorStateList colors)
+setHeaderBackground(Drawable background)
+setNumberPadBackground(Drawable background)
+setDivider(Drawable divider)
+```
+
+#### API for BottomSheetNumberPadTimePickerDialogThemer
+
+`BottomSheetNumberPadTimePickerDialogThemer` extends `NumberPadTimePickerDialogThemer`, so the
+above setters are available here as well.
+
+```java
+setFabBackgroundColor(ColorStateList colors)
+setFabRippleColor(@ColorInt int color)
+setFabIconTint(ColorStateList tint)
+setAnimateFabBackgroundColor(boolean animate)
+setShowFabPolicy(@ShowFabPolicy int policy)
+setAnimateFabIn(boolean animateIn)
+setBackspaceLocation(@BackspaceLocation int location)
+```
 
 ## Contributing
 
 Contributions are welcome. In particular, contributions to optimize dimensions for larger form
 factors or to improve localization are appreciated. Send pull requests to the `develop` branch.
+If you think something could look better, feel free to let me know your thoughts.
 
 ## License
 
