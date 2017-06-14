@@ -190,7 +190,7 @@ names listed in [Table 1](#table-1) and [Table 2](#table-2).
 ## Contributing
 
 Contributions are welcome. In particular, contributions to optimize dimensions for larger form
-factors or to improve localization are appreciated.
+factors or to improve localization are appreciated. Send pull requests to the `develop` branch.
 
 ## License
 
