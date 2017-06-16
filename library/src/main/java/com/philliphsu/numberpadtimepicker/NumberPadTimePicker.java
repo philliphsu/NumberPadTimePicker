@@ -32,8 +32,32 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
 
     private NumberPadTimePickerComponent mTimePickerComponent;
     private LinearLayout mInputTimeContainer;
+    private NumberPadTimePickerPromptViewDelegate mPromptDelegate;
 
     private @NumberPadTimePickerLayout int mLayout;
+
+    /**
+     * Callbacks you need to handle for your custom "ok" button (e.g. a view in
+     * your layout or a MenuItem).
+     */
+    public interface OkButtonCallbacks {
+        /**
+         * @param enabled Whether your "ok" button should be set enabled.
+         */
+        void onOkButtonEnabled(boolean enabled);
+        /**
+         * Returns the time you typed after you clicked your "ok" button.
+         * <p>
+         * This callback is fired after you call {@link #confirmTimeSelection()}.
+         * You should set an appropriate click listener for your button that calls
+         * {@link #confirmTimeSelection()} when your button is clicked.
+         *
+         * @param view The view used to type in this time.
+         * @param hourOfDay The hour that was typed.
+         * @param minute The minute that was typed.
+         */
+        void onOkButtonClick(NumberPadTimePicker view, int hourOfDay, int minute);
+    }
 
     public NumberPadTimePicker(Context context) {
         this(context, null);
@@ -138,6 +162,41 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
         // Do nothing.
     }
 
+    /**
+     * Set the callbacks to be invoked for your custom "ok" button during typing the time.
+     *
+     * @param is24HourMode The callbacks behave differently between 12-hour mode and 24-hour mode,
+     *                     so specify which mode you are using.
+     */
+    public void setOkButtonCallbacks(OkButtonCallbacks callbacks, boolean is24HourMode) {
+        if (callbacks != null) {
+            // Install prompt functionality to this view so that it can be
+            // used in lieu of a dialog.
+            mPromptDelegate = new NumberPadTimePickerPromptViewDelegate(
+                    this, getContext(), callbacks, is24HourMode);
+        } else {
+            mPromptDelegate = null;
+        }
+    }
+
+    /**
+     * This should be called by the click listener you set on your "ok" button.
+     * This will call your {@link OkButtonCallbacks#onOkButtonClick(NumberPadTimePicker, int, int)
+     * onOkButtonClick()} callback.
+     *
+     * <p>
+     * <strong>
+     *     You should only allow your button to be clickable after you received an
+     *     {@link OkButtonCallbacks#onOkButtonEnabled(boolean) onOkButtonEnabled(true)} callback.
+     * </strong>
+     * </p>
+     */
+    public void confirmTimeSelection() {
+        if (mPromptDelegate != null) {
+            mPromptDelegate.confirmTimeSelection();
+        }
+    }
+
     @NumberPadTimePickerLayout
     int getLayout() {
         return mLayout;
@@ -161,6 +220,18 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
 
     NumberPadTimePickerComponent getComponent() {
         return mTimePickerComponent;
+    }
+
+    /**
+     * Set up the click listeners that allow {@code view} and {@code presenter} to communicate with
+     * each other.
+     */
+    static void injectClickListeners(NumberPadTimePicker view, INumberPadTimePicker.Presenter presenter) {
+        OnBackspaceClickHandler backspaceClickHandler = new OnBackspaceClickHandler(presenter);
+        view.setOnBackspaceClickListener(backspaceClickHandler);
+        view.setOnBackspaceLongClickListener(backspaceClickHandler);
+        view.setOnNumberKeyClickListener(new OnNumberKeyClickListener(presenter));
+        view.setOnAltKeyClickListener(new OnAltKeyClickListener(presenter));
     }
 
     @NumberPadTimePickerLayout

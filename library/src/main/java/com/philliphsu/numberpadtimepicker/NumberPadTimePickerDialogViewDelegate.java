@@ -47,11 +47,7 @@ final class NumberPadTimePickerDialogViewDelegate implements DialogView {
         final LocaleModel localeModel = new LocaleModel(context);
         mPresenter = new NumberPadTimePickerDialogPresenter(this, localeModel, is24HourMode);
 
-        final OnBackspaceClickHandler backspaceClickHandler = new OnBackspaceClickHandler(mPresenter);
-        mTimePicker.setOnBackspaceClickListener(backspaceClickHandler);
-        mTimePicker.setOnBackspaceLongClickListener(backspaceClickHandler);
-        mTimePicker.setOnNumberKeyClickListener(new OnNumberKeyClickListener(mPresenter));
-        mTimePicker.setOnAltKeyClickListener(new OnAltKeyClickListener(mPresenter));
+        NumberPadTimePicker.injectClickListeners(timePicker, mPresenter);
     }
 
     @Override

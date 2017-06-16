@@ -19,9 +19,12 @@ interface INumberPadTimePicker {
         @Deprecated void setHeaderDisplayFocused(boolean focused);
     }
 
-    interface DialogView extends View {
+    interface PromptView extends View {
         void setOkButtonEnabled(boolean enabled);
         void setResult(int hour, int minute);
+    }
+
+    interface DialogView extends PromptView {
         void cancel();
         void showOkButton();
     }
@@ -39,9 +42,12 @@ interface INumberPadTimePicker {
         State getState();
     }
 
-    interface DialogPresenter extends Presenter {
-        void onCancelClick();
+    interface PromptPresenter extends Presenter {
         void onOkButtonClick();
+    }
+
+    interface DialogPresenter extends PromptPresenter {
+        void onCancelClick();
         void onDialogShow();
     }
 

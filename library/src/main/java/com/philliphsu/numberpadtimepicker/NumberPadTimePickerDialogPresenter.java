@@ -2,16 +2,13 @@ package com.philliphsu.numberpadtimepicker;
 
 import android.support.annotation.NonNull;
 
-final class NumberPadTimePickerDialogPresenter extends NumberPadTimePickerPresenter
+final class NumberPadTimePickerDialogPresenter extends NumberPadTimePickerPromptPresenter
         implements INumberPadTimePicker.DialogPresenter {
-
-    private final DigitwiseTimeParser mTimeParser = new DigitwiseTimeParser(mTimeModel);
 
     private INumberPadTimePicker.DialogView mView;
 
     NumberPadTimePickerDialogPresenter(@NonNull INumberPadTimePicker.DialogView view,
-                                       @NonNull LocaleModel localeModel,
-                                       boolean is24HourMode) {
+            @NonNull LocaleModel localeModel, boolean is24HourMode) {
         super(view, localeModel, is24HourMode);
         mView = view;
     }
@@ -29,22 +26,12 @@ final class NumberPadTimePickerDialogPresenter extends NumberPadTimePickerPresen
 
     @Override
     public void onOkButtonClick() {
-        mView.setResult(mTimeParser.getHour(mAmPmState), mTimeParser.getMinute(mAmPmState));
+        super.onOkButtonClick();
         mView.cancel();
     }
 
     @Override
     public void onDialogShow() {
         mView.showOkButton();
-    }
-
-    @Override
-    void updateViewEnabledStates() {
-        super.updateViewEnabledStates();
-        updateOkButtonState();
-    }
-
-    private void updateOkButtonState() {
-        mView.setOkButtonEnabled(mTimeParser.checkTimeValid(mAmPmState));
     }
 }
