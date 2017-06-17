@@ -43,7 +43,10 @@ interface INumberPadTimePicker {
     }
 
     interface PromptPresenter extends Presenter {
-        void onOkButtonClick();
+        /**
+         * @return Whether the click was processed.
+         */
+        boolean onOkButtonClick();
     }
 
     interface DialogPresenter extends PromptPresenter {

@@ -97,6 +97,6 @@ class NumberPadTimePickerPromptViewDelegate implements PromptView {
     }
 
     void confirmTimeSelection() {
-        mPresenter.onOkButtonClick();  // Calls setResult()
+        mPresenter.onOkButtonClick();  // Calls setResult() if "ok" button last enabled
     }
 }

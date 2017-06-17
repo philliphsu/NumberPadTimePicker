@@ -12,6 +12,8 @@ class NumberPadTimePickerPromptPresenter extends NumberPadTimePickerPresenter
 
     private INumberPadTimePicker.PromptView mView;
 
+    private boolean mOkButtonEnabled;
+
     NumberPadTimePickerPromptPresenter(@NonNull INumberPadTimePicker.PromptView view,
                                        @NonNull LocaleModel localeModel, boolean is24HourMode) {
         super(view, localeModel, is24HourMode);
@@ -25,8 +27,12 @@ class NumberPadTimePickerPromptPresenter extends NumberPadTimePickerPresenter
     }
 
     @Override
-    public void onOkButtonClick() {
-        mView.setResult(mTimeParser.getHour(mAmPmState), mTimeParser.getMinute(mAmPmState));
+    public boolean onOkButtonClick() {
+        if (mOkButtonEnabled) {
+            mView.setResult(mTimeParser.getHour(mAmPmState), mTimeParser.getMinute(mAmPmState));
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -36,6 +42,7 @@ class NumberPadTimePickerPromptPresenter extends NumberPadTimePickerPresenter
     }
 
     private void updateOkButtonState() {
-        mView.setOkButtonEnabled(mTimeParser.checkTimeValid(mAmPmState));
+        mOkButtonEnabled = mTimeParser.checkTimeValid(mAmPmState);
+        mView.setOkButtonEnabled(mOkButtonEnabled);
     }
 }

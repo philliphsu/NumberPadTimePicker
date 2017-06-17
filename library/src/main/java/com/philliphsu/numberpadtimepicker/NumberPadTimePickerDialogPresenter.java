@@ -25,9 +25,12 @@ final class NumberPadTimePickerDialogPresenter extends NumberPadTimePickerPrompt
     }
 
     @Override
-    public void onOkButtonClick() {
-        super.onOkButtonClick();
-        mView.cancel();
+    public boolean onOkButtonClick() {
+        if (super.onOkButtonClick()) {
+            mView.cancel();
+            return true;
+        }
+        return false;
     }
 
     @Override
