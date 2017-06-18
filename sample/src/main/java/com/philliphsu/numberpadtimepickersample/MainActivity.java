@@ -48,6 +48,13 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.button_xml_custom_theme_bottom_sheet)
                 .setOnClickListener(mBottomSheetClickListener);
 
+        findViewById(R.id.button_time_picker_activity).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, TimePickerActivity.class));
+            }
+        });
+
         customThemeModel = CustomThemeModel.get(this);
         timeSetView = (TextView) findViewById(R.id.time_set);
     }

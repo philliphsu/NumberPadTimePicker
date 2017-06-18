@@ -29,6 +29,8 @@ class NumberPadTimePickerPromptViewDelegate implements PromptView {
         mPresenter = new NumberPadTimePickerPromptPresenter(this,
                 new LocaleModel(context), is24HourMode);
         NumberPadTimePicker.injectClickListeners(timePicker, mPresenter);
+
+        mPresenter.onCreate(NumberPadTimePickerState.EMPTY);
     }
 
     @Override

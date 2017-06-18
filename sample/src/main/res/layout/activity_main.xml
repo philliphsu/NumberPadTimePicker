@@ -90,6 +90,20 @@
             android:layout_height="wrap_content"
             android:text="@string/my_custom_theme" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/view"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+        <Button
+            android:id="@+id/button_time_picker_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/view_in_activity" />
+
     </LinearLayout>
 
 </ScrollView>
