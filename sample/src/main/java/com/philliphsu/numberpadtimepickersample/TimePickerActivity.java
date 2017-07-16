@@ -43,7 +43,7 @@ public class TimePickerActivity extends AppCompatActivity {
                 Toast.makeText(c, DateFormat.getTimeFormat(c).format(mCalendar.getTime()),
                         Toast.LENGTH_LONG).show();
             }
-        }, DateFormat.is24HourFormat(this));
+        });
 
         return super.onCreateOptionsMenu(menu);
     }

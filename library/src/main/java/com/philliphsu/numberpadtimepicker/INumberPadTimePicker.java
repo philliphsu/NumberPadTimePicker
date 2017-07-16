@@ -14,19 +14,17 @@ interface INumberPadTimePicker {
         void setRightAltKeyText(CharSequence text);
         void setLeftAltKeyEnabled(boolean enabled);
         void setRightAltKeyEnabled(boolean enabled);
+        void setOkButtonEnabled(boolean enabled);
+        void setResult(int hour, int minute);
+        void showOkButton();
+
         // TODO: The header is no longer "focusable". Delete this at some point.
         // This will prompt us to delete our tests that test the header display.
         @Deprecated void setHeaderDisplayFocused(boolean focused);
     }
 
-    interface PromptView extends View {
-        void setOkButtonEnabled(boolean enabled);
-        void setResult(int hour, int minute);
-    }
-
-    interface DialogView extends PromptView {
+    interface DialogView {
         void cancel();
-        void showOkButton();
     }
 
     interface Presenter {
@@ -34,6 +32,8 @@ interface INumberPadTimePicker {
         void onAltKeyClick(CharSequence altKeyText);
         void onBackspaceClick();
         boolean onBackspaceLongClick();
+        boolean onOkButtonClick();
+        void onShow();
         /**
          * @param state The state to initialize the time picker with.
          */
@@ -42,16 +42,9 @@ interface INumberPadTimePicker {
         State getState();
     }
 
-    interface PromptPresenter extends Presenter {
-        /**
-         * @return Whether the click was processed.
-         */
+    interface DialogPresenter {
         boolean onOkButtonClick();
-    }
-
-    interface DialogPresenter extends PromptPresenter {
         void onCancelClick();
-        void onDialogShow();
     }
 
     interface State {

@@ -38,6 +38,7 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
         final NumberPadTimePickerBottomSheetComponent timePickerComponent =
                 (NumberPadTimePickerBottomSheetComponent) timePicker.getComponent();
         final FloatingActionButton okButton = timePickerComponent.getOkButton();
+
         mViewDelegate = new NumberPadTimePickerDialogViewDelegate(this,
                 // Prefer getContext() over the provided Context because the Context
                 // that the Dialog runs in may not be the same as the provided Context.
@@ -55,6 +56,9 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
         mThemer = new BottomSheetNumberPadTimePickerDialogThemer(timePickerComponent);
         mBottomSheetBehavior = BottomSheetBehavior.from((View) root.getParent());
 
+        // Overrides the default behavior set in NumberPadTimePickerBottomSheetComponent.
+        // The default behavior just returns the time to the OnTimeSet listener.
+        // This has the addition of cancelling the dialog afterward.
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,12 +109,6 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
     protected void onStart() {
         super.onStart();
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-    }
-
-    @Override
-    public void show() {
-        super.show();
-        mViewDelegate.getPresenter().onDialogShow();
     }
 
     @NonNull

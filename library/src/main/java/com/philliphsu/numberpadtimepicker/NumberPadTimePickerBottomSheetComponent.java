@@ -65,10 +65,16 @@ final class NumberPadTimePickerBottomSheetComponent extends NumberPadTimePickerC
     private boolean mAnimateFabBackgroundColor;
     private boolean mAnimatingToEnabled;
 
-    NumberPadTimePickerBottomSheetComponent(NumberPadTimePicker timePicker, Context context,
+    NumberPadTimePickerBottomSheetComponent(final NumberPadTimePicker timePicker, Context context,
             AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(timePicker, context, attrs, defStyleAttr, defStyleRes);
         mOkButton = (FloatingActionButton) timePicker.findViewById(R.id.nptp_ok_button);
+        mOkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timePicker.confirmTimeSelection();
+            }
+        });
         
         final TypedArray timePickerAttrs = context.obtainStyledAttributes(attrs,
                 R.styleable.NPTP_NumberPadTimePicker, defStyleAttr, defStyleRes);

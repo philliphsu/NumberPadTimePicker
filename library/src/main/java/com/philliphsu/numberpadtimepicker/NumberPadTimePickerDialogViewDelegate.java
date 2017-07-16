@@ -26,7 +26,7 @@ final class NumberPadTimePickerDialogViewDelegate implements DialogView {
     private final @NonNull NumberPadTimePicker mTimePicker;
     private final @Nullable OnTimeSetListener mTimeSetListener;
     private final INumberPadTimePicker.DialogPresenter mPresenter;
-    // Dummy TimePicker Passed to onTimeSet() callback.
+    // Dummy TimePicker passed to onTimeSet() callback.
     private final TimePicker mDummy;
 
     private View mOkButton;
@@ -43,83 +43,26 @@ final class NumberPadTimePickerDialogViewDelegate implements DialogView {
         mTimeSetListener = listener;
         mDummy = new TimePicker(context);
 
-        // TODO: If this model is needed by other classes, make it a singleton.
-        final LocaleModel localeModel = new LocaleModel(context);
-        mPresenter = new NumberPadTimePickerDialogPresenter(this, localeModel, is24HourMode);
+        mPresenter = new NumberPadTimePickerDialogPresenter(this, timePicker.getPresenter());
 
-        NumberPadTimePicker.injectClickListeners(timePicker, mPresenter);
-    }
+        timePicker.setIs24HourMode(is24HourMode);
+        timePicker.setOkButtonCallbacks(new NumberPadTimePicker.OkButtonCallbacks() {
+            @Override
+            public void onOkButtonEnabled(boolean enabled) {
+                // The bottom sheet dialog's FAB has been handled already. This is really only for
+                // the alert dialog's ok button.
+                if (mOkButton != null) {
+                    mOkButton.setEnabled(enabled);
+                }
+            }
 
-    @Override
-    public void setNumberKeysEnabled(int start, int end) {
-        mTimePicker.setNumberKeysEnabled(start, end);
-    }
-
-    @Override
-    public void setBackspaceEnabled(boolean enabled) {
-        mTimePicker.setBackspaceEnabled(enabled);
-    }
-
-    @Override
-    public void updateTimeDisplay(CharSequence time) {
-        mTimePicker.updateTimeDisplay(time);
-    }
-
-    @Override
-    public void updateAmPmDisplay(CharSequence ampm) {
-        mTimePicker.updateAmPmDisplay(ampm);
-    }
-
-    @Override
-    public void setOkButtonEnabled(boolean enabled) {
-        if (mTimePicker.getLayout() == NumberPadTimePicker.LAYOUT_BOTTOM_SHEET) {
-            ((NumberPadTimePickerBottomSheetComponent) mTimePicker.getComponent())
-                    .setOkButtonEnabled(enabled);
-        } else {
-            mOkButton.setEnabled(enabled);
-        }
-    }
-
-    @Override
-    public void setAmPmDisplayVisible(boolean visible) {
-        mTimePicker.setAmPmDisplayVisible(visible);
-    }
-
-    @Override
-    public void setAmPmDisplayIndex(int index) {
-        mTimePicker.setAmPmDisplayIndex(index);
-    }
-
-    @Override
-    public void setLeftAltKeyText(CharSequence text) {
-        mTimePicker.setLeftAltKeyText(text);
-    }
-
-    @Override
-    public void setRightAltKeyText(CharSequence text) {
-        mTimePicker.setRightAltKeyText(text);
-    }
-
-    @Override
-    public void setLeftAltKeyEnabled(boolean enabled) {
-        mTimePicker.setLeftAltKeyEnabled(enabled);
-    }
-
-    @Override
-    public void setRightAltKeyEnabled(boolean enabled) {
-        mTimePicker.setRightAltKeyEnabled(enabled);
-    }
-
-    @Override
-    public void setHeaderDisplayFocused(boolean focused) {
-        mTimePicker.setHeaderDisplayFocused(focused);
-    }
-
-    @Override
-    public void setResult(int hour, int minute) {
-        if (mTimeSetListener != null) {
-            mTimeSetListener.onTimeSet(mDummy, hour, minute);
-        }
+            @Override
+            public void onOkButtonClick(NumberPadTimePicker view, int hourOfDay, int minute) {
+                if (mTimeSetListener != null) {
+                    mTimeSetListener.onTimeSet(mDummy, hourOfDay, minute);
+                }
+            }
+        });
     }
 
     @Override
@@ -127,20 +70,13 @@ final class NumberPadTimePickerDialogViewDelegate implements DialogView {
         mDelegator.cancel();
     }
 
-    @Override
-    public void showOkButton() {
-        if (mTimePicker.getLayout() == NumberPadTimePicker.LAYOUT_BOTTOM_SHEET) {
-            ((NumberPadTimePickerBottomSheetComponent) mTimePicker.getComponent()).showOkButton();
-        }
-    }
-
     void onCreate(@Nullable Bundle savedInstanceState) {
-        mPresenter.onCreate(readStateFromBundle(savedInstanceState));
+        mTimePicker.getPresenter().onCreate(readStateFromBundle(savedInstanceState));
     }
 
     @NonNull
     Bundle onSaveInstanceState(@NonNull Bundle bundle) {
-        final INumberPadTimePicker.State state = mPresenter.getState();
+        final INumberPadTimePicker.State state = mTimePicker.getPresenter().getState();
         bundle.putIntArray(KEY_DIGITS, state.getDigits());
         // TODO: Why do we need the count?
         bundle.putInt(KEY_COUNT, state.getCount());
@@ -149,7 +85,7 @@ final class NumberPadTimePickerDialogViewDelegate implements DialogView {
     }
 
     void onStop() {
-        mPresenter.onStop();
+        mTimePicker.getPresenter().onStop();
     }
 
     INumberPadTimePicker.DialogPresenter getPresenter() {

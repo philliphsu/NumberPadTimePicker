@@ -9,6 +9,7 @@ import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.IntDef;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.text.format.DateFormat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageButton;
@@ -31,8 +32,10 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
     @interface NumberPadTimePickerLayout {}
 
     private NumberPadTimePickerComponent mTimePickerComponent;
+    private OkButtonCallbacks mCallbacks;
+    private INumberPadTimePicker.Presenter mPresenter;
+    private LocaleModel mLocaleModel;
     private LinearLayout mInputTimeContainer;
-    private NumberPadTimePickerPromptViewDelegate mPromptDelegate;
 
     private @NumberPadTimePickerLayout int mLayout;
 
@@ -99,6 +102,39 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
         }
 
         mInputTimeContainer = (LinearLayout) findViewById(R.id.nptp_input_time_container);
+        mLocaleModel = new LocaleModel(context);
+
+        // TODO: Create and retrieve an attribute 'nptp_is24HourMode'
+        setIs24HourMode(DateFormat.is24HourFormat(context));
+        setupClickListeners(mPresenter);
+
+        post(new Runnable() {
+            @Override
+            public void run() {
+                mPresenter.onShow();
+            }
+        });
+    }
+
+    void setIs24HourMode(boolean is24HourMode) {
+        // TODO: Consider writing a setIs24HourMode() method in the presenter, and using that
+        // instead of creating a new Presenter instance every time we want to change the mode.
+        mPresenter = new NumberPadTimePickerPresenter(this, mLocaleModel, is24HourMode);
+        // TODO: We can move the contents of this method to the constructor? Then delete this.
+        mPresenter.onCreate(NumberPadTimePickerState.EMPTY);
+    }
+
+    /**
+     * @param presenter The presenter to forward click events to.
+     */
+    private void setupClickListeners(INumberPadTimePicker.Presenter presenter) {
+        OnBackspaceClickHandler backspaceClickHandler = new OnBackspaceClickHandler(presenter);
+        mTimePickerComponent.mBackspace.setOnClickListener(backspaceClickHandler);
+        mTimePickerComponent.mBackspace.setOnLongClickListener(backspaceClickHandler);
+        mTimePickerComponent.mNumberPad.setOnNumberKeyClickListener(
+                new OnNumberKeyClickListener(presenter));
+        mTimePickerComponent.mNumberPad.setOnAltKeyClickListener(
+                new OnAltKeyClickListener(presenter));
     }
 
     @Override
@@ -156,6 +192,33 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
         mTimePickerComponent.mNumberPad.setRightAltKeyEnabled(enabled);
     }
 
+    @Override
+    public void setOkButtonEnabled(boolean enabled) {
+        if (mLayout == LAYOUT_BOTTOM_SHEET) {
+            ((NumberPadTimePickerBottomSheetComponent) mTimePickerComponent)
+                    .setOkButtonEnabled(enabled);
+        }
+        // Fire the callback even if the client is using the bottom sheet layout's provided FAB,
+        // in case they want to do something additional.
+        if (mCallbacks != null) {
+            mCallbacks.onOkButtonEnabled(enabled);
+        }
+    }
+
+    @Override
+    public void setResult(int hour, int minute) {
+        if (mCallbacks != null) {
+            mCallbacks.onOkButtonClick(this, hour, minute);
+        }
+    }
+
+    @Override
+    public void showOkButton() {
+        if (mLayout == LAYOUT_BOTTOM_SHEET) {
+            ((NumberPadTimePickerBottomSheetComponent) mTimePickerComponent).showOkButton();
+        }
+    }
+
     @Deprecated
     @Override
     public void setHeaderDisplayFocused(boolean focused) {
@@ -164,19 +227,9 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
 
     /**
      * Set the callbacks to be invoked for your custom "ok" button during typing the time.
-     *
-     * @param is24HourMode The callbacks behave differently between 12-hour mode and 24-hour mode,
-     *                     so specify which mode you are using.
      */
-    public void setOkButtonCallbacks(OkButtonCallbacks callbacks, boolean is24HourMode) {
-        if (callbacks != null) {
-            // Install prompt functionality to this view so that it can be
-            // used in lieu of a dialog.
-            mPromptDelegate = new NumberPadTimePickerPromptViewDelegate(
-                    this, getContext(), callbacks, is24HourMode);
-        } else {
-            mPromptDelegate = null;
-        }
+    public void setOkButtonCallbacks(OkButtonCallbacks callbacks) {
+        mCallbacks = callbacks;
     }
 
     /**
@@ -192,9 +245,7 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
      * </p>
      */
     public void confirmTimeSelection() {
-        if (mPromptDelegate != null) {
-            mPromptDelegate.confirmTimeSelection();
-        }
+        mPresenter.onOkButtonClick();  // Calls setResult() if "ok" button last enabled
     }
 
     @NumberPadTimePickerLayout
@@ -202,36 +253,12 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
         return mLayout;
     }
 
-    void setOnBackspaceClickListener(OnClickListener l) {
-        mTimePickerComponent.mBackspace.setOnClickListener(l);
-    }
-
-    void setOnBackspaceLongClickListener(OnLongClickListener l) {
-        mTimePickerComponent.mBackspace.setOnLongClickListener(l);
-    }
-
-    void setOnNumberKeyClickListener(OnClickListener l) {
-        mTimePickerComponent.mNumberPad.setOnNumberKeyClickListener(l);
-    }
-
-    void setOnAltKeyClickListener(OnClickListener l) {
-        mTimePickerComponent.mNumberPad.setOnAltKeyClickListener(l);
-    }
-
     NumberPadTimePickerComponent getComponent() {
         return mTimePickerComponent;
     }
 
-    /**
-     * Set up the click listeners that allow {@code view} and {@code presenter} to communicate with
-     * each other.
-     */
-    static void injectClickListeners(NumberPadTimePicker view, INumberPadTimePicker.Presenter presenter) {
-        OnBackspaceClickHandler backspaceClickHandler = new OnBackspaceClickHandler(presenter);
-        view.setOnBackspaceClickListener(backspaceClickHandler);
-        view.setOnBackspaceLongClickListener(backspaceClickHandler);
-        view.setOnNumberKeyClickListener(new OnNumberKeyClickListener(presenter));
-        view.setOnAltKeyClickListener(new OnAltKeyClickListener(presenter));
+    INumberPadTimePicker.Presenter getPresenter() {
+        return mPresenter;
     }
 
     @NumberPadTimePickerLayout

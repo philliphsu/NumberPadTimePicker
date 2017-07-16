@@ -9,8 +9,7 @@ import static com.philliphsu.numberpadtimepicker.AmPmState.UNSPECIFIED;
 import static com.philliphsu.numberpadtimepicker.DigitwiseTimeModel.MAX_DIGITS;
 import static com.philliphsu.numberpadtimepicker.Preconditions.checkNotNull;
 
-class NumberPadTimePickerPresenter implements
-        INumberPadTimePicker.Presenter,
+class NumberPadTimePickerPresenter implements INumberPadTimePicker.Presenter,
         DigitwiseTimeModel.OnInputChangeListener {
     private static final int MAX_CHARS = 5;  // 4 digits + time separator
 
@@ -27,11 +26,13 @@ class NumberPadTimePickerPresenter implements
     private boolean mAltKeysDisabled;
     private boolean mAllNumberKeysDisabled;
     private boolean mHeaderDisplayFocused;
+    private boolean mOkButtonEnabled;
 
-    final DigitwiseTimeModel mTimeModel = new DigitwiseTimeModel(this);
+    private final DigitwiseTimeModel mTimeModel = new DigitwiseTimeModel(this);
+    private final DigitwiseTimeParser mTimeParser = new DigitwiseTimeParser(mTimeModel);
 
     @AmPmState
-    int mAmPmState = UNSPECIFIED;
+    private int mAmPmState = UNSPECIFIED;
 
     NumberPadTimePickerPresenter(@NonNull INumberPadTimePicker.View view,
                                  @NonNull LocaleModel localeModel,
@@ -85,6 +86,20 @@ class NumberPadTimePickerPresenter implements
     @Override
     public boolean onBackspaceLongClick() {
         return mTimeModel.clearDigits();
+    }
+
+    @Override
+    public boolean onOkButtonClick() {
+        if (mOkButtonEnabled) {
+            mView.setResult(mTimeParser.getHour(mAmPmState), mTimeParser.getMinute(mAmPmState));
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void onShow() {
+        mView.showOkButton();
     }
 
     @Override
@@ -184,12 +199,18 @@ class NumberPadTimePickerPresenter implements
         mView.setRightAltKeyText(mAltTexts[1]);
     }
 
-    void updateViewEnabledStates() {
+    private void updateViewEnabledStates() {
         updateNumberKeysStates();
         updateAltKeysStates();
         updateBackspaceState();
         // TOneverDO: Call before both updateAltKeysStates() and updateNumberKeysStates().
         updateHeaderDisplayFocus();
+        updateOkButtonState();
+    }
+
+    private void updateOkButtonState() {
+        mOkButtonEnabled = mTimeParser.checkTimeValid(mAmPmState);
+        mView.setOkButtonEnabled(mOkButtonEnabled);
     }
 
     private void updateHeaderDisplayFocus() {
