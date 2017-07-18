@@ -230,6 +230,7 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
      */
     public void setOkButtonCallbacks(OkButtonCallbacks callbacks) {
         mCallbacks = callbacks;
+        mPresenter.onSetOkButtonCallbacks();
     }
 
     /**

@@ -34,6 +34,7 @@ interface INumberPadTimePicker {
         boolean onBackspaceLongClick();
         boolean onOkButtonClick();
         void onShow();
+        void onSetOkButtonCallbacks();
         /**
          * @param state The state to initialize the time picker with.
          */

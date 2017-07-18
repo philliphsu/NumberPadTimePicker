@@ -103,6 +103,11 @@ class NumberPadTimePickerPresenter implements INumberPadTimePicker.Presenter,
     }
 
     @Override
+    public void onSetOkButtonCallbacks() {
+        updateOkButtonState();
+    }
+
+    @Override
     public void onCreate(@NonNull INumberPadTimePicker.State state) {
         // If any digits are inserted, onDigitStored() will be called
         // for each digit and the time display will be updated automatically.
