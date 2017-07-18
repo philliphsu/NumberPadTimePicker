@@ -17,10 +17,6 @@ interface INumberPadTimePicker {
         void setOkButtonEnabled(boolean enabled);
         void setResult(int hour, int minute);
         void showOkButton();
-
-        // TODO: The header is no longer "focusable". Delete this at some point.
-        // This will prompt us to delete our tests that test the header display.
-        @Deprecated void setHeaderDisplayFocused(boolean focused);
     }
 
     interface DialogView {

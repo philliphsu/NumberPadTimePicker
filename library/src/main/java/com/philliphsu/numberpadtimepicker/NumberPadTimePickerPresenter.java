@@ -13,6 +13,8 @@ class NumberPadTimePickerPresenter implements INumberPadTimePicker.Presenter,
         DigitwiseTimeModel.OnInputChangeListener {
     private static final int MAX_CHARS = 5;  // 4 digits + time separator
 
+    private final DigitwiseTimeModel mTimeModel = new DigitwiseTimeModel(this);
+    private final DigitwiseTimeParser mTimeParser = new DigitwiseTimeParser(mTimeModel);
     private final StringBuilder mFormattedInput = new StringBuilder(MAX_CHARS);
     private final String[] mAltTexts = new String[2];
 
@@ -23,16 +25,8 @@ class NumberPadTimePickerPresenter implements INumberPadTimePicker.Presenter,
 
     private INumberPadTimePicker.View mView;
 
-    private boolean mAltKeysDisabled;
-    private boolean mAllNumberKeysDisabled;
-    private boolean mHeaderDisplayFocused;
+    private @AmPmState int mAmPmState = UNSPECIFIED;
     private boolean mOkButtonEnabled;
-
-    private final DigitwiseTimeModel mTimeModel = new DigitwiseTimeModel(this);
-    private final DigitwiseTimeParser mTimeParser = new DigitwiseTimeParser(mTimeModel);
-
-    @AmPmState
-    private int mAmPmState = UNSPECIFIED;
 
     NumberPadTimePickerPresenter(@NonNull INumberPadTimePicker.View view,
                                  @NonNull LocaleModel localeModel,
@@ -192,7 +186,6 @@ class NumberPadTimePickerPresenter implements INumberPadTimePicker.Presenter,
 
     private void enable(int start, int end) {
         mView.setNumberKeysEnabled(start, end);
-        mAllNumberKeysDisabled = start == 0 && end == 0;
     }
 
     private void insertDigits(int... digits) {
@@ -208,22 +201,12 @@ class NumberPadTimePickerPresenter implements INumberPadTimePicker.Presenter,
         updateNumberKeysStates();
         updateAltKeysStates();
         updateBackspaceState();
-        // TOneverDO: Call before both updateAltKeysStates() and updateNumberKeysStates().
-        updateHeaderDisplayFocus();
         updateOkButtonState();
     }
 
     private void updateOkButtonState() {
         mOkButtonEnabled = mTimeParser.checkTimeValid(mAmPmState);
         mView.setOkButtonEnabled(mOkButtonEnabled);
-    }
-
-    private void updateHeaderDisplayFocus() {
-        final boolean showHeaderDisplayFocused = !(mAllNumberKeysDisabled && mAltKeysDisabled);
-        if (mHeaderDisplayFocused != showHeaderDisplayFocused) {
-            mView.setHeaderDisplayFocused(showHeaderDisplayFocused);
-            mHeaderDisplayFocused = showHeaderDisplayFocused;
-        }
     }
 
     private void updateBackspaceState() { 
@@ -252,8 +235,6 @@ class NumberPadTimePickerPresenter implements INumberPadTimePicker.Presenter,
         }
         mView.setLeftAltKeyEnabled(enabled);
         mView.setRightAltKeyEnabled(enabled);
-
-        mAltKeysDisabled = !enabled;
     }
     
     private void updateNumberKeysStates() {

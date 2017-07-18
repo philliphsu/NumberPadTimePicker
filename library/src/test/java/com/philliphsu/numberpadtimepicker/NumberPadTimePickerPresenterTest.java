@@ -218,7 +218,6 @@ public class NumberPadTimePickerPresenterTest {
             verify(mViews[MODE_12HR]).setRightAltKeyText(altText(1, MODE_12HR));
             verify(mViews[MODE_12HR]).setLeftAltKeyEnabled(false);
             verify(mViews[MODE_12HR]).setRightAltKeyEnabled(false);
-            verify(mViews[MODE_12HR]).setHeaderDisplayFocused(true);
         } else if (mode == MODE_24HR) {
             verify(mViews[MODE_24HR]).setNumberKeysEnabled(0, 10);
             verify(mViews[MODE_24HR]).setBackspaceEnabled(false);
@@ -230,7 +229,6 @@ public class NumberPadTimePickerPresenterTest {
             verify(mViews[MODE_24HR]).setRightAltKeyText(altText(1, MODE_24HR));
             verify(mViews[MODE_24HR]).setLeftAltKeyEnabled(false);
             verify(mViews[MODE_24HR]).setRightAltKeyEnabled(false);
-            verify(mViews[MODE_24HR]).setHeaderDisplayFocused(true);
         }
     }
 
@@ -290,7 +288,6 @@ public class NumberPadTimePickerPresenterTest {
         verify(mViews[mode], atLeastOnce()).setBackspaceEnabled(test.backspaceEnabled);
         verify(mViews[mode], atLeastOnce()).setLeftAltKeyEnabled(test.leftAltKeyEnabled);
         verify(mViews[mode], atLeastOnce()).setRightAltKeyEnabled(test.rightAltKeyEnabled);
-        verify(mViews[mode], atLeastOnce()).setHeaderDisplayFocused(test.headerDisplayFocused);
 
         // Formatting of the header display is currently not the main concern.
 //        verify(mViews[mode], times(test.timeDisplay == null ? 0 : 1)).updateTimeDisplay(test.timeDisplay);

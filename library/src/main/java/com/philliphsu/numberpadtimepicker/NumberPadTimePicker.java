@@ -222,12 +222,6 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
         mTimePickerComponent.showOkButton();
     }
 
-    @Deprecated
-    @Override
-    public void setHeaderDisplayFocused(boolean focused) {
-        // Do nothing.
-    }
-
     /**
      * Set the callbacks to be invoked for your custom "ok" button during typing the time.
      */
