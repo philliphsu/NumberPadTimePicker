@@ -210,6 +210,10 @@ final class NumberPadTimePickerBottomSheetComponent extends NumberPadTimePickerC
             } else {
                 mOkButton.hide(mFabHideListener);
             }
+            // It is possible for the FAB to be initialized in a disabled state,
+            // e.g. when the ShowFabPolicy is not set to validTime at the time of
+            // NumberPadTimePicker's construction.
+            mOkButton.setEnabled(true);  // ALWAYS enabled
         } else if (mAnimateFabBackgroundColor) {
             if (enabledDiff) {
                 // Started animators are not necessarily running. They may have start delays, in

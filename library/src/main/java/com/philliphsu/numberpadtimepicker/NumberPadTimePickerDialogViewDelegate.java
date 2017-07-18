@@ -11,6 +11,7 @@ import android.widget.TimePicker;
 
 import com.philliphsu.numberpadtimepicker.INumberPadTimePicker.DialogView;
 
+import static com.philliphsu.numberpadtimepicker.NumberPadTimePicker.LAYOUT_BOTTOM_SHEET;
 import static com.philliphsu.numberpadtimepicker.Preconditions.checkNotNull;
 
 /**
@@ -35,7 +36,7 @@ final class NumberPadTimePickerDialogViewDelegate implements DialogView {
     // at the time of construction and (2) the bottom sheet layout does not need this class anymore
     // to control its FAB. Keep the setOkButton() instead.
     NumberPadTimePickerDialogViewDelegate(@NonNull DialogInterface delegator,
-            @NonNull Context context, @NonNull NumberPadTimePicker timePicker,
+            @NonNull Context context, @NonNull final NumberPadTimePicker timePicker,
             @Nullable View okButton, @Nullable OnTimeSetListener listener, boolean is24HourMode) {
         mDelegator = checkNotNull(delegator);
         mTimePicker = checkNotNull(timePicker);
@@ -51,7 +52,7 @@ final class NumberPadTimePickerDialogViewDelegate implements DialogView {
             public void onOkButtonEnabled(boolean enabled) {
                 // The bottom sheet dialog's FAB has been handled already. This is really only for
                 // the alert dialog's ok button.
-                if (mOkButton != null) {
+                if (timePicker.getLayout() != LAYOUT_BOTTOM_SHEET && mOkButton != null) {
                     mOkButton.setEnabled(enabled);
                 }
             }
