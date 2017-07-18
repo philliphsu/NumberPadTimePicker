@@ -26,6 +26,7 @@ import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static com.philliphsu.numberpadtimepicker.BackspaceLocation.LOCATION_FOOTER;
 import static com.philliphsu.numberpadtimepicker.BackspaceLocation.LOCATION_HEADER;
+import static com.philliphsu.numberpadtimepicker.Preconditions.checkNotNull;
 import static com.philliphsu.numberpadtimepicker.ShowFabPolicy.SHOW_FAB_ALWAYS;
 import static com.philliphsu.numberpadtimepicker.ShowFabPolicy.SHOW_FAB_VALID_TIME;
 
@@ -33,7 +34,7 @@ import static com.philliphsu.numberpadtimepicker.ShowFabPolicy.SHOW_FAB_VALID_TI
  * Component that installs {@link NumberPadTimePicker#LAYOUT_BOTTOM_SHEET bottom sheet}
  * functionality to a {@link NumberPadTimePicker}.
  */
-final class NumberPadTimePickerBottomSheetComponent extends NumberPadTimePickerComponent 
+final class NumberPadTimePickerBottomSheetComponent extends NumberPadTimePickerComponent
         implements BottomSheetNumberPadTimePickerThemer {
     /**
      * Color attributes defined in our {@code Context}'s theme.
@@ -68,13 +69,7 @@ final class NumberPadTimePickerBottomSheetComponent extends NumberPadTimePickerC
     NumberPadTimePickerBottomSheetComponent(final NumberPadTimePicker timePicker, Context context,
             AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(timePicker, context, attrs, defStyleAttr, defStyleRes);
-        mOkButton = (FloatingActionButton) timePicker.findViewById(R.id.nptp_ok_button);
-        mOkButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                timePicker.confirmTimeSelection();
-            }
-        });
+        mOkButton = (FloatingActionButton) checkNotNull(super.mOkButton);
         
         final TypedArray timePickerAttrs = context.obtainStyledAttributes(attrs,
                 R.styleable.NPTP_NumberPadTimePicker, defStyleAttr, defStyleRes);
@@ -185,10 +180,6 @@ final class NumberPadTimePickerBottomSheetComponent extends NumberPadTimePickerC
         return View.inflate(context, R.layout.nptp_bottomsheet_numberpad_time_picker, root);
     }
 
-    FloatingActionButton getOkButton() {
-        return mOkButton;
-    }
-
     boolean isAnimateFabIn() {
         return mAnimateFabIn;
     }
@@ -202,6 +193,7 @@ final class NumberPadTimePickerBottomSheetComponent extends NumberPadTimePickerC
         return mAnimateFabBackgroundColor;
     }
 
+    @Override
     void setOkButtonEnabled(boolean enabled) {
         final boolean enabledDiff = mOkButton.isEnabled() != enabled;
         if (mShowFabPolicy == SHOW_FAB_VALID_TIME) {
@@ -257,6 +249,7 @@ final class NumberPadTimePickerBottomSheetComponent extends NumberPadTimePickerC
         }
     }
 
+    @Override
     void showOkButton() {
         if (mShowFabPolicy == SHOW_FAB_ALWAYS && mAnimateFabIn) {
             mOkButton.postDelayed(new Runnable() {

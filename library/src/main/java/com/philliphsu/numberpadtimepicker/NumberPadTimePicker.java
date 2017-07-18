@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.IntDef;
+import android.support.annotation.Nullable;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
@@ -22,12 +23,14 @@ import java.lang.annotation.RetentionPolicy;
 
 public class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.View {
 
+    /** Default layout for use as a standalone view. */
+    static final int LAYOUT_STANDALONE = 0;
     /** Option to layout this view for use in an alert dialog. */
     static final int LAYOUT_ALERT = 1;
     /** Option to layout this view for use in a bottom sheet dialog. */
     static final int LAYOUT_BOTTOM_SHEET = 2;
 
-    @IntDef({LAYOUT_ALERT, LAYOUT_BOTTOM_SHEET})
+    @IntDef({LAYOUT_STANDALONE, LAYOUT_ALERT, LAYOUT_BOTTOM_SHEET})
     @Retention(RetentionPolicy.SOURCE)
     @interface NumberPadTimePickerLayout {}
 
@@ -95,8 +98,12 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
                         this, context, attrs, defStyleAttr, defStyleRes);
                 break;
             case LAYOUT_ALERT:
-            default:
                 mTimePickerComponent = new NumberPadTimePickerAlertComponent(
+                        this, context, attrs, defStyleAttr, defStyleRes);
+                break;
+            case LAYOUT_STANDALONE:
+            default:
+                mTimePickerComponent = new NumberPadTimePickerComponent(
                         this, context, attrs, defStyleAttr, defStyleRes);
                 break;
         }
@@ -194,10 +201,8 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
 
     @Override
     public void setOkButtonEnabled(boolean enabled) {
-        if (mLayout == LAYOUT_BOTTOM_SHEET) {
-            ((NumberPadTimePickerBottomSheetComponent) mTimePickerComponent)
-                    .setOkButtonEnabled(enabled);
-        }
+        mTimePickerComponent.setOkButtonEnabled(enabled);
+
         // Fire the callback even if the client is using the bottom sheet layout's provided FAB,
         // in case they want to do something additional.
         if (mCallbacks != null) {
@@ -214,9 +219,7 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
 
     @Override
     public void showOkButton() {
-        if (mLayout == LAYOUT_BOTTOM_SHEET) {
-            ((NumberPadTimePickerBottomSheetComponent) mTimePickerComponent).showOkButton();
-        }
+        mTimePickerComponent.showOkButton();
     }
 
     @Deprecated
@@ -264,29 +267,31 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
 
     @NumberPadTimePickerLayout
     private static int retrieveLayout(TypedArray timePickerAttrs) {
-        final int layout = timePickerAttrs.getInt(
-                R.styleable.NPTP_NumberPadTimePicker_nptp_numberPadTimePickerLayout, LAYOUT_ALERT);
+        final int layout = timePickerAttrs.getInt(R.styleable.
+                NPTP_NumberPadTimePicker_nptp_numberPadTimePickerLayout, LAYOUT_STANDALONE);
         switch (layout) {
+            case LAYOUT_STANDALONE:
             case LAYOUT_ALERT:
             case LAYOUT_BOTTOM_SHEET:
                 return layout;
             default:
-                return LAYOUT_ALERT;
+                return LAYOUT_STANDALONE;
         }
     }
 
     /**
      * Component that installs the base functionality of a {@link NumberPadTimePicker}. 
      */
-    abstract static class NumberPadTimePickerComponent implements NumberPadTimePickerThemer {
+    static class NumberPadTimePickerComponent implements NumberPadTimePickerThemer {
         final NumberPadView mNumberPad;
         final TextView mTimeDisplay;
         final TextView mAmPmDisplay;
         final ImageButton mBackspace;
         final ImageView mDivider;
         final View mHeader;
+        final @Nullable View mOkButton;
 
-        NumberPadTimePickerComponent(NumberPadTimePicker timePicker, Context context,
+        NumberPadTimePickerComponent(final NumberPadTimePicker timePicker, Context context,
                 AttributeSet attrs, int defStyleAttr, int defStyleRes) {
             final View root = inflate(context, timePicker);
             mNumberPad = (NumberPadView) root.findViewById(R.id.nptp_numberpad_time_picker_view);
@@ -295,6 +300,7 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
             mBackspace = (ImageButton) root.findViewById(R.id.nptp_backspace);
             mDivider = (ImageView) root.findViewById(R.id.nptp_divider);
             mHeader = root.findViewById(R.id.nptp_header);
+            mOkButton = root.findViewById(R.id.nptp_ok_button);
 
             final TypedArray timePickerAttrs = context.obtainStyledAttributes(attrs,
                     R.styleable.NPTP_NumberPadTimePicker, defStyleAttr, defStyleRes);
@@ -339,6 +345,15 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
             }
             if (numberPadBackground != null) {
                 setNumberPadBackground(numberPadBackground);
+            }
+
+            if (mOkButton != null) {
+                mOkButton.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        timePicker.confirmTimeSelection();
+                    }
+                });
             }
         }
 
@@ -396,7 +411,24 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
             return this;
         }
 
-        abstract View inflate(Context context, NumberPadTimePicker root);
+        View inflate(Context context, NumberPadTimePicker root) {
+            return View.inflate(context, R.layout.nptp_numberpad_time_picker, root);
+        }
+
+        @Nullable
+        View getOkButton() {
+            return mOkButton;
+        }
+
+        void setOkButtonEnabled(boolean enabled) {
+            if (mOkButton != null) {
+                mOkButton.setEnabled(enabled);
+            }
+        }
+
+        void showOkButton() {
+            // No default implementation.
+        }
 
         private static void setBackground(View view, Drawable background) {
             if (Build.VERSION.SDK_INT < 16) {

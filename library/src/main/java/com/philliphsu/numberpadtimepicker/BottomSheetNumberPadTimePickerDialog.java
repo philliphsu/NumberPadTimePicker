@@ -9,7 +9,6 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
-import android.support.design.widget.FloatingActionButton;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +36,6 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
                 root.findViewById(R.id.nptp_time_picker);
         final NumberPadTimePickerBottomSheetComponent timePickerComponent =
                 (NumberPadTimePickerBottomSheetComponent) timePicker.getComponent();
-        final FloatingActionButton okButton = timePickerComponent.getOkButton();
 
         mViewDelegate = new NumberPadTimePickerDialogViewDelegate(this,
                 // Prefer getContext() over the provided Context because the Context
@@ -50,21 +48,12 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
                 // is used as the Dialog's Context. It is a "context wrapper that allows
                 // you to modify or replace the theme of the wrapped context", and it
                 // works by applying the specified theme on top of the base context's theme.
-                getContext(), timePicker, okButton, listener, is24HourMode);
+                getContext(), timePicker, timePickerComponent.getOkButton(),
+                null /* cancel button */, listener, is24HourMode);
         setContentView(root);
 
         mThemer = new BottomSheetNumberPadTimePickerDialogThemer(timePickerComponent);
         mBottomSheetBehavior = BottomSheetBehavior.from((View) root.getParent());
-
-        // Overrides the default behavior set in NumberPadTimePickerBottomSheetComponent.
-        // The default behavior just returns the time to the OnTimeSet listener.
-        // This has the addition of cancelling the dialog afterward.
-        okButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mViewDelegate.getPresenter().onOkButtonClick();
-            }
-        });
 
         mBottomSheetBehavior.setPeekHeight(getContext().getResources().getDimensionPixelSize(
                 R.dimen.nptp_bottom_sheet_grid_picker_peek_height));

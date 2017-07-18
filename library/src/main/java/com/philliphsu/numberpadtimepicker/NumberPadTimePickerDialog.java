@@ -7,14 +7,16 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
-import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatDialog;
 import android.util.TypedValue;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 /**
  * Dialog to type in a time.
  */
-public class NumberPadTimePickerDialog extends AlertDialog {
+public class NumberPadTimePickerDialog extends AppCompatDialog {
 
     private final NumberPadTimePickerDialogViewDelegate mViewDelegate;
     private final NumberPadTimePickerDialogThemer mThemer;
@@ -27,22 +29,21 @@ public class NumberPadTimePickerDialog extends AlertDialog {
     public NumberPadTimePickerDialog(@NonNull Context context, @StyleRes int themeResId,
             @Nullable OnTimeSetListener listener, boolean is24HourMode) {
         super(context, resolveDialogTheme(context, themeResId));
-        final NumberPadTimePicker timePicker = new NumberPadTimePicker(getContext());
-        mViewDelegate = new NumberPadTimePickerDialogViewDelegate(this, getContext(), timePicker,
-                null, /* At this point, the AlertDialog has not installed its action buttons yet.
-                It does not do so until super.onCreate() returns. */
-                listener, is24HourMode);
-        mThemer = new NumberPadTimePickerDialogThemer(timePicker.getComponent());
-        setView(timePicker);
 
-        final OnDialogButtonClickListener onDialogButtonClickListener
-                = new OnDialogButtonClickListener(mViewDelegate.getPresenter());
-        // If we haven't set these by the time super.onCreate() returns, then the area
-        // where the action buttons would normally be is set to GONE visibility.
-        setButton(BUTTON_POSITIVE, getContext().getString(android.R.string.ok),
-                onDialogButtonClickListener);
-        setButton(BUTTON_NEGATIVE, getContext().getString(android.R.string.cancel),
-                onDialogButtonClickListener);
+        final View root = getLayoutInflater().inflate(
+                R.layout.nptp_alert_numberpad_time_picker_dialog, null);
+        final NumberPadTimePicker timePicker = (NumberPadTimePicker)
+                root.findViewById(R.id.nptp_time_picker);
+        final NumberPadTimePickerAlertComponent timePickerComponent =
+                (NumberPadTimePickerAlertComponent) timePicker.getComponent();
+        mViewDelegate = new NumberPadTimePickerDialogViewDelegate(this, getContext(), timePicker,
+                timePickerComponent.getOkButton(), timePickerComponent.getCancelButton(), listener,
+                is24HourMode);
+        mThemer = new NumberPadTimePickerDialogThemer(timePickerComponent);
+
+        // Must be requested before adding content, or get an AndroidRuntimeException!
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(root);
     }
 
     public NumberPadTimePickerDialogThemer getThemer() {
@@ -59,7 +60,6 @@ public class NumberPadTimePickerDialog extends AlertDialog {
         } catch (Resources.NotFoundException nfe) {
             // Do nothing.
         }
-        mViewDelegate.setOkButton(getButton(BUTTON_POSITIVE));
         mViewDelegate.onCreate(savedInstanceState);
     }
 

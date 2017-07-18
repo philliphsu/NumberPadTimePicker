@@ -11,7 +11,6 @@ import android.widget.TimePicker;
 
 import com.philliphsu.numberpadtimepicker.INumberPadTimePicker.DialogView;
 
-import static com.philliphsu.numberpadtimepicker.NumberPadTimePicker.LAYOUT_BOTTOM_SHEET;
 import static com.philliphsu.numberpadtimepicker.Preconditions.checkNotNull;
 
 /**
@@ -30,17 +29,14 @@ final class NumberPadTimePickerDialogViewDelegate implements DialogView {
     // Dummy TimePicker passed to onTimeSet() callback.
     private final TimePicker mDummy;
 
-    private View mOkButton;
-
-    // TODO: Consider removing the okButton param because (1) the alert layout does not have it ready
-    // at the time of construction and (2) the bottom sheet layout does not need this class anymore
-    // to control its FAB. Keep the setOkButton() instead.
     NumberPadTimePickerDialogViewDelegate(@NonNull DialogInterface delegator,
             @NonNull Context context, @NonNull final NumberPadTimePicker timePicker,
-            @Nullable View okButton, @Nullable OnTimeSetListener listener, boolean is24HourMode) {
+            @NonNull View okButton, @Nullable View cancelButton,
+            @Nullable OnTimeSetListener listener, boolean is24HourMode) {
+        checkNotNull(context);
+        checkNotNull(okButton);
         mDelegator = checkNotNull(delegator);
         mTimePicker = checkNotNull(timePicker);
-        mOkButton = okButton;
         mTimeSetListener = listener;
         mDummy = new TimePicker(context);
 
@@ -50,11 +46,7 @@ final class NumberPadTimePickerDialogViewDelegate implements DialogView {
         timePicker.setOkButtonCallbacks(new NumberPadTimePicker.OkButtonCallbacks() {
             @Override
             public void onOkButtonEnabled(boolean enabled) {
-                // The bottom sheet dialog's FAB has been handled already. This is really only for
-                // the alert dialog's ok button.
-                if (timePicker.getLayout() != LAYOUT_BOTTOM_SHEET && mOkButton != null) {
-                    mOkButton.setEnabled(enabled);
-                }
+                // Do nothing.
             }
 
             @Override
@@ -64,6 +56,25 @@ final class NumberPadTimePickerDialogViewDelegate implements DialogView {
                 }
             }
         });
+
+        // Overrides the default behavior set in the appropriate NumberPadTimePickerComponent.
+        // The default behavior just returns the time to the OnTimeSet listener.
+        // This has the addition of cancelling the dialog afterward.
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.onOkButtonClick();
+            }
+        });
+
+        if (cancelButton != null) {
+            cancelButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mPresenter.onCancelClick();
+                }
+            });
+        }
     }
 
     @Override
@@ -87,20 +98,6 @@ final class NumberPadTimePickerDialogViewDelegate implements DialogView {
 
     void onStop() {
         mTimePicker.getPresenter().onStop();
-    }
-
-    INumberPadTimePicker.DialogPresenter getPresenter() {
-        return mPresenter;
-    }
-
-    /**
-     * Workaround for situations when the 'ok' button is not
-     * guaranteed to be available at the time of construction.
-     * <p>
-     * e.g. {@code AlertDialog}
-     */
-    void setOkButton(@NonNull View okButton) {
-        mOkButton = checkNotNull(okButton);
     }
 
     @NonNull
