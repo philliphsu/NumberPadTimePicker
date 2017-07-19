@@ -9,11 +9,12 @@
     <declare-styleable name="NPTP_NumberPadTimePicker">
         <!-- Indicates how the NumberPadTimePicker should be laid out. -->
         <attr name="nptp_numberPadTimePickerLayout" format="enum">
-            <!-- Layout the time picker for use in an alert dialog. The time picker will not
-                 contain an "ok" button in its view hierarchy to confirm the time selection.
-                 Instead, the "ok" button comes from
-                 {@link android.content.DialogInterface#BUTTON_POSITIVE} of the alert dialog
-                 that contains this time picker. -->
+            <!-- Use the time picker as a standalone view. No additional views will be added
+                 to the hierarchy. -->
+            <enum name="standalone" value="0" />
+            <!-- Layout the time picker for use in an alert dialog. The time picker will
+                 contain a panel of action buttons in its view hierarchy to confirm the time
+                 selection or to cancel. -->
             <enum name="alert" value="1" />
             <!-- Layout the time picker for use in a bottom sheet dialog. The time picker
                  will contain a floating action button in its view hierarchy to confirm
