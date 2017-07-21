@@ -87,7 +87,7 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
         // Override the dialog's width if we're running in an eligible layout qualifier.
         try {
             getWindow().setLayout(getContext().getResources().getDimensionPixelSize(
-                    R.dimen.nptp_bottom_sheet_dialog_width), ViewGroup.LayoutParams.WRAP_CONTENT);
+                    R.dimen.nptp_bottom_sheet_dialog_width), ViewGroup.LayoutParams.MATCH_PARENT);
         } catch (Resources.NotFoundException nfe) {
             // Do nothing.
         }
