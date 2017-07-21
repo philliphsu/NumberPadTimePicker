@@ -78,7 +78,6 @@ public class NumberPadTimePickerDialogFragment extends DialogFragment {
         Dialog dialog;
         NumberPadTimePickerDialogThemer themer;
         boolean is24HourMode = DateFormat.is24HourFormat(getContext());
-        boolean isBottomSheetThemer = false;
 
         switch (dialogMode) {
             case MODE_BOTTOM_SHEET:
@@ -87,7 +86,6 @@ public class NumberPadTimePickerDialogFragment extends DialogFragment {
                         themeResId, listener, is24HourMode);
                 themer = bottomSheetPicker.getThemer();
                 dialog = bottomSheetPicker;
-                isBottomSheetThemer = true;
                 break;
             case MODE_ALERT:
             default:
@@ -99,25 +97,7 @@ public class NumberPadTimePickerDialogFragment extends DialogFragment {
         }
 
         if (customTheme) {
-            CustomThemeModel model = CustomThemeModel.get(getContext());
-            themer.setHeaderBackground(model.getHeaderBackground())
-                    .setInputTimeTextColor(model.getInputTimeTextColor())
-                    .setInputAmPmTextColor(model.getInputAmPmTextColor())
-                    .setNumberPadBackground(model.getNumberPadBackground())
-                    .setNumberKeysTextColor(model.getNumberKeysTextColor())
-                    .setAltKeysTextColor(model.getAltKeysTextColor())
-                    .setDivider(model.getDivider())
-                    .setBackspaceTint(model.getBackspaceTint());
-            if (isBottomSheetThemer) {
-                ((BottomSheetNumberPadTimePickerDialogThemer) themer)
-                        .setShowFabPolicy(model.getShowFabPolicy())
-                        .setAnimateFabIn(model.getAnimateFabEntry())
-                        .setAnimateFabBackgroundColor(model.getAnimateFabColor())
-                        .setFabBackgroundColor(model.getFabBackgroundColor())
-                        .setFabIconTint(model.getFabIconTint())
-                        .setFabRippleColor(model.getFabRippleColor())
-                        .setBackspaceLocation(model.getBackspaceLocation());
-            }
+            CustomThemeController.get(getContext()).applyCustomTheme(themer);
         }
 
         return dialog;

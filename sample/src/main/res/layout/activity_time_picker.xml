@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,9 +7,31 @@
     android:layout_height="match_parent"
     tools:context="com.philliphsu.numberpadtimepickersample.TimePickerActivity">
 
-    <com.philliphsu.numberpadtimepicker.NumberPadTimePicker
-        android:id="@+id/time_picker_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+        <com.philliphsu.numberpadtimepicker.NumberPadTimePicker
+            android:id="@+id/time_picker_view_standalone"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:nptp_numberPadTimePickerLayout="standalone" />
+
+        <com.philliphsu.numberpadtimepicker.NumberPadTimePicker
+            android:id="@+id/time_picker_view_alert"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:nptp_numberPadTimePickerLayout="alert" />
+
+        <com.philliphsu.numberpadtimepicker.NumberPadTimePicker
+            android:id="@+id/time_picker_view_bottom_sheet"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:nptp_numberPadTimePickerLayout="bottomSheet" />
+
+    </FrameLayout>
+
+</ScrollView>

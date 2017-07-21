@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.philliphsu.numberpadtimepicker.NumberPadTimePicker;
 import com.philliphsu.numberpadtimepickersample.NumberPadTimePickerDialogFragment.DialogMode;
 
 import java.util.Calendar;
@@ -27,6 +28,10 @@ import static com.philliphsu.numberpadtimepickersample.NumberPadTimePickerDialog
 public class MainActivity extends AppCompatActivity {
     private static final String TAG_ALERT = "alert";
     private static final String TAG_BOTTOM_SHEET = "bottom_sheet";
+
+    public static final String EXTRA_VIEW_ACTIVITY_THEME_RES = "view_activity_theme_res";
+    public static final String EXTRA_VIEW_ACTIVITY_TIME_PICKER_LAYOUT = "view_activity_time_picker_layout";
+    public static final String EXTRA_VIEW_ACTIVITY_CUSTOM_THEME = "view_activity_custom_theme";
 
     private CustomThemeModel customThemeModel;
     private TextView timeSetView;
@@ -48,12 +53,23 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.button_xml_custom_theme_bottom_sheet)
                 .setOnClickListener(mBottomSheetClickListener);
 
-        findViewById(R.id.button_time_picker_activity).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, TimePickerActivity.class));
-            }
-        });
+        findViewById(R.id.button7).setOnClickListener(mViewActivityClickListener);
+        findViewById(R.id.button8).setOnClickListener(mViewActivityClickListener);
+        findViewById(R.id.button9).setOnClickListener(mViewActivityClickListener);
+        findViewById(R.id.button_xml_custom_theme_view_standalone)
+                .setOnClickListener(mViewActivityClickListener);
+
+        findViewById(R.id.button10).setOnClickListener(mViewActivityClickListener);
+        findViewById(R.id.button11).setOnClickListener(mViewActivityClickListener);
+        findViewById(R.id.button12).setOnClickListener(mViewActivityClickListener);
+        findViewById(R.id.button_xml_custom_theme_view_alert)
+                .setOnClickListener(mViewActivityClickListener);
+
+        findViewById(R.id.button13).setOnClickListener(mViewActivityClickListener);
+        findViewById(R.id.button14).setOnClickListener(mViewActivityClickListener);
+        findViewById(R.id.button15).setOnClickListener(mViewActivityClickListener);
+        findViewById(R.id.button_xml_custom_theme_view_bottom_sheet)
+                .setOnClickListener(mViewActivityClickListener);
 
         customThemeModel = CustomThemeModel.get(this);
         timeSetView = (TextView) findViewById(R.id.time_set);
@@ -101,6 +117,21 @@ public class MainActivity extends AppCompatActivity {
             showTimePicker(MODE_BOTTOM_SHEET, v.getId(), theme, TAG_BOTTOM_SHEET);
         }
     };
+
+    private View.OnClickListener mViewActivityClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            int theme = 0;
+            switch (v.getId()) {
+                case R.id.button_xml_custom_theme_view_standalone:
+                case R.id.button_xml_custom_theme_view_alert:
+                case R.id.button_xml_custom_theme_view_bottom_sheet:
+                    theme = R.style.AppTheme_TimePickerActivity;
+                    break;
+            }
+            showTimePickerActivity(v.getId(), theme);
+        }
+    };
     
     private void showTimePicker(@DialogMode int mode, @IdRes int buttonId,
             @StyleRes int theme, String tag) {
@@ -131,5 +162,57 @@ public class MainActivity extends AppCompatActivity {
         }
         NumberPadTimePickerDialogFragment.newInstance(mListener, mode, theme, customTheme)
                 .show(getSupportFragmentManager(), tag);
+    }
+
+    private void showTimePickerActivity(@IdRes int buttonId, @StyleRes int theme) {
+        boolean customTheme = false;
+        if (theme == 0) {
+            switch (buttonId) {
+                case R.id.button7:
+                case R.id.button10:
+                case R.id.button13:
+                    theme = R.style.Theme_Design_Light;
+                    break;
+                case R.id.button8:
+                case R.id.button11:
+                case R.id.button14:
+                    theme = R.style.Theme_Design;
+                    break;
+                case R.id.button9:
+                case R.id.button12:
+                case R.id.button15:
+                    theme = customThemeModel.getBaseViewActivityTheme();
+                    customTheme = true;
+                    break;
+            }
+        }
+        
+        int layout = 0;
+        switch (buttonId) {
+            case R.id.button7:
+            case R.id.button8:
+            case R.id.button9:
+            case R.id.button_xml_custom_theme_view_standalone:
+                layout = NumberPadTimePicker.LAYOUT_STANDALONE;
+                break;
+            case R.id.button10:
+            case R.id.button11:
+            case R.id.button12:
+            case R.id.button_xml_custom_theme_view_alert:
+                layout = NumberPadTimePicker.LAYOUT_ALERT;
+                break;
+            case R.id.button13:
+            case R.id.button14:
+            case R.id.button15:
+            case R.id.button_xml_custom_theme_view_bottom_sheet:
+                layout = NumberPadTimePicker.LAYOUT_BOTTOM_SHEET;
+                break;
+        }
+        
+        Intent intent = new Intent(this, TimePickerActivity.class);
+        intent.putExtra(EXTRA_VIEW_ACTIVITY_THEME_RES, theme);
+        intent.putExtra(EXTRA_VIEW_ACTIVITY_TIME_PICKER_LAYOUT, layout);
+        intent.putExtra(EXTRA_VIEW_ACTIVITY_CUSTOM_THEME, customTheme);
+        startActivity(intent);
     }
 }

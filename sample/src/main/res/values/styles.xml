@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
@@ -18,5 +18,14 @@
         <item name="android:colorBackground">@color/number_pad_time_picker_background_color</item>
         <item name="colorAccent">@color/number_pad_time_picker_accent_color</item>
         <item name="nptp_numberPadTimePickerStyle">@style/NumberPadTimePickerBottomSheetStyle</item>
+    </style>
+
+    <style name="AppTheme.TimePickerActivity">
+        <item name="android:colorBackground">@color/number_pad_time_picker_background_color</item>
+        <item name="android:navigationBarColor" tools:targetApi="21">?attr/colorPrimaryDark</item>
+
+        <item name="colorPrimary">@color/number_pad_time_picker_activity_primary_color</item>
+        <item name="colorPrimaryDark">@color/number_pad_time_picker_activity_primary_color_dark</item>
+        <item name="colorAccent">@color/number_pad_time_picker_accent_color</item>
     </style>
 </resources>

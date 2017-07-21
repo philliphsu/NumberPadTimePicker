@@ -93,16 +93,99 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/view"
+            android:text="@string/view_standalone"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
         <Button
-            android:id="@+id/button_time_picker_activity"
+            android:id="@+id/button7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/view_in_activity" />
+            android:text="@string/light_theme" />
+
+        <Button
+            android:id="@+id/button8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dark_theme" />
+
+        <Button
+            android:id="@+id/button_xml_custom_theme_view_standalone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/xml_custom_theme" />
+
+        <Button
+            android:id="@+id/button9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/my_custom_theme" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/view_alert"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+        <Button
+            android:id="@+id/button10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/light_theme" />
+
+        <Button
+            android:id="@+id/button11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dark_theme" />
+
+        <Button
+            android:id="@+id/button_xml_custom_theme_view_alert"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/xml_custom_theme" />
+
+        <Button
+            android:id="@+id/button12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/my_custom_theme" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/view_bottom_sheet"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+        <Button
+            android:id="@+id/button13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/light_theme" />
+
+        <Button
+            android:id="@+id/button14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dark_theme" />
+
+        <Button
+            android:id="@+id/button_xml_custom_theme_view_bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/xml_custom_theme" />
+
+        <Button
+            android:id="@+id/button15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/my_custom_theme" />
+
 
     </LinearLayout>
 

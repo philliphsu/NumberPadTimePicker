@@ -10,8 +10,9 @@
     <string name="my_custom_theme">Dynamic Custom Theme</string>
     <string name="edit_custom_theme">Edit custom theme</string>
     <string name="time_set_label">Time set: %s</string>
-    <string name="view">View</string>
-    <string name="view_in_activity">View in Activity</string>
+    <string name="view_standalone">View (Standalone)</string>
+    <string name="view_alert">View (Alert)</string>
+    <string name="view_bottom_sheet">View (Bottom Sheet)</string>
 
     <!-- EditCustomThemeActivity -->
     <string name="common_attributes">Common attributes</string>

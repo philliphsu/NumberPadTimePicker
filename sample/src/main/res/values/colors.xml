@@ -2,6 +2,8 @@
 <resources>
     <color name="number_pad_time_picker_accent_color">#0091EA</color>
     <color name="number_pad_time_picker_background_color">#0F2D40</color>
+    <color name="number_pad_time_picker_activity_primary_color">#0b2233</color>
+    <color name="number_pad_time_picker_activity_primary_color_dark">#071b27</color>
 
     <color name="default_color_choice_500">#3F51B5</color>
     <color name="default_color_choice_a200">#FF4081</color>

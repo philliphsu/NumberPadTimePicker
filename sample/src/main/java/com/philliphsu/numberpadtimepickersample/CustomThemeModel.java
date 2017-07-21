@@ -73,6 +73,17 @@ public final class CustomThemeModel {
         }
     }
 
+    @StyleRes
+    public int getBaseViewActivityTheme() {
+        switch (getBaseThemeValue(sharedPrefs)) {
+            case 0:
+            default:
+                return R.style.Theme_Design_Light;  // Inherits from Theme.AppCompat.Light
+            case 1:
+                return R.style.Theme_Design;        // Inherits from Theme.AppCompat
+        }
+    }
+
     public Drawable getHeaderBackground() {
         return makeDrawable(PREF_HEADER_BACKGROUND);
     }
