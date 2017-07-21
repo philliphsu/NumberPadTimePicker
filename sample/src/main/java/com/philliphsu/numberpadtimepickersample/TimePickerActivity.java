@@ -1,14 +1,11 @@
 package com.philliphsu.numberpadtimepickersample;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.philliphsu.numberpadtimepicker.NumberPadTimePicker;
 import com.philliphsu.numberpadtimepicker.NumberPadTimePicker.NumberPadTimePickerLayout;
@@ -32,9 +29,17 @@ public class TimePickerActivity extends AppCompatActivity {
         switch (mTimePickerLayout) {
             case NumberPadTimePicker.LAYOUT_ALERT:
                 mView = (NumberPadTimePicker) findViewById(R.id.time_picker_view_alert);
+                mView.setOkButtonCallbacks(mOkButtonCallbacks);
+                mView.setCancelButtonClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        finish();
+                    }
+                });
                 break;
             case NumberPadTimePicker.LAYOUT_BOTTOM_SHEET:
                 mView = (NumberPadTimePicker) findViewById(R.id.time_picker_view_bottom_sheet);
+                mView.setOkButtonCallbacks(mOkButtonCallbacks);
                 break;
             case NumberPadTimePicker.LAYOUT_STANDALONE:
             default:
@@ -42,10 +47,6 @@ public class TimePickerActivity extends AppCompatActivity {
                 break;
         }
         mView.setVisibility(View.VISIBLE);
-
-        if (mTimePickerLayout != NumberPadTimePicker.LAYOUT_STANDALONE) {
-            mView.setOkButtonCallbacks(mOkButtonCallbacks);
-        }
 
         if (getIntent().getBooleanExtra(MainActivity.EXTRA_VIEW_ACTIVITY_CUSTOM_THEME, false)) {
             CustomThemeController.get(this).applyCustomTheme(mView.getThemer());
