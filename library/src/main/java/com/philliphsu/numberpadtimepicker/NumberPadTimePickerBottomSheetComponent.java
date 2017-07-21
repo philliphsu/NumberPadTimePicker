@@ -8,6 +8,7 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
@@ -173,6 +174,46 @@ final class NumberPadTimePickerBottomSheetComponent extends NumberPadTimePickerC
             mAnimateFabIn = animateIn;
         }
         return this;
+    }
+
+    @Override
+    public BottomSheetNumberPadTimePickerThemer setInputTimeTextColor(@ColorInt int color) {
+        return (BottomSheetNumberPadTimePickerThemer) super.setInputTimeTextColor(color);
+    }
+
+    @Override
+    public BottomSheetNumberPadTimePickerThemer setInputAmPmTextColor(@ColorInt int color) {
+        return (BottomSheetNumberPadTimePickerThemer) super.setInputAmPmTextColor(color);
+    }
+
+    @Override
+    public BottomSheetNumberPadTimePickerThemer setBackspaceTint(ColorStateList colors) {
+        return (BottomSheetNumberPadTimePickerThemer) super.setBackspaceTint(colors);
+    }
+
+    @Override
+    public BottomSheetNumberPadTimePickerThemer setNumberKeysTextColor(ColorStateList colors) {
+        return (BottomSheetNumberPadTimePickerThemer) super.setNumberKeysTextColor(colors);
+    }
+
+    @Override
+    public BottomSheetNumberPadTimePickerThemer setAltKeysTextColor(ColorStateList colors) {
+        return (BottomSheetNumberPadTimePickerThemer) super.setAltKeysTextColor(colors);
+    }
+
+    @Override
+    public BottomSheetNumberPadTimePickerThemer setHeaderBackground(Drawable background) {
+        return (BottomSheetNumberPadTimePickerThemer) super.setHeaderBackground(background);
+    }
+
+    @Override
+    public BottomSheetNumberPadTimePickerThemer setNumberPadBackground(Drawable background) {
+        return (BottomSheetNumberPadTimePickerThemer) super.setNumberPadBackground(background);
+    }
+
+    @Override
+    public BottomSheetNumberPadTimePickerThemer setDivider(Drawable divider) {
+        return (BottomSheetNumberPadTimePickerThemer) super.setDivider(divider);
     }
 
     @Override

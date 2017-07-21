@@ -24,15 +24,15 @@ import java.lang.annotation.RetentionPolicy;
 public class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.View {
 
     /** Default layout for use as a standalone view. */
-    static final int LAYOUT_STANDALONE = 0;
+    public static final int LAYOUT_STANDALONE = 0;
     /** Option to layout this view for use in an alert dialog. */
-    static final int LAYOUT_ALERT = 1;
+    public static final int LAYOUT_ALERT = 1;
     /** Option to layout this view for use in a bottom sheet dialog. */
-    static final int LAYOUT_BOTTOM_SHEET = 2;
+    public static final int LAYOUT_BOTTOM_SHEET = 2;
 
     @IntDef({LAYOUT_STANDALONE, LAYOUT_ALERT, LAYOUT_BOTTOM_SHEET})
     @Retention(RetentionPolicy.SOURCE)
-    @interface NumberPadTimePickerLayout {}
+    public @interface NumberPadTimePickerLayout {}
 
     private NumberPadTimePickerComponent mTimePickerComponent;
     private OkButtonCallbacks mCallbacks;
@@ -246,8 +246,33 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
         mPresenter.onOkButtonClick();  // Calls setResult() if "ok" button last enabled
     }
 
+    /**
+     * Access the theming APIs available for this time picker. The {@link #getLayout() layout} of
+     * this picker will determine which APIs are available to you.
+     * <p>
+     * If this time picker's layout is {@link #LAYOUT_BOTTOM_SHEET},
+     * the return value can safely be casted to {@link BottomSheetNumberPadTimePickerThemer}
+     * to access additional bottom sheet theming APIs.
+     *
+     * @return An object that can be used to customize this time picker's theme.
+     */
+    public NumberPadTimePickerThemer getThemer() {
+        return mTimePickerComponent;
+    }
+
+    /**
+     * Returns the layout of this time picker. The layout determines the presence and the appearance
+     * of dialog buttons, if applicable.
+     *
+     * @return One of
+     *          <ul>
+     *              <li>{@link #LAYOUT_STANDALONE}</li>
+     *              <li>{@link #LAYOUT_ALERT}</li>
+     *              <li>{@link #LAYOUT_BOTTOM_SHEET}</li>
+     *          </ul>
+     */
     @NumberPadTimePickerLayout
-    int getLayout() {
+    public int getLayout() {
         return mLayout;
     }
 
@@ -352,49 +377,49 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
         }
 
         @Override
-        public final NumberPadTimePickerThemer setInputTimeTextColor(@ColorInt int color) {
+        public NumberPadTimePickerThemer setInputTimeTextColor(@ColorInt int color) {
             mTimeDisplay.setTextColor(color);
             return this;
         }
 
         @Override
-        public final NumberPadTimePickerThemer setInputAmPmTextColor(@ColorInt int color) {
+        public NumberPadTimePickerThemer setInputAmPmTextColor(@ColorInt int color) {
             mAmPmDisplay.setTextColor(color);
             return this;
         }
 
         @Override
-        public final NumberPadTimePickerThemer setBackspaceTint(ColorStateList colors) {
+        public NumberPadTimePickerThemer setBackspaceTint(ColorStateList colors) {
             DrawableCompat.setTintList(mBackspace.getDrawable(), colors);
             return this;
         }
 
         @Override
-        public final NumberPadTimePickerThemer setNumberKeysTextColor(ColorStateList colors) {
+        public NumberPadTimePickerThemer setNumberKeysTextColor(ColorStateList colors) {
             mNumberPad.setNumberKeysTextColor(colors);
             return this;
         }
 
         @Override
-        public final NumberPadTimePickerThemer setAltKeysTextColor(ColorStateList colors) {
+        public NumberPadTimePickerThemer setAltKeysTextColor(ColorStateList colors) {
             mNumberPad.setAltKeysTextColor(colors);
             return this;
         }
 
         @Override
-        public final NumberPadTimePickerThemer setHeaderBackground(Drawable background) {
+        public NumberPadTimePickerThemer setHeaderBackground(Drawable background) {
             setBackground(mHeader, background);
             return this;
         }
 
         @Override
-        public final NumberPadTimePickerThemer setNumberPadBackground(Drawable background) {
+        public NumberPadTimePickerThemer setNumberPadBackground(Drawable background) {
             setBackground(mNumberPad, background);
             return this;
         }
 
         @Override
-        public final NumberPadTimePickerThemer setDivider(Drawable divider) {
+        public NumberPadTimePickerThemer setDivider(Drawable divider) {
             mDivider.setImageDrawable(divider);
             if (Build.VERSION.SDK_INT >= 21) {
                 // Clear the tint set in the header's layout resource.
