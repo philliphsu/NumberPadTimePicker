@@ -18,15 +18,6 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/time_set"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/time_set_label"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/alert_dialog"

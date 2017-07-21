@@ -6,17 +6,13 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.StyleRes;
 import android.support.v7.app.AppCompatActivity;
-import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.philliphsu.numberpadtimepicker.NumberPadTimePicker;
 import com.philliphsu.numberpadtimepickersample.NumberPadTimePickerDialogFragment.DialogMode;
-
-import java.util.Calendar;
 
 import static com.philliphsu.numberpadtimepickersample.NumberPadTimePickerDialogFragment.ALERT_THEME_DARK;
 import static com.philliphsu.numberpadtimepickersample.NumberPadTimePickerDialogFragment.ALERT_THEME_LIGHT;
@@ -34,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_VIEW_ACTIVITY_CUSTOM_THEME = "view_activity_custom_theme";
 
     private CustomThemeModel customThemeModel;
-    private TextView timeSetView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
                 .setOnClickListener(mViewActivityClickListener);
 
         customThemeModel = CustomThemeModel.get(this);
-        timeSetView = (TextView) findViewById(R.id.time_set);
     }
 
     @Override
@@ -91,12 +85,7 @@ public class MainActivity extends AppCompatActivity {
     private TimePickerDialog.OnTimeSetListener mListener = new TimePickerDialog.OnTimeSetListener() {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-            calendar.set(Calendar.MINUTE, minute);
-
-            timeSetView.setText(getString(R.string.time_set_label, DateFormat.getTimeFormat(
-                    MainActivity.this).format(calendar.getTime())));
+            TimeSetToastController.get(MainActivity.this).show(hourOfDay, minute);
         }
     };
 

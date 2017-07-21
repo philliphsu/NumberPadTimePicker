@@ -13,10 +13,7 @@ import android.widget.Toast;
 import com.philliphsu.numberpadtimepicker.NumberPadTimePicker;
 import com.philliphsu.numberpadtimepicker.NumberPadTimePicker.NumberPadTimePickerLayout;
 
-import java.util.Calendar;
-
 public class TimePickerActivity extends AppCompatActivity {
-    private final Calendar mCalendar = Calendar.getInstance();
 
     private NumberPadTimePicker mView;
     private @Nullable MenuItem mCustomOkButton;
@@ -88,11 +85,7 @@ public class TimePickerActivity extends AppCompatActivity {
 
         @Override
         public void onOkButtonClick(NumberPadTimePicker view, int hourOfDay, int minute) {
-            Context c = TimePickerActivity.this;
-            mCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-            mCalendar.set(Calendar.MINUTE, minute);
-            Toast.makeText(c, DateFormat.getTimeFormat(c).format(mCalendar.getTime()),
-                    Toast.LENGTH_LONG).show();
+            TimeSetToastController.get(TimePickerActivity.this).show(hourOfDay, minute);
         }
     };
 }

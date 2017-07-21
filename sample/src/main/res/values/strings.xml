@@ -9,7 +9,6 @@
     <string name="xml_custom_theme">XML Custom Theme</string>
     <string name="my_custom_theme">Dynamic Custom Theme</string>
     <string name="edit_custom_theme">Edit custom theme</string>
-    <string name="time_set_label">Time set: %s</string>
     <string name="view_standalone">View (Standalone)</string>
     <string name="view_alert">View (Alert)</string>
     <string name="view_bottom_sheet">View (Bottom Sheet)</string>
