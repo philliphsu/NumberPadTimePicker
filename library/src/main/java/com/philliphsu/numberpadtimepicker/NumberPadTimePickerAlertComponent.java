@@ -33,4 +33,8 @@ final class NumberPadTimePickerAlertComponent extends
     View getCancelButton() {
         return mCancelButton;
     }
+
+    void setCancelButtonClickListener(View.OnClickListener listener) {
+        mCancelButton.setOnClickListener(listener);
+    }
 }

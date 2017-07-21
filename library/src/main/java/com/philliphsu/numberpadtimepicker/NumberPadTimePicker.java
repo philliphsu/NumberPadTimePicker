@@ -231,6 +231,22 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
     }
 
     /**
+     * Set the click listener to be invoked when this time picker's cancel button is clicked, if
+     * there is one.
+     * <p>
+     * This is a no-op for {@link #getLayout() layouts} other than {@link #LAYOUT_ALERT}. You do not
+     * need to set this if you are implementing your own "cancel" flow, perhaps through an external
+     * button defined in your own layouts.
+     */
+    public void setCancelButtonClickListener(OnClickListener listener) {
+        if (mLayout == LAYOUT_ALERT && mTimePickerComponent instanceof
+                NumberPadTimePickerAlertComponent) {
+            ((NumberPadTimePickerAlertComponent) mTimePickerComponent)
+                    .setCancelButtonClickListener(listener);
+        }
+    }
+
+    /**
      * This should be called by the click listener you set on your "ok" button.
      * This will call your {@link OkButtonCallbacks#onOkButtonClick(NumberPadTimePicker, int, int)
      * onOkButtonClick()} callback.
