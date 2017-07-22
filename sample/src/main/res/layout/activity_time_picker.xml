@@ -13,22 +13,22 @@
 
         <com.philliphsu.numberpadtimepicker.NumberPadTimePicker
             android:id="@+id/time_picker_view_standalone"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            style="@style/CustomWidthNumberPadTimePicker"
+            android:layout_gravity="center"
             android:visibility="gone"
             app:nptp_numberPadTimePickerLayout="standalone" />
 
         <com.philliphsu.numberpadtimepicker.NumberPadTimePicker
             android:id="@+id/time_picker_view_alert"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            style="@style/CustomWidthNumberPadTimePicker"
+            android:layout_gravity="center"
             android:visibility="gone"
             app:nptp_numberPadTimePickerLayout="alert" />
 
         <com.philliphsu.numberpadtimepicker.NumberPadTimePicker
             android:id="@+id/time_picker_view_bottom_sheet"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            style="@style/CustomWidthNumberPadTimePicker"
+            android:layout_gravity="center"
             android:visibility="gone"
             app:nptp_numberPadTimePickerLayout="bottomSheet" />
 
