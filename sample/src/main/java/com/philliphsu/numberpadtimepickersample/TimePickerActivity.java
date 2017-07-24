@@ -1,11 +1,12 @@
 package com.philliphsu.numberpadtimepickersample;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.view.ViewGroup;
 
 import com.philliphsu.numberpadtimepicker.NumberPadTimePicker;
 import com.philliphsu.numberpadtimepicker.NumberPadTimePicker.NumberPadTimePickerLayout;
@@ -24,29 +25,42 @@ public class TimePickerActivity extends AppCompatActivity {
             setTheme(getIntent().getIntExtra(MainActivity.EXTRA_VIEW_ACTIVITY_THEME_RES, 0));
         }
 
-        setContentView(R.layout.activity_time_picker);
         mTimePickerLayout = getIntent().getIntExtra(MainActivity.EXTRA_VIEW_ACTIVITY_TIME_PICKER_LAYOUT, 0);
+        final int nptpLayoutRes;
         switch (mTimePickerLayout) {
             case NumberPadTimePicker.LAYOUT_ALERT:
-                mView = (NumberPadTimePicker) findViewById(R.id.time_picker_view_alert);
-                mView.setOkButtonCallbacks(mOkButtonCallbacks);
-                mView.setCancelButtonClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        finish();
-                    }
-                });
+                nptpLayoutRes = R.layout.number_pad_time_picker_alert;
                 break;
             case NumberPadTimePicker.LAYOUT_BOTTOM_SHEET:
-                mView = (NumberPadTimePicker) findViewById(R.id.time_picker_view_bottom_sheet);
-                mView.setOkButtonCallbacks(mOkButtonCallbacks);
+                nptpLayoutRes = R.layout.number_pad_time_picker_bottom_sheet;
                 break;
             case NumberPadTimePicker.LAYOUT_STANDALONE:
             default:
-                mView = (NumberPadTimePicker) findViewById(R.id.time_picker_view_standalone);
+                nptpLayoutRes = R.layout.number_pad_time_picker_standalone;
                 break;
         }
-        mView.setVisibility(View.VISIBLE);
+
+        mView = (NumberPadTimePicker) getLayoutInflater().inflate(nptpLayoutRes, null);
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            // Set a ScrollView as the root view
+            setContentView(R.layout.activity_time_picker);
+            ((ViewGroup) findViewById(R.id.scrollView)).addView(mView);
+        } else {
+            setContentView(mView);
+        }
+
+        if (mTimePickerLayout != NumberPadTimePicker.LAYOUT_STANDALONE) {
+            mView.setOkButtonCallbacks(mOkButtonCallbacks);
+        }
+
+        if (mTimePickerLayout == NumberPadTimePicker.LAYOUT_ALERT) {
+            mView.setCancelButtonClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+        }
 
         if (getIntent().getBooleanExtra(MainActivity.EXTRA_VIEW_ACTIVITY_CUSTOM_THEME, false)) {
             CustomThemeController.get(this).applyCustomTheme(mView.getThemer());
