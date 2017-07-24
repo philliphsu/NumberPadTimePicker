@@ -40,12 +40,23 @@ public class TimePickerActivity extends AppCompatActivity {
                 break;
         }
 
-        mView = (NumberPadTimePicker) getLayoutInflater().inflate(nptpLayoutRes, null);
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             // Set a ScrollView as the root view
             setContentView(R.layout.activity_time_picker);
+            // Inflate nptpLayoutRes using the ScrollView as root so that the NumberPadTimePicker's
+            // layout params are applied.
+            mView = (NumberPadTimePicker) getLayoutInflater().inflate(nptpLayoutRes,
+                    (ViewGroup) findViewById(R.id.scrollView), false /* attachToRoot */);
+            // attachToRoot was false so that the inflated NumberPadTimePicker is returned.
+            // Add it as a child view manually.
             ((ViewGroup) findViewById(R.id.scrollView)).addView(mView);
         } else {
+            // Inflate nptpLayoutRes using the window as root so that the NumberPadTimePicker's
+            // layout params are applied.
+            mView = (NumberPadTimePicker) getLayoutInflater().inflate(nptpLayoutRes,
+                    (ViewGroup) findViewById(android.R.id.content), false /* attachToRoot */);
+            // attachToRoot was false so that the inflated NumberPadTimePicker is returned.
+            // Set it as the content view manually.
             setContentView(mView);
         }
 
