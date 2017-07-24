@@ -1,14 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <include
+        layout="@layout/nptp_numberpad_time_picker_header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/nptp_numberpad_time_picker_header_height" />
+
+    <com.philliphsu.numberpadtimepicker.NumberPadView
+        android:id="@+id/nptp_numberpad_time_picker_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        layout="@layout/nptp_numberpad_time_picker" />
+        android:paddingLeft="@dimen/nptp_gridpicker_padding_start"
+        android:paddingRight="@dimen/nptp_gridpicker_padding_end"
+        android:paddingStart="@dimen/nptp_gridpicker_padding_start"
+        android:paddingEnd="@dimen/nptp_gridpicker_padding_end"
+        android:paddingTop="@dimen/nptp_gridpicker_padding_top">
 
-    <include
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/nptp_alert_dialog_button_bar_material" />
+        <include
+            layout="@layout/nptp_alert_dialog_button_bar_material"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/nptp_numberpad_time_picker_alert_margin_start"
+            android:layout_marginRight="@dimen/nptp_numberpad_time_picker_alert_margin_end"
+            android:layout_marginStart="@dimen/nptp_numberpad_time_picker_alert_margin_start"
+            android:layout_marginEnd="@dimen/nptp_numberpad_time_picker_alert_margin_end"
+            android:layout_marginTop="@dimen/nptp_gridpicker_padding_bottom"
+            app:layout_columnSpan="@integer/nptp_gridpicker_column_count" />
+
+    </com.philliphsu.numberpadtimepicker.NumberPadView>
 
 </merge>

@@ -10,7 +10,7 @@
     <com.philliphsu.numberpadtimepicker.NumberPadView
         android:id="@+id/nptp_numberpad_time_picker_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:paddingLeft="@dimen/nptp_bottom_sheet_grid_picker_padding_start"
         android:paddingRight="@dimen/nptp_bottom_sheet_grid_picker_padding_end"
         android:paddingStart="@dimen/nptp_bottom_sheet_grid_picker_padding_start"

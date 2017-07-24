@@ -18,6 +18,11 @@
             + FAB size and top and bottom margins             (88dp) -->
     <dimen name="nptp_bottom_sheet_grid_picker_peek_height">432dp</dimen>
 
+    <!-- Negative of nptp_gridpicker_padding_start -->
+    <dimen name="nptp_numberpad_time_picker_alert_margin_start">-8dp</dimen>
+    <!-- Negative of nptp_gridpicker_padding_end -->
+    <dimen name="nptp_numberpad_time_picker_alert_margin_end">-8dp</dimen>
+
     <dimen name="nptp_numberpad_time_picker_header_height">72dp</dimen>
     <dimen name="nptp_numberpad_time_picker_backspace_icon_size">24dp</dimen>
     <dimen name="nptp_numberpad_time_picker_backspace_button_width">56dp</dimen>

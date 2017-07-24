@@ -3,12 +3,11 @@
     <include
         layout="@layout/nptp_numberpad_time_picker_header"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/nptp_numberpad_time_picker_header_height"
-        android:layout_gravity="center" />
+        android:layout_height="@dimen/nptp_numberpad_time_picker_header_height" />
     <com.philliphsu.numberpadtimepicker.NumberPadView
         android:id="@+id/nptp_numberpad_time_picker_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:paddingLeft="@dimen/nptp_gridpicker_padding_start"
         android:paddingRight="@dimen/nptp_gridpicker_padding_end"
         android:paddingStart="@dimen/nptp_gridpicker_padding_start"
