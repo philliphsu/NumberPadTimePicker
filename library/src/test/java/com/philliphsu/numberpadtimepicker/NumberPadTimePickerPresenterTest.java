@@ -19,8 +19,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class NumberPadTimePickerPresenterTest {
-    static final int MODE_12HR = 0;
-    static final int MODE_24HR = 1;
+    private static final int MODE_12HR = 0;
+    private static final int MODE_24HR = 1;
 
     private final INumberPadTimePicker.View[] mViews = new INumberPadTimePicker.View[2];
     private final Presenter[] mPresenters = new Presenter[2];
@@ -44,10 +44,12 @@ public class NumberPadTimePickerPresenterTest {
         createNewViewAndPresenter(MODE_12HR);
         mPresenters[MODE_12HR].presentState(NumberPadTimePickerState.EMPTY);
         verifyInitialization(MODE_12HR);
+        verify(mViews[MODE_12HR]).setOkButtonEnabled(false);
 
         createNewViewAndPresenter(MODE_24HR);
         mPresenters[MODE_24HR].presentState(NumberPadTimePickerState.EMPTY);
         verifyInitialization(MODE_24HR);
+        verify(mViews[MODE_24HR]).setOkButtonEnabled(false);
     }
 
     @Test
@@ -65,8 +67,7 @@ public class NumberPadTimePickerPresenterTest {
         verifyViewEnabledStates(TestSuite.MODE_12HR_TESTS_10_TO_95, MODE_12HR);
     }
 
-    // We probably don't want this test to run in this class, so leave off the @Test annotation.
-    // Override this method in subclasses and add the @Test annotation, then call up to super.
+    @Test
     public void mode12Hr_VerifyOnTimeSetCallback() {
         for (int time = 100; time <= 1259; time++) {
             if (time % 100 > 59) {
@@ -89,8 +90,7 @@ public class NumberPadTimePickerPresenterTest {
         }
     }
 
-    // We probably don't want this test to run in this class, so leave off the @Test annotation.
-    // Override this method in subclasses and add the @Test annotation, then call up to super.
+    @Test
     public void mode12Hr_VerifyOnTimeSetCallback_UsingAltButtons() {
         for (int hour = 1; hour <= 12; hour++) {
             System.out.println("Testing time " + String.format("%d:00", hour));
@@ -109,8 +109,7 @@ public class NumberPadTimePickerPresenterTest {
         }
     }
 
-    // We probably don't want this test to run in this class, so leave off the @Test annotation.
-    // Override this method in subclasses and add the @Test annotation, then call up to super.
+    @Test
     public void mode24Hr_VerifyOnTimeSetCallback() {
         for (int time = 0; time <= 2359; time++) {
             if (time % 100 > 59) {
@@ -137,8 +136,7 @@ public class NumberPadTimePickerPresenterTest {
         }
     }
 
-    // We probably don't want this test to run in this class, so leave off the @Test annotation.
-    // Override this method in subclasses and add the @Test annotation, then call up to super.
+    @Test
     public void mode24Hr_VerifyOnTimeSetCallback_UsingAltButtons() {
         for (int hour = 0; hour <= 23; hour++) {
             for (int leftOrRight = 0; leftOrRight < 2; leftOrRight++) {
@@ -232,31 +230,9 @@ public class NumberPadTimePickerPresenterTest {
         }
     }
 
-    INumberPadTimePicker.View getView(int mode) {
-        return mViews[mode];
-    }
-
-    Presenter getPresenter(int mode) {
-        return mPresenters[mode];
-    }
-
-    Class<? extends INumberPadTimePicker.View> getViewClass() {
-        return INumberPadTimePicker.View.class;
-    }
-
-    Presenter createPresenter(INumberPadTimePicker.View view,
-                                                   LocaleModel localeModel,
-                                                   boolean is24HourMode) {
-        return new NumberPadTimePickerPresenter(view, localeModel, is24HourMode);
-    }
-
-    /**
-     * Subclasses should perform their logic to confirm the selected time.
-     * This class is not responsible for this behavior because there is no
-     * 'ok' button the {@link Presenter base presenter} is aware of.
-     */
-    void confirmTimeSelection(Presenter presenter, int mode, int hour, int minute) {
-        throw new UnsupportedOperationException();
+    private void confirmTimeSelection(Presenter presenter, int mode, int hour, int minute) {
+        presenter.onOkButtonClick();
+        verify(mViews[mode]).setResult(hour, minute);
     }
 
     private void verifyViewEnabledStates(List<TestCase> testSuite, int mode) {
@@ -266,7 +242,7 @@ public class NumberPadTimePickerPresenterTest {
         }
     }
 
-    void verifyViewEnabledStates(TestCase test, int mode) {
+    private void verifyViewEnabledStates(TestCase test, int mode) {
         createNewViewAndPresenter(mode);
         for (int digit : test.sequence) {
             mPresenters[mode].onNumberKeyClick(text(digit));
@@ -288,6 +264,7 @@ public class NumberPadTimePickerPresenterTest {
         verify(mViews[mode], atLeastOnce()).setBackspaceEnabled(test.backspaceEnabled);
         verify(mViews[mode], atLeastOnce()).setLeftAltKeyEnabled(test.leftAltKeyEnabled);
         verify(mViews[mode], atLeastOnce()).setRightAltKeyEnabled(test.rightAltKeyEnabled);
+        verify(mViews[mode], atLeastOnce()).setOkButtonEnabled(test.okButtonEnabled);
 
         // Formatting of the header display is currently not the main concern.
 //        verify(mViews[mode], times(test.timeDisplay == null ? 0 : 1)).updateTimeDisplay(test.timeDisplay);
@@ -299,8 +276,8 @@ public class NumberPadTimePickerPresenterTest {
     }
     
     private void createNewViewAndPresenter(int mode) {
-        mViews[mode] = mock(getViewClass());
-        mPresenters[mode] = createPresenter(mViews[mode], mLocaleModel, mode == MODE_24HR);
+        mViews[mode] = mock(INumberPadTimePicker.View.class);
+        mPresenters[mode] = new NumberPadTimePickerPresenter(mViews[mode], mLocaleModel, mode == MODE_24HR);
     }
 
     /**
