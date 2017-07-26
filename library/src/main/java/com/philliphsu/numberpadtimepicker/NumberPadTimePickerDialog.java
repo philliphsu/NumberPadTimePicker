@@ -13,12 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 
+import com.philliphsu.numberpadtimepicker.INumberPadTimePicker.DialogPresenter;
+import com.philliphsu.numberpadtimepicker.INumberPadTimePicker.DialogView;
+
 /**
  * Dialog to type in a time.
  */
-public class NumberPadTimePickerDialog extends AppCompatDialog {
+public class NumberPadTimePickerDialog extends AppCompatDialog implements DialogView {
 
-    private final NumberPadTimePickerDialogViewDelegate mViewDelegate;
     private final NumberPadTimePickerDialogThemer mThemer;
     private final boolean mIs24HourMode;
 
@@ -37,9 +39,18 @@ public class NumberPadTimePickerDialog extends AppCompatDialog {
                 root.findViewById(R.id.nptp_time_picker);
         final NumberPadTimePickerAlertComponent timePickerComponent =
                 (NumberPadTimePickerAlertComponent) timePicker.getComponent();
-        mViewDelegate = new NumberPadTimePickerDialogViewDelegate(this, getContext(), timePicker,
-                timePickerComponent.getOkButton(), timePickerComponent.getCancelButton(), listener,
-                is24HourMode);
+        final DialogPresenter presenter = new NumberPadTimePickerDialogPresenter(
+                this, timePicker.getPresenter());
+
+        DialogViewInitializer.setupDialogView(this, presenter, getContext(),
+                timePicker, timePickerComponent.getOkButton(), listener, is24HourMode);
+        timePickerComponent.getCancelButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onCancelClick();
+            }
+        });
+
         mThemer = new NumberPadTimePickerDialogThemer(timePickerComponent);
         mIs24HourMode = is24HourMode;
 
@@ -55,8 +66,8 @@ public class NumberPadTimePickerDialog extends AppCompatDialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Override the dialog's width if we're running in an eligible layout qualifier.
         try {
+            // Override the dialog's width if we're running in an eligible layout qualifier.
             getWindow().setLayout(getContext().getResources().getDimensionPixelSize(
                     R.dimen.nptp_alert_dialog_width), ViewGroup.LayoutParams.WRAP_CONTENT);
         } catch (Resources.NotFoundException nfe) {

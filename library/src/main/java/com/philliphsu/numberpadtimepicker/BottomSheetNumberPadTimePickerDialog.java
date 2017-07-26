@@ -13,9 +13,10 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
+import com.philliphsu.numberpadtimepicker.INumberPadTimePicker.DialogView;
 
-    private final NumberPadTimePickerDialogViewDelegate mViewDelegate;
+public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog implements DialogView {
+
     private final BottomSheetNumberPadTimePickerDialogThemer mThemer;
     private final BottomSheetBehavior<? extends View> mBottomSheetBehavior;
 
@@ -27,9 +28,7 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
     public BottomSheetNumberPadTimePickerDialog(@NonNull Context context, @StyleRes int themeResId,
             @Nullable OnTimeSetListener listener, boolean is24HourMode) {
         super(context, resolveDialogTheme(context, themeResId));
-        // This is inflated via the LayoutInflater from this Dialog's Window, which was created
-        // with this Dialog's Context. If the Dialog's Context is themed, then the hierarchy
-        // inflated is sure to be themed appropriately.
+
         final View root = getLayoutInflater().inflate(
                 R.layout.nptp_bottomsheet_numberpad_time_picker_dialog, null);
         final NumberPadTimePicker timePicker = (NumberPadTimePicker)
@@ -37,24 +36,13 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
         final NumberPadTimePickerBottomSheetComponent timePickerComponent =
                 (NumberPadTimePickerBottomSheetComponent) timePicker.getComponent();
 
-        mViewDelegate = new NumberPadTimePickerDialogViewDelegate(this,
-                // Prefer getContext() over the provided Context because the Context
-                // that the Dialog runs in may not be the same as the provided Context.
-                // Follow the chain of construction starting from the call to super().
-                // The penultimate call is
-                /**    {@link android.app.Dialog#Dialog(Context, int)} */
-                // and if we run through its implementation, we eventually see
-                /**    {@link android.view.ContextThemeWrapper} */
-                // is used as the Dialog's Context. It is a "context wrapper that allows
-                // you to modify or replace the theme of the wrapped context", and it
-                // works by applying the specified theme on top of the base context's theme.
-                getContext(), timePicker, timePickerComponent.getOkButton(),
-                null /* cancel button */, listener, is24HourMode);
+        DialogViewInitializer.setupDialogView(this, getContext(), timePicker,
+                timePickerComponent.getOkButton(), listener, is24HourMode);
         setContentView(root);
 
         mThemer = new BottomSheetNumberPadTimePickerDialogThemer(timePickerComponent);
-        mBottomSheetBehavior = BottomSheetBehavior.from((View) root.getParent());
 
+        mBottomSheetBehavior = BottomSheetBehavior.from((View) root.getParent());
         mBottomSheetBehavior.setPeekHeight(getContext().getResources().getDimensionPixelSize(
                 R.dimen.nptp_bottom_sheet_grid_picker_peek_height));
         // Overrides the default callback, but we kept the default behavior.
