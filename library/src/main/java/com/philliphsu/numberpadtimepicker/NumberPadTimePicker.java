@@ -118,7 +118,7 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
         mIs24HourMode = timePickerAttrs.getBoolean(R.styleable.
                 NPTP_NumberPadTimePicker_nptp_is24HourMode, DateFormat.is24HourFormat(context));
         mPresenter = newPresenter(mIs24HourMode);
-        mPresenter.onCreate(NumberPadTimePickerState.EMPTY);
+        mPresenter.presentState(NumberPadTimePickerState.EMPTY);
 
         post(new Runnable() {
             @Override
@@ -136,11 +136,11 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
         if (is24HourMode != mIs24HourMode) {
             // Tear down the current presenter.
             final INumberPadTimePicker.State state = mPresenter.getState();
-            mPresenter.onStop();
+            mPresenter.detachView();
 
             // Set up a new presenter using the previous presenter's state.
             mPresenter = newPresenter(is24HourMode);
-            mPresenter.onCreate(state);
+            mPresenter.presentState(state);
 
             mIs24HourMode = is24HourMode;
         }
@@ -317,7 +317,7 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        mPresenter.onStop();
+        mPresenter.detachView();
     }
 
     @Override
@@ -329,7 +329,7 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
     protected void onRestoreInstanceState(Parcelable state) {
         super.onRestoreInstanceState(state);
         if (state instanceof SavedState) {
-            mPresenter.onCreate(((SavedState) state).getNptpState());
+            mPresenter.presentState(((SavedState) state).getNptpState());
         }
     }
 

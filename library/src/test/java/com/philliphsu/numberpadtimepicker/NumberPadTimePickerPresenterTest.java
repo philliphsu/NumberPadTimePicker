@@ -42,11 +42,11 @@ public class NumberPadTimePickerPresenterTest {
     @Test
     public void verifyViewEnabledStatesForEmptyState() {
         createNewViewAndPresenter(MODE_12HR);
-        mPresenters[MODE_12HR].onCreate(NumberPadTimePickerState.EMPTY);
+        mPresenters[MODE_12HR].presentState(NumberPadTimePickerState.EMPTY);
         verifyInitialization(MODE_12HR);
 
         createNewViewAndPresenter(MODE_24HR);
-        mPresenters[MODE_24HR].onCreate(NumberPadTimePickerState.EMPTY);
+        mPresenters[MODE_24HR].presentState(NumberPadTimePickerState.EMPTY);
         verifyInitialization(MODE_24HR);
     }
 
@@ -173,12 +173,12 @@ public class NumberPadTimePickerPresenterTest {
     public void rotateDevice_savesAndRestoresInstanceState() {
         for (int mode = MODE_12HR; mode <= MODE_24HR; mode++) {
             createNewViewAndPresenter(mode);
-            mPresenters[mode].onCreate(NumberPadTimePickerState.EMPTY);
+            mPresenters[mode].presentState(NumberPadTimePickerState.EMPTY);
             verifyInitialization(mode);
             INumberPadTimePicker.State state = mPresenters[mode].getState();
             // Simulates rotation.
             createNewViewAndPresenter(mode);
-            mPresenters[mode].onCreate(state);
+            mPresenters[mode].presentState(state);
             verifyInitialization(mode);
         }
     }
@@ -200,7 +200,7 @@ public class NumberPadTimePickerPresenterTest {
             INumberPadTimePicker.State state = mPresenters[mode].getState();
             // Simulates rotation.
             createNewViewAndPresenter(mode);
-            mPresenters[mode].onCreate(state);
+            mPresenters[mode].presentState(state);
             runTestCase(test, mode);
         }
     }

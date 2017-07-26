@@ -102,7 +102,7 @@ class NumberPadTimePickerPresenter implements INumberPadTimePicker.Presenter,
     }
 
     @Override
-    public void onCreate(@NonNull INumberPadTimePicker.State state) {
+    public void presentState(@NonNull INumberPadTimePicker.State state) {
         // If any digits are inserted, onDigitStored() will be called
         // for each digit and the time display will be updated automatically.
         initialize(state);
@@ -128,7 +128,7 @@ class NumberPadTimePickerPresenter implements INumberPadTimePicker.Presenter,
     }
 
     @Override
-    public void onStop() {
+    public void detachView() {
         // Release our hold on the view so that it may be GCed.
         // This presenter will be GCed with its view, so there
         // is no need for us to dereference any other members.
