@@ -3,7 +3,6 @@ package com.philliphsu.numberpadtimepicker;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -17,10 +16,6 @@ import static com.philliphsu.numberpadtimepicker.Preconditions.checkNotNull;
  * Handles the {@link DialogView DialogView} responsibilities of a number pad time picker dialog.
  */
 final class NumberPadTimePickerDialogViewDelegate implements DialogView {
-    private static final String KEY_DIGITS = "digits";
-    // TODO: Why do we need the count?
-    private static final String KEY_COUNT = "count";
-    private static final String KEY_AM_PM_STATE = "am_pm_state";
 
     private final @NonNull DialogInterface mDelegator;
     private final @NonNull NumberPadTimePicker mTimePicker;
@@ -80,36 +75,5 @@ final class NumberPadTimePickerDialogViewDelegate implements DialogView {
     @Override
     public void cancel() {
         mDelegator.cancel();
-    }
-
-    void onCreate(@Nullable Bundle savedInstanceState) {
-        mTimePicker.getPresenter().onCreate(readStateFromBundle(savedInstanceState));
-    }
-
-    @NonNull
-    Bundle onSaveInstanceState(@NonNull Bundle bundle) {
-        final INumberPadTimePicker.State state = mTimePicker.getPresenter().getState();
-        bundle.putIntArray(KEY_DIGITS, state.getDigits());
-        // TODO: Why do we need the count?
-        bundle.putInt(KEY_COUNT, state.getCount());
-        bundle.putInt(KEY_AM_PM_STATE, state.getAmPmState());
-        return bundle;
-    }
-
-    void onStop() {
-        mTimePicker.getPresenter().onStop();
-    }
-
-    @NonNull
-    private static INumberPadTimePicker.State readStateFromBundle(@Nullable Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            final int[] digits = savedInstanceState.getIntArray(KEY_DIGITS);
-            // TODO: Why do we need the count?
-            final int count = savedInstanceState.getInt(KEY_COUNT);
-            final @AmPmState int amPmState = savedInstanceState.getInt(KEY_AM_PM_STATE);
-            return new NumberPadTimePickerState(digits, count, amPmState);
-        } else {
-            return NumberPadTimePickerState.EMPTY;
-        }
     }
 }

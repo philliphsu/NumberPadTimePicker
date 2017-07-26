@@ -20,6 +20,7 @@ public class NumberPadTimePickerDialog extends AppCompatDialog {
 
     private final NumberPadTimePickerDialogViewDelegate mViewDelegate;
     private final NumberPadTimePickerDialogThemer mThemer;
+    private final boolean mIs24HourMode;
 
     public NumberPadTimePickerDialog(@NonNull Context context,
             @Nullable OnTimeSetListener listener, boolean is24HourMode) {
@@ -40,6 +41,7 @@ public class NumberPadTimePickerDialog extends AppCompatDialog {
                 timePickerComponent.getOkButton(), timePickerComponent.getCancelButton(), listener,
                 is24HourMode);
         mThemer = new NumberPadTimePickerDialogThemer(timePickerComponent);
+        mIs24HourMode = is24HourMode;
 
         // Must be requested before adding content, or get an AndroidRuntimeException!
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -58,21 +60,13 @@ public class NumberPadTimePickerDialog extends AppCompatDialog {
             getWindow().setLayout(getContext().getResources().getDimensionPixelSize(
                     R.dimen.nptp_alert_dialog_width), ViewGroup.LayoutParams.WRAP_CONTENT);
         } catch (Resources.NotFoundException nfe) {
-            // Do nothing.
+            if (mIs24HourMode) {
+                // Strangely, just in 24-hour mode and just in this dialog, the alert layout is not
+                // vertically bounded when a window width (yes, width) of WRAP_CONTENT is used.
+                getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+            }
         }
-        mViewDelegate.onCreate(savedInstanceState);
-    }
-
-    @NonNull
-    @Override
-    public Bundle onSaveInstanceState() {
-        return mViewDelegate.onSaveInstanceState(super.onSaveInstanceState());
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        mViewDelegate.onStop();
     }
 
     static int resolveDialogTheme(Context context, int resId) {

@@ -34,7 +34,9 @@ interface INumberPadTimePicker {
         /**
          * @param state The state to initialize the time picker with.
          */
+        // TODO: Rename to initialize()/updateUiState()/presentState()?
         void onCreate(@NonNull State state);
+        // TODO: Rename to teardown()/finish()/stop()/deregisterView()/detachView()?
         void onStop();
         State getState();
     }

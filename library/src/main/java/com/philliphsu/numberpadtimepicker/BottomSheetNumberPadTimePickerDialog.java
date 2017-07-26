@@ -91,25 +91,12 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
         } catch (Resources.NotFoundException nfe) {
             // Do nothing.
         }
-        mViewDelegate.onCreate(savedInstanceState);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-    }
-
-    @NonNull
-    @Override
-    public Bundle onSaveInstanceState() {
-        return mViewDelegate.onSaveInstanceState(super.onSaveInstanceState());
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        mViewDelegate.onStop();
     }
 
     static int resolveDialogTheme(Context context, int resId) {

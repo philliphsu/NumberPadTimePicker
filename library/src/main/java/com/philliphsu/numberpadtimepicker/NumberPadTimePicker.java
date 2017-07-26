@@ -6,8 +6,11 @@ import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.IntDef;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.format.DateFormat;
@@ -20,6 +23,8 @@ import android.widget.TextView;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import static com.philliphsu.numberpadtimepicker.Preconditions.checkNotNull;
 
 public class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.View {
 
@@ -41,6 +46,7 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
     private LinearLayout mInputTimeContainer;
 
     private @NumberPadTimePickerLayout int mLayout;
+    private boolean mIs24HourMode;
 
     /**
      * Callbacks you need to handle for your custom "ok" button (e.g. a view in
@@ -112,8 +118,9 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
         mLocaleModel = new LocaleModel(context);
 
         // TODO: Create and retrieve an attribute 'nptp_is24HourMode'
-        setIs24HourMode(DateFormat.is24HourFormat(context));
-        setupClickListeners(mPresenter);
+        mIs24HourMode = DateFormat.is24HourFormat(context);
+        mPresenter = newPresenter(mIs24HourMode);
+        mPresenter.onCreate(NumberPadTimePickerState.EMPTY);
 
         post(new Runnable() {
             @Override
@@ -123,12 +130,27 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
         });
     }
 
+    // Not public to prevent clients from messing with the 24-hour mode post-initialization.
+    // TODO: Test that this works.
     void setIs24HourMode(boolean is24HourMode) {
-        // TODO: Consider writing a setIs24HourMode() method in the presenter, and using that
-        // instead of creating a new Presenter instance every time we want to change the mode.
-        mPresenter = new NumberPadTimePickerPresenter(this, mLocaleModel, is24HourMode);
-        // TODO: We can move the contents of this method to the constructor? Then delete this.
-        mPresenter.onCreate(NumberPadTimePickerState.EMPTY);
+        if (is24HourMode != mIs24HourMode) {
+            // Tear down the current presenter.
+            final INumberPadTimePicker.State state = mPresenter.getState();
+            mPresenter.onStop();
+
+            // Set up a new presenter using the previous presenter's state.
+            mPresenter = newPresenter(is24HourMode);
+            mPresenter.onCreate(state);
+
+            mIs24HourMode = is24HourMode;
+        }
+    }
+
+    private INumberPadTimePicker.Presenter newPresenter(boolean is24HourMode) {
+        INumberPadTimePicker.Presenter presenter = new NumberPadTimePickerPresenter(
+                this, mLocaleModel, is24HourMode);
+        setupClickListeners(presenter);
+        return presenter;
     }
 
     /**
@@ -290,6 +312,25 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
     @NumberPadTimePickerLayout
     public int getLayout() {
         return mLayout;
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        mPresenter.onStop();
+    }
+
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        return new SavedState(super.onSaveInstanceState(), mPresenter.getState());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        super.onRestoreInstanceState(state);
+        if (state instanceof SavedState) {
+            mPresenter.onCreate(((SavedState) state).getNptpState());
+        }
     }
 
     NumberPadTimePickerComponent getComponent() {
@@ -472,5 +513,47 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
                 view.setBackground(background);
             }
         }
+    }
+
+    private static class SavedState extends BaseSavedState {
+        private final INumberPadTimePicker.State mNptpState;
+
+        SavedState(Parcelable superState, @NonNull INumberPadTimePicker.State nptpState) {
+            super(superState);
+            mNptpState = checkNotNull(nptpState);
+        }
+
+        INumberPadTimePicker.State getNptpState() {
+            // As a nested class, this member is directly accessible to the parent class.
+            // Why did we bother writing a getter? If this class is ever moved to the top-level,
+            // this member would no longer be directly accessible.
+            return mNptpState;
+        }
+
+        @Override
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+            out.writeIntArray(mNptpState.getDigits());
+            out.writeInt(mNptpState.getCount());
+            out.writeInt(mNptpState.getAmPmState());
+        }
+
+        private SavedState(Parcel in) {
+            super(in);
+            mNptpState = new NumberPadTimePickerState(in.createIntArray(),
+                    in.readInt(), in.readInt());
+        }
+
+        public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
+            @Override
+            public SavedState createFromParcel(Parcel source) {
+                return new SavedState(source);
+            }
+
+            @Override
+            public SavedState[] newArray(int size) {
+                return new SavedState[size];
+            }
+        };
     }
 }
