@@ -131,6 +131,7 @@ nptp_altKeysTextColor    | Text color for the "AM"/"PM" keys in 12-hour mode or 
 nptp_headerBackground    | Background of the header containing the inputted time and AM/PM. This can be a color or a drawable.
 nptp_divider             | Divider separating the header from the number pad. This can be a color or a drawable.
 nptp_numberPadBackground | Background of the number pad. This can be a color or a drawable.
+nptp_is24HourMode        | Whether the number pad should use 24-hour mode.
 
 #### Table 2. Bottom sheet styleable attributes
 

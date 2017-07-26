@@ -92,12 +92,10 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         setOrientation(VERTICAL);
-
         final TypedArray timePickerAttrs = context.obtainStyledAttributes(attrs,
                 R.styleable.NPTP_NumberPadTimePicker, defStyleAttr, defStyleRes);
-        mLayout = retrieveLayout(timePickerAttrs);
-        timePickerAttrs.recycle();
 
+        mLayout = retrieveLayout(timePickerAttrs);
         switch (mLayout) {
             case LAYOUT_BOTTOM_SHEET:
                 mTimePickerComponent = new NumberPadTimePickerBottomSheetComponent(
@@ -117,8 +115,8 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
         mInputTimeContainer = (LinearLayout) findViewById(R.id.nptp_input_time_container);
         mLocaleModel = new LocaleModel(context);
 
-        // TODO: Create and retrieve an attribute 'nptp_is24HourMode'
-        mIs24HourMode = DateFormat.is24HourFormat(context);
+        mIs24HourMode = timePickerAttrs.getBoolean(R.styleable.
+                NPTP_NumberPadTimePicker_nptp_is24HourMode, DateFormat.is24HourFormat(context));
         mPresenter = newPresenter(mIs24HourMode);
         mPresenter.onCreate(NumberPadTimePickerState.EMPTY);
 
@@ -128,6 +126,8 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
                 mPresenter.onShow();
             }
         });
+
+        timePickerAttrs.recycle();
     }
 
     // Not public to prevent clients from messing with the 24-hour mode post-initialization.

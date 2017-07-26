@@ -53,6 +53,8 @@
         <!-- Background of the number pad. -->
         <attr name="nptp_numberPadBackground" format="color|reference" />
 
+        <!-- Whether the number pad should use 24-hour mode. -->
+        <attr name="nptp_is24HourMode" format="boolean" />
 
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <!--  Bottom sheet styleable attributes  -->
