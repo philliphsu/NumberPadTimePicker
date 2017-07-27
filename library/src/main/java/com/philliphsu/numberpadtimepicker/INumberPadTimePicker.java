@@ -42,6 +42,7 @@ interface INumberPadTimePicker {
     interface DialogPresenter {
         boolean onOkButtonClick();
         void onCancelClick();
+        void setBasePresenter(Presenter presenter);
     }
 
     interface State {

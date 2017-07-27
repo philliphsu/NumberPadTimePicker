@@ -9,6 +9,7 @@ import android.widget.TimePicker;
 
 import com.philliphsu.numberpadtimepicker.INumberPadTimePicker.DialogPresenter;
 import com.philliphsu.numberpadtimepicker.INumberPadTimePicker.DialogView;
+import com.philliphsu.numberpadtimepicker.INumberPadTimePicker.Presenter;
 
 import static com.philliphsu.numberpadtimepicker.Preconditions.checkNotNull;
 
@@ -29,16 +30,21 @@ final class DialogViewInitializer {
     }
 
     static void setupDialogView(@NonNull DialogView dialogView,
-            @NonNull final DialogPresenter presenter, @NonNull final Context context,
+            @NonNull final DialogPresenter dialogPresenter, @NonNull final Context context,
             @NonNull final NumberPadTimePicker timePicker, @NonNull View okButton,
             @Nullable final OnTimeSetListener listener, boolean is24HourMode) {
         checkNotNull(dialogView);
-        checkNotNull(presenter);
+        checkNotNull(dialogPresenter);
         checkNotNull(context);
         checkNotNull(timePicker);
         checkNotNull(okButton);
 
-        timePicker.setIs24HourMode(is24HourMode);
+        timePicker.setIs24HourMode(is24HourMode, new NumberPadTimePicker.OnTimeModeChangeListener() {
+            @Override
+            public void onTimeModeChange(boolean is24HourMode, Presenter newPresenter) {
+                dialogPresenter.setBasePresenter(newPresenter);
+            }
+        });
         timePicker.setOkButtonCallbacks(new NumberPadTimePicker.OkButtonCallbacks() {
             @Override
             public void onOkButtonEnabled(boolean enabled) {
@@ -59,7 +65,7 @@ final class DialogViewInitializer {
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.onOkButtonClick();
+                dialogPresenter.onOkButtonClick();
             }
         });
     }

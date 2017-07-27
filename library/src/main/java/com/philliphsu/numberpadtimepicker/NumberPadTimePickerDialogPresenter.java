@@ -9,12 +9,6 @@ final class NumberPadTimePickerDialogPresenter implements INumberPadTimePicker.D
     private final INumberPadTimePicker.DialogView mView;
     private INumberPadTimePicker.Presenter mBasePresenter;
 
-    @Deprecated
-    NumberPadTimePickerDialogPresenter(@NonNull INumberPadTimePicker.DialogView view,
-            @NonNull LocaleModel localeModel, boolean is24HourMode) {
-        mView = view;
-    }
-
     NumberPadTimePickerDialogPresenter(@NonNull INumberPadTimePicker.DialogView view,
             @NonNull INumberPadTimePicker.Presenter basePresenter) {
         mView = checkNotNull(view);
@@ -33,5 +27,10 @@ final class NumberPadTimePickerDialogPresenter implements INumberPadTimePicker.D
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void setBasePresenter(INumberPadTimePicker.Presenter presenter) {
+        mBasePresenter = presenter;
     }
 }

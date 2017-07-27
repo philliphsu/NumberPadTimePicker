@@ -49,6 +49,17 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
     private boolean mIs24HourMode;
 
     /**
+     * Listener to be notified when 12/24-hour mode changes.
+     */
+    interface OnTimeModeChangeListener {
+        /**
+         * @param is24HourMode Whether the new time mode is 24-hour mode.
+         * @param newPresenter The new {@code Presenter} instance created for the new time mode.
+         */
+        void onTimeModeChange(boolean is24HourMode, INumberPadTimePicker.Presenter newPresenter);
+    }
+
+    /**
      * Callbacks you need to handle for your custom "ok" button (e.g. a view in
      * your layout or a MenuItem).
      */
@@ -128,42 +139,6 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
         });
 
         timePickerAttrs.recycle();
-    }
-
-    // Not public to prevent clients from messing with the 24-hour mode post-initialization.
-    // TODO: Test that this works.
-    void setIs24HourMode(boolean is24HourMode) {
-        if (is24HourMode != mIs24HourMode) {
-            // Tear down the current presenter.
-            final INumberPadTimePicker.State state = mPresenter.getState();
-            mPresenter.detachView();
-
-            // Set up a new presenter using the previous presenter's state.
-            mPresenter = newPresenter(is24HourMode);
-            mPresenter.presentState(state);
-
-            mIs24HourMode = is24HourMode;
-        }
-    }
-
-    private INumberPadTimePicker.Presenter newPresenter(boolean is24HourMode) {
-        INumberPadTimePicker.Presenter presenter = new NumberPadTimePickerPresenter(
-                this, mLocaleModel, is24HourMode);
-        setupClickListeners(presenter);
-        return presenter;
-    }
-
-    /**
-     * @param presenter The presenter to forward click events to.
-     */
-    private void setupClickListeners(INumberPadTimePicker.Presenter presenter) {
-        OnBackspaceClickHandler backspaceClickHandler = new OnBackspaceClickHandler(presenter);
-        mTimePickerComponent.mBackspace.setOnClickListener(backspaceClickHandler);
-        mTimePickerComponent.mBackspace.setOnLongClickListener(backspaceClickHandler);
-        mTimePickerComponent.mNumberPad.setOnNumberKeyClickListener(
-                new OnNumberKeyClickListener(presenter));
-        mTimePickerComponent.mNumberPad.setOnAltKeyClickListener(
-                new OnAltKeyClickListener(presenter));
     }
 
     @Override
@@ -339,6 +314,44 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
 
     INumberPadTimePicker.Presenter getPresenter() {
         return mPresenter;
+    }
+
+    void setIs24HourMode(boolean is24HourMode, OnTimeModeChangeListener listener) {
+        if (is24HourMode != mIs24HourMode) {
+            // Tear down the current presenter.
+            final INumberPadTimePicker.State state = mPresenter.getState();
+            mPresenter.detachView();
+
+            // Set up a new presenter using the previous presenter's state.
+            INumberPadTimePicker.Presenter newPresenter = newPresenter(is24HourMode);
+            newPresenter.presentState(state);
+
+            if (listener != null) {
+                listener.onTimeModeChange(is24HourMode, newPresenter);
+            }
+            mPresenter = newPresenter;
+            mIs24HourMode = is24HourMode;
+        }
+    }
+
+    private INumberPadTimePicker.Presenter newPresenter(boolean is24HourMode) {
+        INumberPadTimePicker.Presenter presenter = new NumberPadTimePickerPresenter(
+                this, mLocaleModel, is24HourMode);
+        setupClickListeners(presenter);
+        return presenter;
+    }
+
+    /**
+     * @param presenter The presenter to forward click events to.
+     */
+    private void setupClickListeners(INumberPadTimePicker.Presenter presenter) {
+        OnBackspaceClickHandler backspaceClickHandler = new OnBackspaceClickHandler(presenter);
+        mTimePickerComponent.mBackspace.setOnClickListener(backspaceClickHandler);
+        mTimePickerComponent.mBackspace.setOnLongClickListener(backspaceClickHandler);
+        mTimePickerComponent.mNumberPad.setOnNumberKeyClickListener(
+                new OnNumberKeyClickListener(presenter));
+        mTimePickerComponent.mNumberPad.setOnAltKeyClickListener(
+                new OnAltKeyClickListener(presenter));
     }
 
     @NumberPadTimePickerLayout
