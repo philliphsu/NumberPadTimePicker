@@ -2,7 +2,7 @@
 <com.philliphsu.numberpadtimepicker.NumberPadTimePicker
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/CustomWidthNumberPadTimePicker"
+    style="@style/NPTP_NumberPadTimePickerStyle"
     android:id="@+id/time_picker"
     android:layout_gravity="center_horizontal"
     app:nptp_numberPadTimePickerLayout="alert" />

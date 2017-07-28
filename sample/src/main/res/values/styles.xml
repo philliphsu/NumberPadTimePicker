@@ -30,9 +30,4 @@
         <item name="colorPrimaryDark">@color/number_pad_time_picker_activity_primary_color_dark</item>
         <item name="colorAccent">@color/number_pad_time_picker_accent_color</item>
     </style>
-
-    <style name="CustomWidthNumberPadTimePicker">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
-    </style>
 </resources>
