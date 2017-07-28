@@ -1,28 +1,23 @@
 # NumberPadTimePicker
 
-Remember the time picker from the AOSP Clock app in Jelly Bean? It's back--in Material Design--with
-a familiar but improved interaction design.
+Make time selections in Android by typing them.
 
-Remember there were placeholders in the header display and digits were filled in right-to-left?
-Think that seemed backward? That's no longer an issue.
+As you type or remove digits, number keys and the "OK" button are enabled or disabled to prevent
+you from setting invalid times. The time separator (e.g. ":") character is dynamically formatted 
+into the correct position.
 
-This implementation has no placeholders and digits are inserted left-to-right. The time separator
-(e.g. ":") character is dynamically formatted into the typed time at the correct position.
-
-Number keys and the 'OK' button are still enabled or disabled as you type, so you can't set an
-invalid time.
-
-The time picker is available as an alert dialog and as a bottom sheet dialog. **This library does not
-force you to use Fragments.**
+Available as an alert dialog, a bottom sheet dialog, and as a plain `View`.
 
 <img src="screenshots/1.png" width="180" height="320"> <img src="screenshots/2.png" width="180" height="320"> <img src="screenshots/3.png" width="180" height="320"> <img src="screenshots/4.png" width="180" height="320">
 
 1. [Sample App](#sample-app)
 2. [Installation](#installation)
 3. [Usage](#usage)
-4. [Themes and Styles](#themes-and-styles)
-    1. [XML Theming](#xml-theming)
-    2. [Programmatic Theming](#programmatic-theming)
+    1. [Use as Dialog]
+    2. [Use as View](#use-as-view)
+        1. [Define an OK Button](#define-an-ok-button)
+        2. [Register OK Button Callbacks](#register-ok-button-callbacks)
+4. [Themes and Styles]
 5. [Contributing](#contributing)
 6. [License](#license)
 
@@ -37,27 +32,21 @@ limited color palette.
 
 ## Installation
 
-In your root `build.gradle`:
-
 ```groovy
 allprojects {
     repositories {
         maven { url 'https://jitpack.io' }
     }
 }
-```
-In your module `build.gradle`:
 
-```groovy
 dependencies {
-    compile 'com.github.philliphsu:numberpadtimepicker:1.0.0'
+    compile 'com.github.philliphsu:numberpadtimepicker:1.1.0'
 }
 ```
 
 ## Usage
 
-Using the NumberPadTimePicker library is similar to the process outlined in the [Pickers][1] API
-guide.
+### Use as Dialog
 
 Implement the standard `android.app.TimePickerDialog.OnTimeSetListener` interface.
 
@@ -70,59 +59,123 @@ public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 }
 ```
 
-Obtain an instance of `NumberPadTimePickerDialog` or `BottomSheetNumberPadTimePickerDialog`. You may
-pass in an optional style resource to use as the dialog's theme. Alternatively, you can theme the
-dialog programmatically after you've obtained an instance. See [Themes and Styles][2] for a guide
-to styling the dialog.
+Obtain an instance of [`NumberPadTimePickerDialog`] or [`BottomSheetNumberPadTimePickerDialog`]. 
+You may pass in an optional style resource to use as the dialog's theme. Alternatively, you can 
+theme the dialog programmatically after you've obtained an instance. See [Themes and Styles] for a 
+guide to styling the dialog.
 
 ```java
 NumberPadTimePickerDialog dialog = new NumberPadTimePickerDialog(
     context, R.style.MyAlertDialogTheme, listener, is24HourMode);
-```
 
-```java
 BottomSheetNumberPadTimePickerDialog dialog = new BottomSheetNumberPadTimePickerDialog(
     context, R.style.MyBottomSheetDialogTheme, listener, is24HourMode);
 ```
 
-If you want to use the dialog in a DialogFragment, make sure to use the support library's
-`android.support.v4.app.DialogFragment`.
+If you want to use the dialog in a `DialogFragment`, use the support library's
+`android.support.v4.app.DialogFragment`. See the [Pickers guide] for more information.
 
-[1]: https://developer.android.com/guide/topics/ui/controls/pickers.html#TimePicker
-[2]: #themes-and-styles
+### Use as View
+
+Add a [`NumberPadTimePicker`] to your layout like any other `View`. However, by itself, it is not 
+very useful as a widget for time input.
+
+#### Define an OK Button
+
+For a [`NumberPadTimePicker`] to actually be useful for time input, you need to define an "OK" 
+button somewhere in your screen. For example, this can be a `View` in your layout or a 
+`MenuItem` in your app bar.
+
+For your convenience, this library provides ready-to-use "OK" buttons you can add to the 
+[`NumberPadTimePicker`] instead of defining your own. These are the same buttons that are used
+in the dialogs.
+
+In your XML layout, specify the `nptp_numberPadTimePickerLayout` attribute on your 
+[`NumberPadTimePicker`] with one of these values:
+
+##### Table 1. Values for the `nptp_numberPadTimePickerLayout` attribute
+Value       | Description
+------------|--------------------------------------------------------------------------------------
+standalone  | The default value. No additional views will be added to the `NumberPadTimePicker`.
+alert       | Adds alert-style action buttons ("Cancel", "OK") to the `NumberPadTimePicker`.
+bottomSheet | Adds a `FloatingActionButton` to the `NumberPadTimePicker`.
+
+```xml
+<com.philliphsu.numberpadtimepicker.NumberPadTimePicker
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:nptp_numberPadTimePickerLayout=["standalone" | "alert" | "bottomSheet"] />
+```
+
+#### Register OK Button Callbacks
+
+```java
+View okButton = findViewByid(R.id.my_ok_button);
+
+NumberPadTimePicker timePicker = (NumberPadTimePicker) findViewById(R.id.my_time_picker);
+timePicker.setOkButtonCallbacks(new NumberPadTimePicker.OkButtonCallbacks() {
+    @Override
+    public void onOkButtonEnabled(boolean enabled) {
+        // If you are using the provided OK buttons, you do not need to do anything.
+        okButton.setEnabled(enabled);
+    }
+
+    @Override
+    public void onOkButtonClick(NumberPadTimePicker view, int hourOfDay, int minute) {
+        // Do something with the time chosen by the user
+    }
+});
+
+// If you are using the provided OK buttons, you do not need to set this.
+okButton.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+         timePicker.confirmTimeSelection();  // Calls your onOkButtonClick() callback
+    }
+});
+```
+
+If you are using the `alert` layout, you may also want to set a click listener on the provided 
+cancel button:
+ 
+```java
+timePicker.setCancelButtonClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        // Respond to cancel click 
+    }
+});
+```
 
 ## Themes and Styles
 
-The NumberPadTimePicker library allows you to customize the theme in XML or programmatically.
+This section describes how to style the [`NumberPadTimePicker`] view, which is used in the dialogs 
+and is available to use in your own layouts.
 
-### XML Theming
+You can style the view in XML or in code.
 
-Create a dialog theme that inherits from an appropriate parent theme.
+[`NumberPadTimePickerDialog`], [`BottomSheetNumberPadTimePickerDialog`], and the 
+[`NumberPadTimePicker`] view all have a method called `getThemer()`. This returns an object allowing
+you to theme the time picker in code by chaining setters.
 
-If you are using `NumberPadTimePickerDialog`, this will be one of:
+There are two return types to be aware of: [`NumberPadTimePickerThemer`] and 
+[`BottomSheetNumberPadTimePickerThemer`].
 
-* `Theme.AppCompat.Dialog.Alert`
-* `Theme.AppCompat.Light.Dialog.Alert`
-* `Theme.AppCompat.DayNight.Dialog.Alert`
+* [`NumberPadTimePickerDialog`] returns a [`NumberPadTimePickerThemer`].
+* [`BottomSheetNumberPadTimePickerDialog`] returns a [`BottomSheetNumberPadTimePickerThemer`].
+* [`NumberPadTimePicker`] returns a [`NumberPadTimePickerThemer`], which can possibly be 
+casted to [`BottomSheetNumberPadTimePickerThemer`].
 
-If you are using `BottomSheetNumberPadTimePickerDialog`, this will be one of:
+The following table lists styleable attributes available in all [layouts][Table 1]. These correspond
+to setters in [`NumberPadTimePickerThemer`].
 
-* `Theme.Design.BottomSheetDialog`
-* `Theme.Design.Light.BottomSheetDialog`
-
-Your dialog theme should include an item for the `nptp_numberPadTimePickerStyle` attribute. This
-attribute references a style resource that styles the number pad time picker view contained in
-the dialog. The library provides default style resources that you can specify for this attribute.
-You may override these styles.
-
-If your dialog theme inherits from...
-* an alert dialog theme, use the `NPTP_NumberPadTimePickerStyle` style.
-* a bottom sheet dialog theme, use the `NPTP_NumberPadTimePickerBottomSheetStyle` style.
-
-#### Table 1. Common styleable attributes
+### Table 2. Common styleable attributes
 
 Attribute                | Description
 -------------------------|------------------------------------------------------------------------
+nptp_numberPadTimePickerLayout | Determines the presence and appearance of additional dialog buttons. See [Table 1] for possible values.
 nptp_inputTimeTextColor  | Text color for the inputted time in the header.
 nptp_inputAmPmTextColor  | Text color for the inputted AM/PM in the header.
 nptp_backspaceTint       | Tint to apply to the backspace icon. This should be a color state list with enabled and disabled states.
@@ -133,7 +186,10 @@ nptp_divider             | Divider separating the header from the number pad. Th
 nptp_numberPadBackground | Background of the number pad. This can be a color or a drawable.
 nptp_is24HourMode        | Whether the number pad should use 24-hour mode.
 
-#### Table 2. Bottom sheet styleable attributes
+The following table lists styleable attributes available only for the `bottomSheet` layout.
+These correspond to setters in [`BottomSheetNumberPadTimePickerThemer`].
+
+### Table 3. Bottom sheet styleable attributes
 
 Attribute                      | Description
 -------------------------------|------------------------------------------------------------------
@@ -145,7 +201,13 @@ nptp_showFab                   | Indicates when the `FloatingActionButton` shoul
 nptp_backspaceLocation         | Location of the backspace key. Either `header` or `footer`.
 nptp_fabIconTint               | Tint to apply to the icon in the `FloatingActionButton`. This should be a color state list with enabled and disabled states.
 
-Here is an example `styles.xml` file:
+You can create a theme for a dialog or `Activity` that uses [`NumberPadTimePicker`].
+
+Create a style resource using the attributes in [Table 2] and [Table 3]. There are default 
+style resources that you may inherit from: `NPTP_NumberPadTimePickerStyle` and 
+`NPTP_NumberPadTimePickerBottomSheetStyle`.
+
+Set this style resource in your theme using the `nptp_numberPadTimePickerStyle` attribute.
 
 ```xml
 <style name="MyStyle" parent="NPTP_NumberPadTimePickerStyle">
@@ -165,54 +227,14 @@ Here is an example `styles.xml` file:
 </style>
 ```
 
-With your dialog theme defined, obtain an instance of the dialog as described in [Usage](#usage).
-Alternatively, if you don't want to pass the theme to the dialog's constructor, you can specify
-the dialog's theme in your `Activity`'s theme.
+Obtain an instance of the dialog as described in [Use as Dialog]. If you don't want to pass
+the theme to the dialog's constructor, you can instead specify it in your `Activity`'s theme.
 
 ```xml
 <style name="AppTheme" parent="Theme.AppCompat">
     <item name="nptp_numberPadTimePickerAlertDialogTheme">@style/MyAlertDialogTheme</item>
     <item name="nptp_numberPadTimePickerBottomSheetDialogTheme">@style/MyBottomSheetDialogTheme</item>
 </style>
-```
-
-### Programmatic Theming
-
-Call `getThemer()` on your dialog to obtain
-
-* a `NumberPadTimePickerDialogThemer`, if the dialog is a `NumberPadTimePickerDialog`
-* a `BottomSheetNumberPadTimePickerDialogThemer`, if the dialog is a
-  `BottomSheetNumberPadTimePickerDialog`
-
-You can chain together the available setters. The setters correspond to the attributes listed in
-[Table 1](#table-1-common-styleable-attributes) and [Table 2](#table-2-bottom-sheet-styleable-attributes).
-
-#### API for NumberPadTimePickerDialogThemer
-
-```java
-setInputTimeTextColor(@ColorInt int color)
-setInputAmPmTextColor(@ColorInt int color)
-setBackspaceTint(ColorStateList colors)
-setNumberKeysTextColor(ColorStateList colors)
-setAltKeysTextColor(ColorStateList colors)
-setHeaderBackground(Drawable background)
-setNumberPadBackground(Drawable background)
-setDivider(Drawable divider)
-```
-
-#### API for BottomSheetNumberPadTimePickerDialogThemer
-
-`BottomSheetNumberPadTimePickerDialogThemer` extends `NumberPadTimePickerDialogThemer`, so the
-above setters are available here as well.
-
-```java
-setFabBackgroundColor(ColorStateList colors)
-setFabRippleColor(@ColorInt int color)
-setFabIconTint(ColorStateList tint)
-setAnimateFabBackgroundColor(boolean animate)
-setShowFabPolicy(@ShowFabPolicy int policy)
-setAnimateFabIn(boolean animateIn)
-setBackspaceLocation(@BackspaceLocation int location)
 ```
 
 ## Contributing
@@ -238,3 +260,15 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
+
+[pickers guide]: https://developer.android.com/guide/topics/ui/controls/pickers.html#TimePicker
+[Themes and Styles]: #themes-and-styles
+[Use as Dialog]: #use-as-dialog
+[Table 1]: #table-1-values-for-the-nptp_numberpadtimepickerlayout-attribute
+[Table 2]: #table-2-common-styleable-attributes
+[Table 3]: #table-3-bottom-sheet-styleable-attributes
+[`NumberPadTimePickerDialog`]: library/src/main/java/com/philliphsu/numberpadtimepicker/NumberPadTimePickerDialog.java
+[`BottomSheetNumberPadTimePickerDialog`]: library/src/main/java/com/philliphsu/numberpadtimepicker/BottomSheetNumberPadTimePickerDialog.java
+[`NumberPadTimePicker`]: library/src/main/java/com/philliphsu/numberpadtimepicker/NumberPadTimePicker.java
+[`NumberPadTimePickerThemer`]: library/src/main/java/com/philliphsu/numberpadtimepicker/NumberPadTimePickerThemer.java
+[`BottomSheetNumberPadTimePickerThemer`]: library/src/main/java/com/philliphsu/numberpadtimepicker/BottomSheetNumberPadTimePickerThemer.java
