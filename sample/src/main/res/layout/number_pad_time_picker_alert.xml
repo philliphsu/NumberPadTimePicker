@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.philliphsu.numberpadtimepicker.NumberPadTimePicker
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/NPTP_NumberPadTimePickerStyle"
+    style="@style/NPTP_NumberPadTimePickerAlertStyle"
     android:id="@+id/time_picker"
-    android:layout_gravity="center_horizontal"
-    app:nptp_numberPadTimePickerLayout="alert" />
+    android:layout_gravity="center_horizontal" />

@@ -58,7 +58,7 @@
     </style>
 
     <style name="NPTP_Base_NumberPadTimePickerStyle">
-        <item name="nptp_numberPadTimePickerLayout">alert</item>
+        <item name="nptp_numberPadTimePickerLayout">standalone</item>
         <item name="nptp_inputTimeTextColor">?android:attr/textColorPrimary</item>
         <item name="nptp_inputAmPmTextColor">?android:attr/textColorPrimary</item>
         <item name="nptp_backspaceTint">?attr/colorControlNormal</item>
@@ -70,12 +70,21 @@
         <item name="nptp_numberPadBackground">@null</item>
     </style>
 
-    <style name="NPTP_NumberPadTimePickerStyle" parent="NPTP_Base_NumberPadTimePickerStyle">
+    <style name="NPTP_NumberPadTimePickerStandaloneStyle" parent="NPTP_Base_NumberPadTimePickerStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
     </style>
 
-    <style name="NPTP_NumberPadTimePickerBottomSheetStyle" parent="NPTP_NumberPadTimePickerStyle">
+    <style name="NPTP_Base_NumberPadTimePickerAlertStyle" parent="NPTP_Base_NumberPadTimePickerStyle">
+        <item name="nptp_numberPadTimePickerLayout">alert</item>
+    </style>
+
+    <style name="NPTP_NumberPadTimePickerAlertStyle" parent="NPTP_Base_NumberPadTimePickerAlertStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="NPTP_Base_NumberPadTimePickerBottomSheetStyle" parent="NPTP_Base_NumberPadTimePickerStyle">
         <item name="nptp_numberPadTimePickerLayout">bottomSheet</item>
         <!-- Default initialization of this attribute happens during construction in code.
              The default result we want to achieve is not possible in XML below API 23. -->
@@ -86,5 +95,14 @@
         <item name="nptp_showFab">always</item>
         <item name="nptp_backspaceLocation">header</item>
         <item name="nptp_fabIconTint">?colorControlNormal</item>
+    </style>
+
+    <style name="NPTP_NumberPadTimePickerBottomSheetStyle" parent="NPTP_Base_NumberPadTimePickerBottomSheetStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <!-- @deprecated Use NPTP_NumberPadTimePickerAlertStyle instead. -->
+    <style name="NPTP_NumberPadTimePickerStyle" parent="NPTP_NumberPadTimePickerAlertStyle">
     </style>
 </resources>

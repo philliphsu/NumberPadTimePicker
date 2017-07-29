@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="NPTP_NumberPadTimePickerStyle" parent="NPTP_Base_NumberPadTimePickerStyle">
+    <style name="NPTP_NumberPadTimePickerStandaloneStyle" parent="NPTP_Base_NumberPadTimePickerStyle">
+        <item name="android:layout_width">@dimen/nptp_numberpad_time_picker_width</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="NPTP_NumberPadTimePickerAlertStyle" parent="NPTP_Base_NumberPadTimePickerAlertStyle">
+        <item name="android:layout_width">@dimen/nptp_numberpad_time_picker_width</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="NPTP_NumberPadTimePickerBottomSheetStyle" parent="NPTP_Base_NumberPadTimePickerBottomSheetStyle">
         <item name="android:layout_width">@dimen/nptp_numberpad_time_picker_width</item>
         <item name="android:layout_height">match_parent</item>
     </style>
