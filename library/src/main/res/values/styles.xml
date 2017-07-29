@@ -58,8 +58,6 @@
     </style>
 
     <style name="NPTP_Base_NumberPadTimePickerStyle">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
         <item name="nptp_numberPadTimePickerLayout">alert</item>
         <item name="nptp_inputTimeTextColor">?android:attr/textColorPrimary</item>
         <item name="nptp_inputAmPmTextColor">?android:attr/textColorPrimary</item>
@@ -73,6 +71,8 @@
     </style>
 
     <style name="NPTP_NumberPadTimePickerStyle" parent="NPTP_Base_NumberPadTimePickerStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
     </style>
 
     <style name="NPTP_NumberPadTimePickerBottomSheetStyle" parent="NPTP_NumberPadTimePickerStyle">
