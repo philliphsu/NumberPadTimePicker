@@ -31,6 +31,7 @@
     <dimen name="nptp_numberpad_time_picker_input_time_text_size">112sp</dimen>
     <dimen name="nptp_numberpad_time_picker_input_ampm_text_size">24sp</dimen>
 
-    <dimen name="nptp_alert_dialog_width">496dp</dimen>
-    <dimen name="nptp_bottom_sheet_dialog_width">496dp</dimen>
+    <dimen name="nptp_numberpad_time_picker_width">496dp</dimen>
+    <dimen name="nptp_alert_dialog_width">@dimen/nptp_numberpad_time_picker_width</dimen>
+    <dimen name="nptp_bottom_sheet_dialog_width">@dimen/nptp_numberpad_time_picker_width</dimen>
 </resources>

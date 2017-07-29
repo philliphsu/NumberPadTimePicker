@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="nptp_alert_dialog_width">560dp</dimen>
-    <dimen name="nptp_bottom_sheet_dialog_width">560dp</dimen>
+    <dimen name="nptp_numberpad_time_picker_width">560dp</dimen>
+    <dimen name="nptp_alert_dialog_width">@dimen/nptp_numberpad_time_picker_width</dimen>
+    <dimen name="nptp_bottom_sheet_dialog_width">@dimen/nptp_numberpad_time_picker_width</dimen>
 
     <dimen name="nptp_gridpicker_button_height">96dp</dimen>
     <!-- nptp_numberpad_time_picker_header_height              (128dp)
