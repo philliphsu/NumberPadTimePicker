@@ -70,18 +70,28 @@
         <item name="nptp_numberPadBackground">@null</item>
     </style>
 
-    <style name="NPTP_NumberPadTimePickerStandaloneStyle" parent="NPTP_Base_NumberPadTimePickerStyle">
+    <style name="NPTP_NumberPadTimePickerStandaloneStyle_FillHeight" parent="NPTP_Base_NumberPadTimePickerStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="NPTP_NumberPadTimePickerStandaloneStyle_ExactHeight" parent="NPTP_Base_NumberPadTimePickerStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
     <style name="NPTP_Base_NumberPadTimePickerAlertStyle" parent="NPTP_Base_NumberPadTimePickerStyle">
         <item name="nptp_numberPadTimePickerLayout">alert</item>
     </style>
 
-    <style name="NPTP_NumberPadTimePickerAlertStyle" parent="NPTP_Base_NumberPadTimePickerAlertStyle">
+    <style name="NPTP_NumberPadTimePickerAlertStyle_FillHeight" parent="NPTP_Base_NumberPadTimePickerAlertStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="NPTP_NumberPadTimePickerAlertStyle_ExactHeight" parent="NPTP_Base_NumberPadTimePickerAlertStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
     <style name="NPTP_Base_NumberPadTimePickerBottomSheetStyle" parent="NPTP_Base_NumberPadTimePickerStyle">
@@ -97,12 +107,23 @@
         <item name="nptp_fabIconTint">?colorControlNormal</item>
     </style>
 
-    <style name="NPTP_NumberPadTimePickerBottomSheetStyle" parent="NPTP_Base_NumberPadTimePickerBottomSheetStyle">
+    <style name="NPTP_NumberPadTimePickerBottomSheetStyle_FillHeight" parent="NPTP_Base_NumberPadTimePickerBottomSheetStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
     </style>
 
-    <!-- @deprecated Use NPTP_NumberPadTimePickerAlertStyle instead. -->
-    <style name="NPTP_NumberPadTimePickerStyle" parent="NPTP_NumberPadTimePickerAlertStyle">
+    <style name="NPTP_NumberPadTimePickerBottomSheetStyle_ExactHeight" parent="NPTP_Base_NumberPadTimePickerBottomSheetStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- @deprecated Use NPTP_NumberPadTimePickerBottomSheetStyle_FillHeight
+                      or NPTP_NumberPadTimePickerBottomSheetStyle_ExactHeight instead. -->
+    <style name="NPTP_NumberPadTimePickerBottomSheetStyle" parent="NPTP_NumberPadTimePickerBottomSheetStyle_FillHeight">
+    </style>
+
+    <!-- @deprecated Use NPTP_NumberPadTimePickerAlertStyle_FillHeight
+                      or NPTP_NumberPadTimePickerAlertStyle_ExactHeight instead. -->
+    <style name="NPTP_NumberPadTimePickerStyle" parent="NPTP_NumberPadTimePickerAlertStyle_FillHeight">
     </style>
 </resources>
