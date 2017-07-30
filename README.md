@@ -77,6 +77,11 @@ If you want to use the dialog in a `DialogFragment`, use the support library's
 
 ### Use as View
 
+> Using [`NumberPadTimePicker`] as a `View` requires more care to ensure it is sized appropriately
+in your layouts. As of version 1.1.0, [`NumberPadTimePicker`] is not optimized for small screen 
+heights (for example, in landscape). If you are affected by this, you'll need to account for this
+in a way that is appropriate for your use case.
+
 Add a [`NumberPadTimePicker`] to your layout like any other `View`. However, by itself, it is not 
 very useful as a widget for time input.
 
