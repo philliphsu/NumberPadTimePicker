@@ -102,11 +102,10 @@ bottomSheet | Adds a `FloatingActionButton` to the `NumberPadTimePicker`.
 
 ```xml
 <com.philliphsu.numberpadtimepicker.NumberPadTimePicker
-    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:nptp_numberPadTimePickerLayout=["standalone" | "alert" | "bottomSheet"] />
+    app:nptp_numberPadTimePickerLayout=["standalone" | "alert" | "bottomSheet"]
+    ... 
+    />
 ```
 
 #### Register OK Button Callbacks
@@ -201,29 +200,50 @@ nptp_showFab                   | Indicates when the `FloatingActionButton` shoul
 nptp_backspaceLocation         | Location of the backspace key. Either `header` or `footer`.
 nptp_fabIconTint               | Tint to apply to the icon in the `FloatingActionButton`. This should be a color state list with enabled and disabled states.
 
+If you are using [`NumberPadTimePicker`] in your own layouts, you may find it convenient to specify
+one of the following styles. These styles adjust `layout_width` and `layout_height` for multiple 
+size qualifiers.
+
+* `NPTP_NumberPadTimePickerStandaloneStyle_FillHeight`
+* `NPTP_NumberPadTimePickerStandaloneStyle_ExactHeight`
+* `NPTP_NumberPadTimePickerAlertStyle_FillHeight`
+* `NPTP_NumberPadTimePickerAlertStyle_ExactHeight`
+* `NPTP_NumberPadTimePickerBottomSheetStyle_FillHeight`
+* `NPTP_NumberPadTimePickerBottomSheetStyle_ExactHeight`
+
+```xml
+<com.philliphsu.numberpadtimepicker.NumberPadTimePicker
+    style="@style/NPTP_NumberPadTimePickerStandaloneStyle_FillHeight"
+    ... 
+    />
+```
+
 You can create a theme for a dialog or `Activity` that uses [`NumberPadTimePicker`].
 
 Create a style resource using the attributes in [Table 2] and [Table 3]. There are default 
-style resources that you may inherit from: `NPTP_NumberPadTimePickerStyle` and 
-`NPTP_NumberPadTimePickerBottomSheetStyle`.
+style resources that you may inherit from:
+
+* `NPTP_Base_NumberPadTimePickerStyle`
+* `NPTP_Base_NumberPadTimePickerAlertStyle`
+* `NPTP_Base_NumberPadTimePickerBottomSheetStyle`
 
 Set this style resource in your theme using the `nptp_numberPadTimePickerStyle` attribute.
 
 ```xml
-<style name="MyStyle" parent="NPTP_NumberPadTimePickerStyle">
-    <!-- ... -->
+<style name="MyNptpAlertStyle" parent="NPTP_Base_NumberPadTimePickerAlertStyle">
+    ...
 </style>
 
-<style name="MyAlertDialogTheme" parent="Theme.AppCompat.Dialog.Alert">
-    <item name="nptp_numberPadTimePickerStyle">@style/MyStyle</item>
+<style name="MyNptpAlertDialogTheme" parent="Theme.AppCompat.Dialog.Alert">
+    <item name="nptp_numberPadTimePickerStyle">@style/MyNptpAlertStyle</item>
 </style>
 
-<style name="MyBottomSheetStyle" parent="NPTP_NumberPadTimePickerBottomSheetStyle">
-    <!-- ... -->
+<style name="MyNptpBottomSheetStyle" parent="NPTP_Base_NumberPadTimePickerBottomSheetStyle">
+    ...
 </style>
 
-<style name="MyBottomSheetDialogTheme" parent="Theme.Design.BottomSheetDialog">
-    <item name="nptp_numberPadTimePickerStyle">@style/MyBottomSheetStyle</item>
+<style name="MyNptpBottomSheetDialogTheme" parent="Theme.Design.BottomSheetDialog">
+    <item name="nptp_numberPadTimePickerStyle">@style/MyNptpBottomSheetStyle</item>
 </style>
 ```
 
@@ -232,16 +252,16 @@ the theme to the dialog's constructor, you can instead specify it in your `Activ
 
 ```xml
 <style name="AppTheme" parent="Theme.AppCompat">
-    <item name="nptp_numberPadTimePickerAlertDialogTheme">@style/MyAlertDialogTheme</item>
-    <item name="nptp_numberPadTimePickerBottomSheetDialogTheme">@style/MyBottomSheetDialogTheme</item>
+    <item name="nptp_numberPadTimePickerAlertDialogTheme">@style/MyNptpAlertDialogTheme</item>
+    <item name="nptp_numberPadTimePickerBottomSheetDialogTheme">@style/MyNptpBottomSheetDialogTheme</item>
 </style>
 ```
 
 ## Contributing
 
-Contributions are welcome. In particular, contributions to optimize dimensions for larger form
-factors or to improve localization are appreciated. Send pull requests to the `develop` branch.
-If you think something could look better, feel free to let me know your thoughts.
+Contributions are welcome. In particular, contributions to optimize dimensions for any form factor 
+or to improve localization are appreciated. Send pull requests to the `develop` branch. If you think 
+something could look better, feel free to let me know your thoughts.
 
 ## License
 
