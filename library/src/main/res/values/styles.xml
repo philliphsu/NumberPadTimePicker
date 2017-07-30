@@ -120,13 +120,13 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <!-- @deprecated Use NPTP_NumberPadTimePickerBottomSheetStyle_FillHeight
-                      or NPTP_NumberPadTimePickerBottomSheetStyle_ExactHeight instead. -->
-    <style name="NPTP_NumberPadTimePickerBottomSheetStyle" parent="NPTP_NumberPadTimePickerBottomSheetStyle_FillHeight">
-    </style>
-
     <!-- @deprecated Use NPTP_NumberPadTimePickerAlertStyle_FillHeight
                       or NPTP_NumberPadTimePickerAlertStyle_ExactHeight instead. -->
     <style name="NPTP_NumberPadTimePickerStyle" parent="NPTP_NumberPadTimePickerAlertStyle_FillHeight">
+    </style>
+
+    <!-- @deprecated Use NPTP_NumberPadTimePickerBottomSheetStyle_FillHeight
+                      or NPTP_NumberPadTimePickerBottomSheetStyle_ExactHeight instead. -->
+    <style name="NPTP_NumberPadTimePickerBottomSheetStyle" parent="NPTP_NumberPadTimePickerBottomSheetStyle_FillHeight">
     </style>
 </resources>

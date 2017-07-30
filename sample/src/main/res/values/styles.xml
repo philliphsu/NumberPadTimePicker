@@ -6,14 +6,14 @@
         <item name="nptp_numberPadTimePickerBottomSheetDialogTheme">@style/NumberPadTimePickerBottomSheetDialogTheme</item>
     </style>
 
-    <style name="NumberPadTimePickerStyle" parent="NPTP_NumberPadTimePickerStyle" />
+    <style name="NumberPadTimePickerStyle" parent="NPTP_NumberPadTimePickerAlertStyle_ExactHeight" />
     <style name="NumberPadTimePickerAlertDialogTheme" parent="Theme.AppCompat.Dialog.Alert">
         <item name="android:colorBackground">@color/number_pad_time_picker_background_color</item>
         <item name="colorAccent">@color/number_pad_time_picker_accent_color</item>
         <item name="nptp_numberPadTimePickerStyle">@style/NumberPadTimePickerStyle</item>
     </style>
 
-    <style name="NumberPadTimePickerBottomSheetStyle" parent="NPTP_NumberPadTimePickerBottomSheetStyle" />
+    <style name="NumberPadTimePickerBottomSheetStyle" parent="NPTP_NumberPadTimePickerBottomSheetStyle_ExactHeight" />
     <style name="NumberPadTimePickerBottomSheetDialogTheme" parent="Theme.Design.BottomSheetDialog">
         <item name="android:colorBackground">@color/number_pad_time_picker_background_color</item>
         <item name="colorAccent">@color/number_pad_time_picker_accent_color</item>
