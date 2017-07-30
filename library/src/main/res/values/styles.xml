@@ -113,7 +113,10 @@
     </style>
 
     <style name="NPTP_NumberPadTimePickerBottomSheetStyle_ExactHeight" parent="NPTP_Base_NumberPadTimePickerBottomSheetStyle">
-        <item name="android:layout_width">wrap_content</item>
+        <!-- Width is match_parent instead of wrap_content, otherwise the 24-hour view is rendered
+             at a larger height than the 12-hour view is. On SDK 23+, this resulted in the number
+             pad grid not being vertically bounded in 24-hour mode. -->
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
