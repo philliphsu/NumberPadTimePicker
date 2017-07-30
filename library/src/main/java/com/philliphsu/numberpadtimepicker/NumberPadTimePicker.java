@@ -302,9 +302,15 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
 
     @Override
     protected void onRestoreInstanceState(Parcelable state) {
-        super.onRestoreInstanceState(state);
         if (state instanceof SavedState) {
-            mPresenter.presentState(((SavedState) state).getNptpState());
+            final SavedState ss = (SavedState) state;
+            // For earlier versions of the platform, e.g. KitKat, it is necessary to call super
+            // with this state's super state or else the platform will throw an exception due to
+            // incompatible types.
+            super.onRestoreInstanceState(ss.getSuperState());
+            mPresenter.presentState(ss.getNptpState());
+        } else {
+            super.onRestoreInstanceState(state);
         }
     }
 
