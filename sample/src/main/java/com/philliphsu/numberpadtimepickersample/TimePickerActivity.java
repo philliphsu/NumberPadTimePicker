@@ -41,7 +41,8 @@ public class TimePickerActivity extends AppCompatActivity {
                 break;
         }
 
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE
+                && getResources().getConfiguration().smallestScreenWidthDp < 600) {
             // Set a ScrollView as the root view
             setContentView(R.layout.activity_time_picker);
             // Inflate nptpLayoutRes using the ScrollView as root so that the NumberPadTimePicker's
