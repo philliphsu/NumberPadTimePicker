@@ -66,16 +66,18 @@
         <item name="nptp_altKeysTextColor">?android:attr/textColorPrimary</item>
         <item name="nptp_headerBackground">@null</item>
         <!-- Divider is already set in the header view's layout. -->
-        <!--<item name="nptp_divider">@drawable/nptp_list_divider_material</item>-->
         <item name="nptp_numberPadBackground">@null</item>
     </style>
 
-    <style name="NPTP_NumberPadTimePickerStandaloneStyle_FillHeight" parent="NPTP_Base_NumberPadTimePickerStyle">
+    <style name="NPTP_Base_NumberPadTimePickerStandaloneStyle" parent="NPTP_Base_NumberPadTimePickerStyle">
+    </style>
+
+    <style name="NPTP_NumberPadTimePickerStandaloneStyle_FillHeight" parent="NPTP_Base_NumberPadTimePickerStandaloneStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
     </style>
 
-    <style name="NPTP_NumberPadTimePickerStandaloneStyle_ExactHeight" parent="NPTP_Base_NumberPadTimePickerStyle">
+    <style name="NPTP_NumberPadTimePickerStandaloneStyle_ExactHeight" parent="NPTP_Base_NumberPadTimePickerStandaloneStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
@@ -120,13 +122,11 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <!-- @deprecated Use NPTP_NumberPadTimePickerAlertStyle_FillHeight
-                      or NPTP_NumberPadTimePickerAlertStyle_ExactHeight instead. -->
-    <style name="NPTP_NumberPadTimePickerStyle" parent="NPTP_NumberPadTimePickerAlertStyle_FillHeight">
+    <!-- @deprecated Use NPTP_Base_NumberPadTimePickerAlertStyle instead. -->
+    <style name="NPTP_NumberPadTimePickerStyle" parent="NPTP_Base_NumberPadTimePickerAlertStyle">
     </style>
 
-    <!-- @deprecated Use NPTP_NumberPadTimePickerBottomSheetStyle_FillHeight
-                      or NPTP_NumberPadTimePickerBottomSheetStyle_ExactHeight instead. -->
-    <style name="NPTP_NumberPadTimePickerBottomSheetStyle" parent="NPTP_NumberPadTimePickerBottomSheetStyle_FillHeight">
+    <!-- @deprecated Use NPTP_Base_NumberPadTimePickerBottomSheetStyle instead. -->
+    <style name="NPTP_NumberPadTimePickerBottomSheetStyle" parent="NPTP_Base_NumberPadTimePickerBottomSheetStyle">
     </style>
 </resources>
