@@ -48,11 +48,11 @@ dependencies {
 
 ### Use as Dialog
 
-Implement the standard `android.app.TimePickerDialog.OnTimeSetListener` interface.
+Implement the `android.app.TimePickerDialog.OnTimeSetListener` interface.
 
 ```java
 // The TimePicker returned in this callback is a dummy object. It is not
-// the actual number pad time picker used by this library.
+// the actual NumberPadTimePicker used by this library.
 @Override
 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
     // Do something with the time chosen by the user
@@ -66,10 +66,10 @@ guide to styling the dialog.
 
 ```java
 NumberPadTimePickerDialog dialog = new NumberPadTimePickerDialog(
-    context, R.style.MyAlertDialogTheme, listener, is24HourMode);
+    context, R.style.MyNptpAlertDialogTheme, listener, is24HourMode);
 
 BottomSheetNumberPadTimePickerDialog dialog = new BottomSheetNumberPadTimePickerDialog(
-    context, R.style.MyBottomSheetDialogTheme, listener, is24HourMode);
+    context, R.style.MyNptpBottomSheetDialogTheme, listener, is24HourMode);
 ```
 
 If you want to use the dialog in a `DialogFragment`, use the support library's
@@ -116,9 +116,9 @@ bottomSheet | Adds a `FloatingActionButton` to the `NumberPadTimePicker`.
 #### Register OK Button Callbacks
 
 ```java
-View okButton = findViewByid(R.id.my_ok_button);
+View okButton = ...
 
-NumberPadTimePicker timePicker = (NumberPadTimePicker) findViewById(R.id.my_time_picker);
+NumberPadTimePicker timePicker = ...
 timePicker.setOkButtonCallbacks(new NumberPadTimePicker.OkButtonCallbacks() {
     @Override
     public void onOkButtonEnabled(boolean enabled) {
@@ -136,7 +136,7 @@ timePicker.setOkButtonCallbacks(new NumberPadTimePicker.OkButtonCallbacks() {
 okButton.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-         timePicker.confirmTimeSelection();  // Calls your onOkButtonClick() callback
+        timePicker.confirmTimeSelection();  // Calls your onOkButtonClick() callback
     }
 });
 ```
@@ -228,7 +228,7 @@ You can create a theme for a dialog or `Activity` that uses [`NumberPadTimePicke
 Create a style resource using the attributes in [Table 2] and [Table 3]. There are default 
 style resources that you may inherit from:
 
-* `NPTP_Base_NumberPadTimePickerStyle`
+* `NPTP_Base_NumberPadTimePickerStandaloneStyle`
 * `NPTP_Base_NumberPadTimePickerAlertStyle`
 * `NPTP_Base_NumberPadTimePickerBottomSheetStyle`
 
