@@ -272,10 +272,18 @@ public class NumberPadTimePicker extends LinearLayout {
         OnBackspaceClickHandler backspaceClickHandler = new OnBackspaceClickHandler(presenter);
         mTimePickerComponent.mBackspace.setOnClickListener(backspaceClickHandler);
         mTimePickerComponent.mBackspace.setOnLongClickListener(backspaceClickHandler);
-        mTimePickerComponent.mNumberPad.setOnNumberKeyClickListener(
-                new OnNumberKeyClickListener(presenter));
-        mTimePickerComponent.mNumberPad.setOnAltKeyClickListener(
-                new OnAltKeyClickListener(presenter));
+        mTimePickerComponent.mNumberPad.setOnNumberKeyClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.onNumberKeyClick(((TextView) v).getText());
+            }
+        });
+        mTimePickerComponent.mNumberPad.setOnAltKeyClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.onAltKeyClick(((TextView) v).getText());
+            }
+        });
     }
 
     @NumberPadTimePickerLayout
@@ -289,6 +297,28 @@ public class NumberPadTimePicker extends LinearLayout {
                 return layout;
             default:
                 return LAYOUT_STANDALONE;
+        }
+    }
+
+    /**
+     * Handles both regular clicks and long clicks on the backspace button.
+     */
+    private static class OnBackspaceClickHandler implements View.OnClickListener,
+            View.OnLongClickListener {
+        private final INumberPadTimePicker.Presenter mPresenter;
+
+        private OnBackspaceClickHandler(INumberPadTimePicker.Presenter presenter) {
+            mPresenter = presenter;
+        }
+
+        @Override
+        public void onClick(View v) {
+            mPresenter.onBackspaceClick();
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            return mPresenter.onBackspaceLongClick();
         }
     }
 
