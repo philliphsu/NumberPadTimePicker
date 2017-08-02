@@ -32,8 +32,8 @@ ext {
     buildToolsVersion = '26.0.1'
 
     // NumberPadTimePicker versioning
-    versionName = '1.1.0'
-    versionCode = 2
+    versionName = '1.1.1'
+    versionCode = 3
 
     // Library dependencies
     supportLibraryVersion = '26.0.0'

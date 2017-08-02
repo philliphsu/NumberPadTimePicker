@@ -40,7 +40,7 @@ allprojects {
 }
 
 dependencies {
-    compile 'com.github.philliphsu:numberpadtimepicker:1.1.0'
+    compile 'com.github.philliphsu:numberpadtimepicker:1.1.1'
 }
 ```
 

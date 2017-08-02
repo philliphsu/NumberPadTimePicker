@@ -1,4 +1,4 @@
-# 1.1.1 (TBD)
+# 1.1.1 (2017-08-02)
 ### Changes
 * The following [`NumberPadTimePicker`] APIs are no longer public: `setNumberKeysEnabled()`, 
 `setBackspaceEnabled()`, `updateTimeDisplay()`, `updateAmPmDisplay()`, `setAmPmDisplayVisible()`,
