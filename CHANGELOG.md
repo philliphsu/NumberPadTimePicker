@@ -1,3 +1,11 @@
+# 1.1.1 (TBD)
+### Changes
+* The following [`NumberPadTimePicker`] APIs are no longer public: `setNumberKeysEnabled()`, 
+`setBackspaceEnabled()`, `updateTimeDisplay()`, `updateAmPmDisplay()`, `setAmPmDisplayVisible()`,
+`setAmPmDisplayIndex()`, `setLeftAltKeyText()`, `setRightAltKeyText()`, `setLeftAltKeyEnabled()`, 
+`setRightAltKeyEnabled()`, `setOkButtonEnabled()`, `setResult()`, `showOkButton()`. These are 
+implementation details and you should not have called them.
+
 # 1.1.0 (2017-07-30)
 ### New Features and Changes
 * Use [`NumberPadTimePicker`] as a `View` in your own layouts.
