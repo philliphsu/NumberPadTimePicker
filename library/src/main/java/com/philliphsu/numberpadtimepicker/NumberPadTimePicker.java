@@ -26,7 +26,7 @@ import java.lang.annotation.RetentionPolicy;
 
 import static com.philliphsu.numberpadtimepicker.Preconditions.checkNotNull;
 
-public class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.View {
+public class NumberPadTimePicker extends LinearLayout {
 
     /** Default layout for use as a standalone view. */
     public static final int LAYOUT_STANDALONE = 0;
@@ -40,10 +40,8 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
     public @interface NumberPadTimePickerLayout {}
 
     private NumberPadTimePickerComponent mTimePickerComponent;
-    private OkButtonCallbacks mCallbacks;
     private INumberPadTimePicker.Presenter mPresenter;
     private LocaleModel mLocaleModel;
-    private LinearLayout mInputTimeContainer;
 
     private @NumberPadTimePickerLayout int mLayout;
     private boolean mIs24HourMode;
@@ -123,9 +121,7 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
                 break;
         }
 
-        mInputTimeContainer = (LinearLayout) findViewById(R.id.nptp_input_time_container);
         mLocaleModel = new LocaleModel(context);
-
         mIs24HourMode = timePickerAttrs.getBoolean(R.styleable.
                 NPTP_NumberPadTimePicker_nptp_is24HourMode, DateFormat.is24HourFormat(context));
         mPresenter = newPresenter(mIs24HourMode);
@@ -141,89 +137,11 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
         timePickerAttrs.recycle();
     }
 
-    @Override
-    public void setNumberKeysEnabled(int start, int end) {
-        mTimePickerComponent.mNumberPad.setNumberKeysEnabled(start, end);
-    }
-
-    @Override
-    public void setBackspaceEnabled(boolean enabled) {
-        mTimePickerComponent.mBackspace.setEnabled(enabled);
-    }
-
-    @Override
-    public void updateTimeDisplay(CharSequence time) {
-        mTimePickerComponent.mTimeDisplay.setText(time);
-    }
-
-    @Override
-    public void updateAmPmDisplay(CharSequence ampm) {
-        mTimePickerComponent.mAmPmDisplay.setText(ampm);
-    }
-
-    @Override
-    public void setAmPmDisplayVisible(boolean visible) {
-        mTimePickerComponent.mAmPmDisplay.setVisibility(visible ? VISIBLE : GONE);
-    }
-
-    @Override
-    public void setAmPmDisplayIndex(int index) {
-        if (index != 0 && index != 1) {
-            throw new IllegalArgumentException("Index of AM/PM display must be 0 or 1. index == " + index);
-        }
-        if (index == 1) return;
-        mInputTimeContainer.removeViewAt(1);
-        mInputTimeContainer.addView(mTimePickerComponent.mAmPmDisplay, 0);
-    }
-
-    @Override
-    public void setLeftAltKeyText(CharSequence text) {
-        mTimePickerComponent.mNumberPad.setLeftAltKeyText(text);
-    }
-
-    @Override
-    public void setRightAltKeyText(CharSequence text) {
-        mTimePickerComponent.mNumberPad.setRightAltKeyText(text);
-    }
-
-    @Override
-    public void setLeftAltKeyEnabled(boolean enabled) {
-        mTimePickerComponent.mNumberPad.setLeftAltKeyEnabled(enabled);
-    }
-
-    @Override
-    public void setRightAltKeyEnabled(boolean enabled) {
-        mTimePickerComponent.mNumberPad.setRightAltKeyEnabled(enabled);
-    }
-
-    @Override
-    public void setOkButtonEnabled(boolean enabled) {
-        mTimePickerComponent.setOkButtonEnabled(enabled);
-
-        // Fire the callback even if the client is using the bottom sheet layout's provided FAB,
-        // in case they want to do something additional.
-        if (mCallbacks != null) {
-            mCallbacks.onOkButtonEnabled(enabled);
-        }
-    }
-
-    @Override
-    public void setResult(int hour, int minute) {
-        if (mCallbacks != null) {
-            mCallbacks.onOkButtonClick(this, hour, minute);
-        }
-    }
-
-    @Override
-    public void showOkButton() {
-        mTimePickerComponent.showOkButton();
-    }
-
     /**
      * Set the callbacks to be invoked for your custom "ok" button during typing the time.
      */
     public void setOkButtonCallbacks(OkButtonCallbacks callbacks) {
-        mCallbacks = callbacks;
+        mTimePickerComponent.setOkButtonCallbacks(callbacks);
         mPresenter.onSetOkButtonCallbacks();
     }
 
@@ -342,7 +260,7 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
 
     private INumberPadTimePicker.Presenter newPresenter(boolean is24HourMode) {
         INumberPadTimePicker.Presenter presenter = new NumberPadTimePickerPresenter(
-                this, mLocaleModel, is24HourMode);
+                mTimePickerComponent, mLocaleModel, is24HourMode);
         setupClickListeners(presenter);
         return presenter;
     }
@@ -377,7 +295,10 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
     /**
      * Component that installs the base functionality of a {@link NumberPadTimePicker}. 
      */
-    static class NumberPadTimePickerComponent implements NumberPadTimePickerThemer {
+    static class NumberPadTimePickerComponent implements INumberPadTimePicker.View,
+            NumberPadTimePickerThemer {
+        private final NumberPadTimePicker mTimePicker;
+        private final LinearLayout mInputTimeContainer;
         final NumberPadView mNumberPad;
         final TextView mTimeDisplay;
         final TextView mAmPmDisplay;
@@ -386,16 +307,25 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
         final View mHeader;
         final @Nullable View mOkButton;
 
+        private OkButtonCallbacks mCallbacks;
+
         NumberPadTimePickerComponent(final NumberPadTimePicker timePicker, Context context,
                 AttributeSet attrs, int defStyleAttr, int defStyleRes) {
             final View root = inflate(context, timePicker);
-            mNumberPad = (NumberPadView) root.findViewById(R.id.nptp_numberpad_time_picker_view);
-            mTimeDisplay = (TextView) root.findViewById(R.id.nptp_input_time);
-            mAmPmDisplay = (TextView) root.findViewById(R.id.nptp_input_ampm);
-            mBackspace = (ImageButton) root.findViewById(R.id.nptp_backspace);
-            mDivider = (ImageView) root.findViewById(R.id.nptp_divider);
+            mNumberPad = root.findViewById(R.id.nptp_numberpad_time_picker_view);
+            mTimeDisplay = root.findViewById(R.id.nptp_input_time);
+            mAmPmDisplay = root.findViewById(R.id.nptp_input_ampm);
+            mBackspace = root.findViewById(R.id.nptp_backspace);
+            mDivider = root.findViewById(R.id.nptp_divider);
             mHeader = root.findViewById(R.id.nptp_header);
             mOkButton = root.findViewById(R.id.nptp_ok_button);
+            mInputTimeContainer = root.findViewById(R.id.nptp_input_time_container);
+
+            // This shouldn't raise concern for memory leaks, because NumberPadTimePickerComponent
+            // is tied to the lifecycle of NumberPadTimePicker. We know this because the former
+            // is used as a companion class by the latter, and we don't keep the former alive longer
+            // than it needs to be.
+            mTimePicker = timePicker;
 
             final TypedArray timePickerAttrs = context.obtainStyledAttributes(attrs,
                     R.styleable.NPTP_NumberPadTimePicker, defStyleAttr, defStyleRes);
@@ -450,6 +380,85 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
                     }
                 });
             }
+        }
+
+        @Override
+        public void setNumberKeysEnabled(int start, int end) {
+            mNumberPad.setNumberKeysEnabled(start, end);
+        }
+
+        @Override
+        public void setBackspaceEnabled(boolean enabled) {
+            mBackspace.setEnabled(enabled);
+        }
+
+        @Override
+        public void updateTimeDisplay(CharSequence time) {
+            mTimeDisplay.setText(time);
+        }
+
+        @Override
+        public void updateAmPmDisplay(CharSequence ampm) {
+            mAmPmDisplay.setText(ampm);
+        }
+
+        @Override
+        public void setAmPmDisplayVisible(boolean visible) {
+            mAmPmDisplay.setVisibility(visible ? VISIBLE : GONE);
+        }
+
+        @Override
+        public void setAmPmDisplayIndex(int index) {
+            if (index != 0 && index != 1) {
+                throw new IllegalArgumentException("Index of AM/PM display must be 0 or 1. index == " + index);
+            }
+            if (index == 1) return;
+            mInputTimeContainer.removeViewAt(1);
+            mInputTimeContainer.addView(mAmPmDisplay, 0);
+        }
+
+        @Override
+        public void setLeftAltKeyText(CharSequence text) {
+            mNumberPad.setLeftAltKeyText(text);
+        }
+
+        @Override
+        public void setRightAltKeyText(CharSequence text) {
+            mNumberPad.setRightAltKeyText(text);
+        }
+
+        @Override
+        public void setLeftAltKeyEnabled(boolean enabled) {
+            mNumberPad.setLeftAltKeyEnabled(enabled);
+        }
+
+        @Override
+        public void setRightAltKeyEnabled(boolean enabled) {
+            mNumberPad.setRightAltKeyEnabled(enabled);
+        }
+
+        @Override
+        public void setOkButtonEnabled(boolean enabled) {
+            if (mOkButton != null) {
+                mOkButton.setEnabled(enabled);
+            }
+            // Fire the callback even if the client is using the bottom sheet layout's provided FAB,
+            // in case they want to do something additional.
+            if (mCallbacks != null) {
+                mCallbacks.onOkButtonEnabled(enabled);
+            }
+        }
+
+        @Override
+        public void setResult(int hour, int minute) {
+            if (mCallbacks != null) {
+                mCallbacks.onOkButtonClick(mTimePicker, hour, minute);
+            }
+        }
+
+        @Override
+        public void showOkButton() {
+            // No default implementation.
         }
 
         @Override
@@ -515,14 +524,8 @@ public class NumberPadTimePicker extends LinearLayout implements INumberPadTimeP
             return mOkButton;
         }
 
-        void setOkButtonEnabled(boolean enabled) {
-            if (mOkButton != null) {
-                mOkButton.setEnabled(enabled);
-            }
-        }
-
-        void showOkButton() {
-            // No default implementation.
+        private void setOkButtonCallbacks(OkButtonCallbacks callbacks) {
+            mCallbacks = callbacks;
         }
 
         private static void setBackground(View view, Drawable background) {

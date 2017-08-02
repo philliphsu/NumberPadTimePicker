@@ -235,7 +235,7 @@ final class NumberPadTimePickerBottomSheetComponent extends NumberPadTimePickerC
     }
 
     @Override
-    void setOkButtonEnabled(boolean enabled) {
+    public void setOkButtonEnabled(boolean enabled) {
         final boolean enabledDiff = mOkButton.isEnabled() != enabled;
         if (mShowFabPolicy == SHOW_FAB_VALID_TIME) {
             if (enabled) {
@@ -291,7 +291,7 @@ final class NumberPadTimePickerBottomSheetComponent extends NumberPadTimePickerC
     }
 
     @Override
-    void showOkButton() {
+    public void showOkButton() {
         if (mShowFabPolicy == SHOW_FAB_ALWAYS && mAnimateFabIn) {
             mOkButton.postDelayed(new Runnable() {
                 @Override
